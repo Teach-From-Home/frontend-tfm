@@ -10,13 +10,15 @@ function App() {
     <div className="App">
       <Jitsi 
         containerStyle={{ width: '100%', height: '1000px' }}
-        interfaceConfig={{    TOOLBAR_BUTTONS: [
-          'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-          'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-          'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-          'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-          'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone',
-          'e2ee', 'security'
+        interfaceConfig={{    
+          
+          SHOW_JITSI_WATERMARK: false,
+          TOOLBAR_BUTTONS: [
+          'microphone', 'camera', 'closedcaptions', 'desktop',
+          'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
+          'filmstrip', 'invite', 'feedback',
+          'tileview', 'download', 'help', 'mute-everyone',
+           'security'
       ],}}
         roomName={roomName}
         displayName={userFullName} 
