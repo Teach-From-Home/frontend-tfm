@@ -11,15 +11,15 @@ function App() {
       <Jitsi 
         containerStyle={{ width: '100%', height: '1000px' }}
         interfaceConfig={{    
-          
           SHOW_JITSI_WATERMARK: false,
           TOOLBAR_BUTTONS: [
-          'microphone', 'camera', 'closedcaptions', 'desktop',
-          'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
-          'filmstrip', 'invite', 'feedback',
-          'tileview', 'download', 'help', 'mute-everyone',
-           'security'
-      ],}}
+            'microphone', 'camera', 'closedcaptions', 'desktop',
+            'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
+            'filmstrip', 'invite', 'feedback',
+            'tileview', 'download', 'help', 'mute-everyone',
+            'security'
+          ],
+        }}
         roomName={roomName}
         displayName={userFullName} 
 
