@@ -6,10 +6,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
         <Route exact {...rest} render={(props) => (
             logged ? 
-                <Component {...props} /> 
-            : 
+                <Component {...props} />
+            :
                 <Redirect to='/login' />
-        )} />
+            )} 
+        />
     ) 
 }
 export default PrivateRoute;

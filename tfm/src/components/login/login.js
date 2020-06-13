@@ -53,7 +53,7 @@ const Login = ({ loginUser }) => {
 
       <CssBaseline />
       <div className={classes.paper}>
-        <img alt="plane logo" src={TFMlogo} height="90 rem"></img>
+        <img alt="TFMlogo" src={TFMlogo} height="90 rem"></img>
         <Typography component="h1" variant="h2">
           TFM
         </Typography>
