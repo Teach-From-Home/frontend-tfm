@@ -1,5 +1,5 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -34,6 +34,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
       width: drawerWidth,
+      backgroundColor: '#636363'
     },
     drawerHeader: {
       display: 'flex',
@@ -58,8 +59,6 @@ export const useStyles = makeStyles((theme) => ({
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
-    },
-    button: {
     }
   }));
 
@@ -73,3 +72,9 @@ export const ColorButton = withStyles(theme => ({
       borderRadius: '10px'
     }
 }))(Button);
+
+export const YellowTypography = withStyles({
+  root: {
+    color: "#d6a82a"
+  }
+})(Typography);

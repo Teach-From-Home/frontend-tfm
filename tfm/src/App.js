@@ -8,6 +8,7 @@ import JitsiVideo from './components/jitsi/jitsi';
 import PersistentDrawerLeft from './components/drawer/drawer';
 import Home from './components/home/home';
 import Homework from './components/homework/homework';
+import Forum from './components/forum/forum';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
 			<div style={{marginTop: 70}}>
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/call" component={JitsiVideo} />
-				<Route exact path="/" component={Home} />
 				<Route exact path="/homework" component={Homework} />
+				<Route exact path="/forum" component={Forum} />
+				<Route exact path="/" component={Home} />
 			</div>	
 		</div>
 	</Router>

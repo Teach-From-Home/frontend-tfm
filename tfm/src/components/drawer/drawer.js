@@ -15,7 +15,8 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import TFMlogo from '../../TFM.png';
 import { useHistory } from 'react-router-dom';
-import { useStyles, ColorButton } from './style';
+import { useStyles, ColorButton, YellowTypography } from './style';
+import { Typography } from '@material-ui/core';
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
@@ -35,6 +36,18 @@ export default function PersistentDrawerLeft() {
     history.push("/")
   }
 
+  const redirectForum = () => {
+    history.push("/forum")
+  }
+
+  const redirectClass = () => {
+    history.push("/call")
+  }
+
+  const redirectHomework = () => {
+    history.push("/homework")
+  }
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -57,9 +70,11 @@ export default function PersistentDrawerLeft() {
           </IconButton>
 
           <Button onClick={redirectHome} edge="start" className={classes.menuButton} aria-label="menu" >
-                <img alt="TFMlogo" src={TFMlogo}  height="50 rem"></img>
+            <img alt="TFMlogo" src={TFMlogo}  height="50 rem"></img>
           </Button>
-          <ColorButton className={classes.menuButton}>Perfil</ColorButton>
+          <span style={{display: 'flex', justifyContent: 'flex-end', width: '100%', padding: 0}}>
+            <ColorButton>Perfil</ColorButton>
+          </span>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -78,11 +93,15 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <h6>{text}</h6>
+            <ListItem button key={'foro'} onClick={redirectForum}>
+              <YellowTypography variant='h5'>Foro</YellowTypography>
             </ListItem>
-          ))}
+            <ListItem button key={'clase'} onClick={redirectClass}>
+              <YellowTypography variant='h5'>Clase</YellowTypography>
+            </ListItem>
+            <ListItem button key={'tarea'} onClick={redirectHomework}>
+              <YellowTypography variant='h5'>Tarea</YellowTypography>
+            </ListItem>
         </List>
         <Divider />
       </Drawer>
