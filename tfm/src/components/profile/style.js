@@ -4,8 +4,7 @@ import { Button } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'column',
     },
     card: {
         width: '50%',
@@ -13,20 +12,11 @@ export const useStyles = makeStyles((theme) => ({
         margin: 10
     },
     button: {
-        float: 'center',
-        marginTop: '10px'
-    },
-    searchCard: {
-        minWidth: 350,
-    },
-    iconsBottom: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start'
+        float: 'right'
     }
 }));
 
-export const ColorButton = withStyles(theme => ({
+export const YellowColorButton = withStyles(theme => ({
     root: {
       color: '#000000',
       backgroundColor: '#d6a82a',
@@ -34,5 +24,17 @@ export const ColorButton = withStyles(theme => ({
         backgroundColor: '#636363',
       },
       borderRadius: '10px'
+    }
+}))(Button);
+
+export const GreyColorButton = withStyles(theme => ({
+    root: {
+      color: '#000000',
+      backgroundColor: '#636363',
+      '&:hover': {
+        backgroundColor: '#d6a82a',
+      },
+      borderRadius: '10px',
+      marginLeft: '5px'
     }
 }))(Button);

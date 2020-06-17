@@ -1,32 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress'
-import style from './style'
-import TFMlogo from '../../TFM.png'
+import style from './style';
+import TFMlogo from '../../TFM.png';
 import { useHistory } from "react-router-dom";
-import SnackbarOpen from '../snackbar/snackbar'
+import SnackbarOpen from '../snackbar/snackbar';
+import { UserContext } from '../../userContext';
+import LoginService from '../../services/loginService';
 
 const Login = ({ loginUser }) => {
   const classes = style();
   let history = useHistory();
+  const loginService = new LoginService();
+  const {user, setUser} = useContext(UserContext);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
-  const callbackLogin = () => {
+  const closeSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar({
+      ...snackbar,
+      open: false,
+    });
+  }
+
+  const redirect = () => {
     history.push("/");
   }
 
-  const [loginForm, setloginForm] = useState({
-    dni: "",
-    password: "",
-    callbackFn: callbackLogin
+  const [userToLog, setUserToLog] = useState({
+    dni: '',
+    password: ''
   });
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    loginUser(loginForm);
+    try {
+      let dataUser = await loginService.login(userToLog);
+      setUser(dataUser);
+      redirect();
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: "error",
+        severity: 'error'
+      });
+    }
   }
 
   const enterKeyPress = (e) => {
@@ -37,11 +64,11 @@ const Login = ({ loginUser }) => {
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
-    setloginForm({ ...loginForm, [name]: value });
+    setUserToLog({ ...userToLog, [name]: value });
   }
 
   const loginButtonDisabled = () => {
-    return isEmpty(loginForm.password) || isEmpty(loginForm.dni);
+    return isEmpty(userToLog.password) || isEmpty(userToLog.dni);
   }
 
   const isEmpty = (aField) => {
@@ -95,14 +122,10 @@ const Login = ({ loginUser }) => {
             >
               Login
           </Button>
-            { /*<CircularProgress size={24} className={classes.buttonProgress} /> */}
           </div>
         </form>
       </div>
-      <div>
-
-      </div>
-      { /* <SnackbarOpen open={hasError} message={errorMsg} severity="error"/> */}
+      <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
     </Container>
   );
 }

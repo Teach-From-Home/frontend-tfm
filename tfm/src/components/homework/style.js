@@ -1,7 +1,10 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+    backgroundImg: {
+        //backgroundImage: `url("/p1.jpg")`
+    },
     root: {
         display: 'flex',
         justifyContent: 'center',
@@ -9,11 +12,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     card: {
         width: '50%',
+        minWidth: 400,
         margin: 10
-    },
-    largeAvatar: {
-        width: theme.spacing(7),
-        height: theme.spacing(7)
     },
     button: {
         float: 'right'
@@ -30,3 +30,9 @@ export const ColorButton = withStyles(theme => ({
       borderRadius: '10px'
     }
 }))(Button);
+
+export const YellowTypography = withStyles({
+    root: {
+      color: "#d6a82a"
+    }
+})(Typography);
