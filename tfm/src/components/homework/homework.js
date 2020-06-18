@@ -31,14 +31,12 @@ export default function Homework() {
           ...snackbar,
           open: false,
         });
-      }
+    }
 
     const getHomeworks = async () => {
         if(!isLoaded){
             try {
-                debugger;
                 let homeworks = await homeworkService.getHomework(user.id, user.selectedClassroom.id);
-                debugger;
                 setHomeworks(homeworks);
                 setIsLoaded(true);
             } catch (err) {
@@ -68,7 +66,7 @@ export default function Homework() {
                 </div>
                 :
                 <div>
-                    <TeacherCard homeworks={homeworks}></TeacherCard>
+                    <TeacherCard setSnackbar={setSnackbar}></TeacherCard>
                 </div>
             }
         <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>

@@ -21,9 +21,9 @@ export default function SearchPost({setSnackbar}) {
         setPost({ ...post, [name]: value });
     }
 
-    const sendPost = async () => {
+    const sendPost = () => {
         try {
-            let posts = await forumService.newPost(post, user.id, user.selectedClassroom.id);
+            forumService.newPost(post, user.id, user.selectedClassroom.id);
             setPost(postModel);
             setSnackbar({
                 open: true,
