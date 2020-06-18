@@ -14,8 +14,11 @@ export default function Comments(props) {
     const [comment, setComment] = useState(commentModel)
     const {user, setUser} = useContext(UserContext);
 
+    const postId = props.postId;
     const comments = props.comments;
+    const getComments = props.getComments;
     const setSnackbar = props.setSnackbar;
+
     const forumService = new ForumService();
 
     const handleInputChange = (e) => {
@@ -25,8 +28,14 @@ export default function Comments(props) {
 
     const sendComment = async () => {
         try {
-            let comment = await forumService.newComment(comment, user.id, user.selectedClassroom.id);
+            await forumService.newComment(comment, user.id, postId);
             setComment(commentModel);
+            setSnackbar({
+                open: true,
+                message: 'Comentario agregado exitosamente!',
+                severity: 'success'
+            });
+            getComments();
         } catch (err) {
             setSnackbar({
                 open: true,
@@ -45,7 +54,7 @@ export default function Comments(props) {
                     </Grid> 
                     <Grid item xs={'auto'}>
                         <div className={classes.iconsBottom}>
-                            <TextField label="Escribe tu mensaje..." multiline rowsMax={4} variant="outlined" name='text' onChange={handleInputChange}/>{/*TODO: validacion de caracteres*/} <br/>
+                            <TextField label="Escribe tu mensaje..." multiline rowsMax={4} variant="outlined" name='text' onChange={handleInputChange} value={comment.text}/>{/*TODO: validacion de caracteres*/} <br/>
                             <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment}>Enviar</ColorButton>
                         </div>
                     </Grid>

@@ -17,20 +17,19 @@ export default function ForumPost(props) {
     const post = props.post;
     const setSnackbar = props.setSnackbar;
 
-    const openComments = async () => {
-        await getComments();
+    const openComments = () => {
+        getComments();
         setShowComments(!showComments);
     }
 
     const getComments = async () => {
-        if(!isLoaded){
-            try {
-                let data = await forumService.getPostComments(post.id);
-                setComments(data);
-                setIsLoaded(true);
-            } catch (error) {
-                
-            }
+        try {
+            let data = await forumService.getPostComments(post.id);
+            setComments(data);
+            setIsLoaded(true);
+            if(data.length > 0) post.commentsAmount += 1
+        } catch (error) {
+            
         }
     }
 
@@ -54,7 +53,7 @@ export default function ForumPost(props) {
                     </div>
                 </Box>
                 <Divider></Divider>
-                <Comments comments={comments} setSnackbar={setSnackbar}/>
+                <Comments comments={comments} postId={post.id} getComments={getComments} setSnackbar={setSnackbar}/>
             </Card>
         </div>
     )

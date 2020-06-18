@@ -25,6 +25,11 @@ export default function SearchPost({setSnackbar}) {
         try {
             let posts = await forumService.newPost(post, user.id, user.selectedClassroom.id);
             setPost(postModel);
+            setSnackbar({
+                open: true,
+                message: 'Nuevo post agregado exitosamente!',
+                severity: 'success'
+            });
         } catch (err) {
             setSnackbar({
                 open: true,
