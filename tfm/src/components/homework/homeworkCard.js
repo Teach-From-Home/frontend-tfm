@@ -12,7 +12,7 @@ export default function HomeworkCard({homework}) {
                 <Box m={2}>
                     <Grid container spacing={3}>
                         <Grid item xs={2}>
-                            <AvatarWithName name="Pedro Alfonso"></AvatarWithName>
+                            <AvatarWithName name={`${homework.teacher.name} ${homework.teacher.lastname} `}></AvatarWithName>
                         </Grid> 
                         <Grid item xs={10}>
                             <Typography variant="h6">{homework.title}</Typography>
