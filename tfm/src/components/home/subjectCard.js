@@ -22,10 +22,18 @@ export default function SubjectCard({classroom}) {
     }
 
     const redirectHomework = () => {
+        setUser({
+            ...user,
+            selectedClassroom: classroom
+        });
         history.push('/homework');
     }
 
     const redirectCall = () => {
+        setUser({
+            ...user,
+            selectedClassroom: classroom
+        });
         history.push('/call');
     }
 

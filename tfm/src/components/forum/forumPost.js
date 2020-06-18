@@ -5,17 +5,33 @@ import AvatarWithName from '../avatarWithName';
 import { ColorButton } from '../home/style';
 import Icon from '@material-ui/core/Icon'
 import Comments from './comments';
+import ForumService from '../../services/forumService';
 
-export default function ForumPost({ post }) {
+export default function ForumPost(props) {
     const classes = useStyles();
     const [showComments, setShowComments] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [comments, setComments] = useState([]);
+    
+    const forumService = new ForumService();
+    const post = props.post;
+    const setSnackbar = props.setSnackbar;
 
-    const openComments = () => {
+    const openComments = async () => {
+        await getComments();
         setShowComments(!showComments);
     }
 
-    const openNewComment = () => {
-
+    const getComments = async () => {
+        if(!isLoaded){
+            try {
+                let data = await forumService.getPostComments(post.id);
+                setComments(data);
+                setIsLoaded(true);
+            } catch (error) {
+                
+            }
+        }
     }
 
     return (
@@ -33,22 +49,12 @@ export default function ForumPost({ post }) {
                     </Grid>
                     <div className={classes.iconsBottom}>
                         <Grid container spacing={2}>
-                            <Button onClick={openNewComment}><Icon>chat</Icon>Comentar</Button>
-                            <Button onClick={openComments}>5 comentarios</Button>
+                            <Button onClick={openComments}>{ post.commentsAmount === 1 ?  `${post.commentsAmount } comentario` : `${post.commentsAmount} comentarios`}</Button>
                         </Grid>
                     </div>
-                    
                 </Box>
                 <Divider></Divider>
-                {
-                    showComments ? 
-                        <Comments></Comments>
-                    :
-                        <div></div>
-                }    
-
-
-
+                <Comments comments={comments} setSnackbar={setSnackbar}/>
             </Card>
         </div>
     )

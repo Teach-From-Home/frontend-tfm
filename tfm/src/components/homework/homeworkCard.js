@@ -3,7 +3,7 @@ import { Typography, Grid, Card, Box, Avatar } from '@material-ui/core';
 import { useStyles, ColorButton } from './style';
 import AvatarWithName from '../avatarWithName';
 
-export default function HomeworkCard() {
+export default function HomeworkCard({homework}) {
     const classes = useStyles();
 
     return (
@@ -15,8 +15,8 @@ export default function HomeworkCard() {
                             <AvatarWithName name="Pedro Alfonso"></AvatarWithName>
                         </Grid> 
                         <Grid item xs={10}>
-                            <Typography variant="h6">Titulo tarea</Typography>
-                            <Typography variant="body1"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</Typography>
+                            <Typography variant="h6">{homework.title}</Typography>
+                            <Typography variant="body1">{homework.description}</Typography>
                             <ColorButton className={classes.button}>Enviar</ColorButton>
                         </Grid>
                     </Grid>

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import ForumPost from './forumPost'
-import SearchPost from './newPost'
+import NewPost from './newPost'
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
 import SnackbarOpen from '../snackbar/snackbar'
@@ -18,8 +18,18 @@ export default function Forum() {
     const forumService = new ForumService();
 
     useEffect(() => {
-        getForumPosts()
+        getForumPosts();
     }, []);
+
+    const closeSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setSnackbar({
+          ...snackbar,
+          open: false,
+        });
+    }
 
     const getForumPosts = async () => {
         if(!isLoaded){
@@ -37,17 +47,21 @@ export default function Forum() {
         }
     }
 
+    //TODO SEARCH DE FORO
+    //TODO SNACKBAR !
+
     return (
         <div>
-            <SearchPost></SearchPost>
+            <NewPost setSnackbar={setSnackbar}></NewPost>
             {
                 isLoaded ?
                     posts.map(p => {
-                        return <ForumPost post={p} key={p.id}/>
+                        return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar}/>
                     })
                 :
                 <div></div>
             }
+            <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </div>
     )
 }

@@ -20,6 +20,16 @@ export default function Home() {
         getClassrooms()
     }, []);
 
+    const closeSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setSnackbar({
+          ...snackbar,
+          open: false,
+        });
+    }
+
     const getClassrooms = async() => {
         if(!isLoaded){
             try {
@@ -50,6 +60,7 @@ export default function Home() {
                 :
                 <div>CARGANDasddddddddddddddddddddddddddddddddddITO</div> //TODO CAMBIAR ESTO
             }
+            <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </Fragment>
     )
 }

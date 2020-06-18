@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { Grid, Card, Box, Avatar, CardHeader, TextField, Typography, Divider } from '@material-ui/core';
+import { Grid, Avatar, Typography } from '@material-ui/core';
 
-export default function UserComment() {
+export default function UserComment({ comment }) {
     return (
         <Fragment>
             <Grid container spacing={2}>
@@ -9,7 +9,7 @@ export default function UserComment() {
                     <Avatar></Avatar>
                 </Grid> 
                 <Grid item xs={'auto'}>
-                    <Typography>La verdad que esta cursada es una mierda, lucas explica como el orto</Typography>
+                    <Typography>{comment.text}</Typography>
                 </Grid>
             </Grid>
         </Fragment>
