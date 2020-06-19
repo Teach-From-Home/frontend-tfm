@@ -3,6 +3,8 @@ import SubjectCard from './subjectCard'
 import { UserContext } from '../../userContext'
 import ClassroomService from '../../services/classroomService'
 import SnackbarOpen from '../snackbar/snackbar'
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 export default function Home() {
     const [classrooms, setClassrooms] = useState([]);
@@ -58,7 +60,7 @@ export default function Home() {
                         return (<SubjectCard classroom={c} key={c.id}></SubjectCard>)
                     })
                 :
-                <div>CARGANDasddddddddddddddddddddddddddddddddddITO</div> //TODO CAMBIAR ESTO
+                <div><CircularProgress /></div> 
             }
             <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </Fragment>
