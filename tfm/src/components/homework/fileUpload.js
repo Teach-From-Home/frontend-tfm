@@ -36,7 +36,7 @@ const FileUpload = ({ isUploaded, homeworkId }) => {
     }
     setSnackbar({
       ...snackbar,
-      open: true,
+      open: false,
     });
   };
 
@@ -118,12 +118,7 @@ const FileUpload = ({ isUploaded, homeworkId }) => {
             />
           </label>
         )}
-        <SnackbarOpen
-          open={snackbar.open}
-          message={snackbar.message}
-          severity={snackbar.severity}
-          closeSnac={closeSnackbar}
-        />
+
       </div>
     );
   };
@@ -136,6 +131,12 @@ const FileUpload = ({ isUploaded, homeworkId }) => {
       ) : (
         <UploaderButton text='Subir archivo' />
       )}
+        <SnackbarOpen
+          open={snackbar.open}
+          message={snackbar.message}
+          severity={snackbar.severity}
+          closeSnac={closeSnackbar}
+        />
     </div>
   );
 };

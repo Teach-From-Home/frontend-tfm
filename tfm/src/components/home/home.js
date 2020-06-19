@@ -4,9 +4,11 @@ import { UserContext } from '../../userContext'
 import ClassroomService from '../../services/classroomService'
 import SnackbarOpen from '../snackbar/snackbar'
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useStyles } from './style'
 
 
 export default function Home() {
+    const classes = useStyles();
     const [classrooms, setClassrooms] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [snackbar, setSnackbar] = useState({
@@ -54,15 +56,17 @@ export default function Home() {
 
     return (
         <Fragment>
-            { 
-                isLoaded ?
-                    classrooms.map( c => {
-                        return (<SubjectCard classroom={c} key={c.id}></SubjectCard>)
-                    })
-                :
-                <div><CircularProgress /></div> 
-            }
-            <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
+            <div className={classes.backgroundImg}>
+                { 
+                    isLoaded ?
+                        classrooms.map( c => {
+                            return (<SubjectCard classroom={c} key={c.id}></SubjectCard>)
+                        })
+                    :
+                    <div><CircularProgress /></div> 
+                }
+                <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
+            </div>
         </Fragment>
     )
 }

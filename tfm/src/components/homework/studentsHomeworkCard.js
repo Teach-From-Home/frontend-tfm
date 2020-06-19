@@ -1,13 +1,37 @@
 import React, { useState } from 'react'
 import { Card, Typography, Avatar, Button, Grid, Box, TextField } from '@material-ui/core'
 import { ColorButton } from './style'
+import HomeworkService from '../../services/homeworkService';
+
+const modelCorrection = {
+    comment: '',
+    grade: 4
+}
 
 export default function StudentsHomeworkCard({homework}) {
 
+    const homeworkService = new HomeworkService();
+
     const [showComment, setShowComment] = useState(false);
+    const [correction, setCorrection] = useState(modelCorrection);
 
     const openComment = () => {
         setShowComment(!showComment);
+    }
+
+    const update = e => {
+        setCorrection({
+          ...correction,
+          [e.target.name]: e.target.value
+        });
+    }
+
+    const correct = () => {
+        try {
+            
+        } catch (error) {
+            
+        }
     }
 
     return (
@@ -20,15 +44,19 @@ export default function StudentsHomeworkCard({homework}) {
                 <ColorButton style={{marginLeft: '10px'}} onClick={openComment}>corregir</ColorButton>
             </Grid>
             {
-                    showComment ?
+                showComment ?
                     <Grid container direction="row" justify="space-evenly" alignItems="center">
-                        <TextField label='Comentario'></TextField>
-                        <TextField label='Nota' ></TextField>
-                        <ColorButton>Enviar</ColorButton>
+                        <TextField label='Comentario' name='comment' value={correction.comment} onChange={update}></TextField>
+                        <TextField label='Nota' type='number' name='grade' value={correction.grade} onChange={update} InputProps={{
+                            inputProps: { 
+                                max: 10, min: 0 
+                            }
+                        }}></TextField>
+                        <ColorButton onClick={correct}>Enviar</ColorButton>
                     </Grid>
-                    :
-                        <div></div>
-                }
+                :
+                    <div></div>
+            }
             </Box>
 
         </Card>

@@ -11,6 +11,9 @@ export default function UserComment({ comment }) {
                 <Grid item xs={'auto'}>
                     <Typography>{comment.text}</Typography>
                 </Grid>
+                <Grid item xs={'auto'}>
+                    <Typography variant="caption">{comment.date}</Typography>
+                </Grid>
             </Grid>
         </Fragment>
     )

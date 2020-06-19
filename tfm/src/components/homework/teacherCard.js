@@ -17,6 +17,10 @@ export default function TeacherCard(props) {
 
     useEffect(() => {
         getHomeworks();
+        setUser({
+            ...user,
+            selectedHomework: null
+        })
     }, [])
 
     const getHomeworks = async () => {
@@ -47,7 +51,7 @@ export default function TeacherCard(props) {
                     }
                 </Grid>
                 <Grid item xs={6}>
-                    <YellowTypography variant="h6">NUEVA TAREA</YellowTypography>
+                    <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
                     <NewHomework></NewHomework>
                 </Grid>
             </Grid>

@@ -49,7 +49,7 @@ export default function Forum() {
 
     //TODO SEARCH DE FORO
     //TODO SNACKBAR !
-
+    
     return (
         <div>
             <NewPost setSnackbar={setSnackbar}></NewPost>

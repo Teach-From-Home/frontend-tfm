@@ -15,9 +15,11 @@ export default class HomeworkService {
     );
     return result.data;
   }
+
   async uploadHomework(userId, homeworkId, hw) {
     await axios.post(`${URL}homework/${homeworkId}/user/${userId}`, hw);
   }
+
   async newHomework(homework, userId, classroomId) {
     const result = await axios.post(
       `${URL}classroom/${classroomId}/homework/user/${userId}`,
@@ -28,6 +30,11 @@ export default class HomeworkService {
 
   async getStudentsHomework(homeworkId) {
     const result = await axios.get(`${URL}homework/${homeworkId}/uploaded`);
+    return result.data;
+  }
+
+  async modifyHomework(homework, homeworkId){
+    const result = await axios.put(`${URL}homework/${homeworkId}`, homework);
     return result.data;
   }
 }

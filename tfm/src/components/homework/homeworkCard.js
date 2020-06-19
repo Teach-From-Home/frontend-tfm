@@ -21,6 +21,13 @@ export default function HomeworkCard({ homework }) {
     history.push("/studentsHomework");
   };
 
+  const fillModifyHomework = () => {
+    setUser({
+      ...user,
+      modifyHomework: homework
+    });
+  } 
+
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -37,12 +44,23 @@ export default function HomeworkCard({ homework }) {
               {user.role === "STUDENT" ? (
                 <FileUpload  isUploaded={homework.uploaded} homeworkId={homework.id} />
               ) : (
-                <ColorButton
-                  className={classes.button}
-                  onClick={redirectStudentHomework}
-                >
-                  VER
-                </ColorButton>
+                <div>
+                  <Box m={2}>
+                    <ColorButton
+                      className={classes.button}
+                      onClick={fillModifyHomework}
+                      style={{marginLeft: '10px'}}
+                    >
+                      modificar
+                    </ColorButton>
+                    <ColorButton
+                      className={classes.button}
+                      onClick={redirectStudentHomework}
+                    >
+                      ver
+                    </ColorButton>
+                  </Box>
+                </div>
               )}
             </Grid>
           </Grid>

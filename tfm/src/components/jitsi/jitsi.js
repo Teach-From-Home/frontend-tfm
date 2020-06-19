@@ -12,29 +12,29 @@ const JitsiVideo = () => {
 
   const userFullName = `${user.name} ${user.lastName}`;
 
-    return(
-      <div style={{marginTop: 60}}>
-          <Jitsi
-            config={{
-              disableDeepLinking: true
-            }}
-            containerStyle={{ width: '100%', height: '1000px' }}
-            interfaceConfig={{    
-              SHOW_JITSI_WATERMARK: false,
-              TOOLBAR_BUTTONS: [
-                'microphone', 'camera', 'closedcaptions', 'desktop',
-                'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
-                'filmstrip', 'invite', 'feedback',
-                'tileview', 'download', 'help', 'mute-everyone',
-                'security'
-              ],
-            }}
-            roomName={roomName}
-            displayName={userFullName} 
-        />
-      </div>
+  return(
+    <div style={{marginTop: 60}}>
+        <Jitsi
+          config={{
+            disableDeepLinking: true
+          }}
+          containerStyle={{ width: '100%', height: '1000px' }}
+          interfaceConfig={{    
+            SHOW_JITSI_WATERMARK: false,
+            TOOLBAR_BUTTONS: [
+              'microphone', 'camera', 'closedcaptions', 'desktop',
+              'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
+              'filmstrip', 'invite', 'feedback',
+              'tileview', 'download', 'help', 'mute-everyone',
+              'security'
+            ],
+          }}
+          roomName={roomName}
+          displayName={userFullName} 
+      />
+    </div>
 
-    )
+  )
 }
 
 export default JitsiVideo;

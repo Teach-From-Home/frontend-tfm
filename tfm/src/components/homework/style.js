@@ -1,5 +1,5 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Switch } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
     backgroundImg: {
@@ -7,11 +7,13 @@ export const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        height: '100%'
     },
     root: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
     card: {
         width: '50%',
@@ -39,3 +41,17 @@ export const YellowTypography = withStyles({
       color: "#d6a82a"
     }
 })(Typography);
+
+export const YellowSwitch = withStyles({
+    switchBase: {
+      color: "#636363",
+      '&$checked': {
+        color: "#d6a82a",
+      },
+      '&$checked + $track': {
+        backgroundColor: "#d6a82a",
+      },
+    },
+    checked: {},
+    track: {},
+})(Switch);

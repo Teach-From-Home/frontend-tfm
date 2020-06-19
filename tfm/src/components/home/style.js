@@ -2,6 +2,14 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+    backgroundImg: {
+        backgroundImage: `url("/p2.jpg")`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '93.44vh'
+    },
     root: {
         display: 'flex',
         justifyContent: 'center',

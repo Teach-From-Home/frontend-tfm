@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -78,55 +77,54 @@ const Login = ({ loginUser }) => {
 
   return (
     <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img alt="TFMlogo" src={TFMlogo} height="90 rem"></img>
+          <Typography component="h1" variant="h2">
+            TFM
+          </Typography>
 
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img alt="TFMlogo" src={TFMlogo} height="90 rem"></img>
-        <Typography component="h1" variant="h2">
-          TFM
-        </Typography>
-
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="dni"
-            label="DNI"
-            name="dni"
-            autoComplete="dni"
-            onChange={handleInputChange}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            onChange={handleInputChange}
-            onKeyPress={enterKeyPress}
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <div className={classes.wrapper}>
-            <ColorButton
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
               fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={login}
-              disabled={loginButtonDisabled()}
-            >
-              Login
-            </ColorButton>
-          </div>
-        </form>
-      </div>
-      <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
+              id="dni"
+              label="DNI"
+              name="dni"
+              autoComplete="dni"
+              onChange={handleInputChange}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              onChange={handleInputChange}
+              onKeyPress={enterKeyPress}
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <div className={classes.wrapper}>
+              <ColorButton
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={login}
+                disabled={loginButtonDisabled()}
+              >
+                Login
+              </ColorButton>
+            </div>
+          </form>
+        </div>
+        <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
     </Container>
   );
 }

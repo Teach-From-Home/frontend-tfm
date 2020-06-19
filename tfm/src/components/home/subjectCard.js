@@ -50,9 +50,14 @@ export default function SubjectCard({classroom}) {
                             </Grid>
                         </Grid>
                         <Grid item xs className={classes.buttons}>
-                            <ColorButton className={classes.button} onClick={redirectForum}>Acceder</ColorButton> 
+                            <ColorButton className={classes.button} onClick={redirectForum}>Foro</ColorButton> 
                             <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton> 
-                            <ColorButton className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
+                            {
+                                user.role === 'STUDENT' ?
+                                    <ColorButton className={classes.button} onClick={redirectCall}>En vivo/Deshabilitado</ColorButton> 
+                                :
+                                    <ColorButton className={classes.button} onClick={redirectCall}>Crear</ColorButton> 
+                            }
                         </Grid>
                     </Grid>
                 </Box>

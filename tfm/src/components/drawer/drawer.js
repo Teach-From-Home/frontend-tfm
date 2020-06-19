@@ -35,6 +35,10 @@ export default function PersistentDrawerLeft() {
   };
 
   const redirectHome = () => {
+    setUser({
+      ...user,
+      selectedClassroom: null
+    })
     history.push("/")
   }
 
@@ -68,16 +72,20 @@ export default function PersistentDrawerLeft() {
             style={{ backgroundColor: '#636363'}}
           >
             <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, open && classes.hide)}
-              >
-                <MenuIcon />
-              </IconButton>
-
+              {
+                user.selectedClassroom ?
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    className={clsx(classes.menuButton, open && classes.hide)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                :
+                  <div></div>
+              }
               <Button onClick={redirectHome} edge="start" className={classes.menuButton} aria-label="menu" >
                 <img alt="TFMlogo" src={TFMlogo}  height="50 rem"></img>
               </Button>
