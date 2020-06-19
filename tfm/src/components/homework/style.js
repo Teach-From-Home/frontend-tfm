@@ -6,12 +6,12 @@ export const useStyles = makeStyles((theme) => ({
         backgroundImage: `url("/p1.jpg")`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     root: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     card: {
         width: '50%',
@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     button: {
         float: 'right'
-    }
+    },
 }));
 
 export const ColorButton = withStyles(theme => ({
