@@ -54,7 +54,10 @@ export default function SubjectCard({classroom}) {
                             <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton> 
                             {
                                 user.role === 'STUDENT' ?
-                                    <ColorButton className={classes.button} onClick={redirectCall}>En vivo/Deshabilitado</ColorButton> 
+                                    classroom.live ? 
+                                        <ColorButton className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
+                                    :
+                                        <ColorButton disabled className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
                                 :
                                     <ColorButton className={classes.button} onClick={redirectCall}>Crear</ColorButton> 
                             }

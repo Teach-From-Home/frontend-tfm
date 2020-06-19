@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Jitsi from 'react-jitsi'
 import { UserContext } from '../../userContext';
 
+const studentButtons = ['microphone', 'camera', 'desktop','hangup', 'chat','tileview'];
 
-const roomName = 'my-super-secret-meeting-123e4567-e89b-12d3-a456-426655440000'
-
+const teacherButtons = ['microphone', 'camera', 'closedcaptions', 'desktop',
+'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
+'filmstrip', 'invite', 'feedback',
+'tileview', 'download', 'help', 'mute-everyone',
+'security'];
 
 const JitsiVideo = () => {
 
   const {user, setUser} = useContext(UserContext);
-
   const userFullName = `${user.name} ${user.lastName}`;
+
+  const roomName = user.selectedClassroom.keyName;
 
   return(
     <div style={{marginTop: 60}}>
@@ -21,13 +26,7 @@ const JitsiVideo = () => {
           containerStyle={{ width: '100%', height: '1000px' }}
           interfaceConfig={{    
             SHOW_JITSI_WATERMARK: false,
-            TOOLBAR_BUTTONS: [
-              'microphone', 'camera', 'closedcaptions', 'desktop',
-              'fodeviceselection', 'hangup', 'profile', 'chat', 'recording', 'etherpad',
-              'filmstrip', 'invite', 'feedback',
-              'tileview', 'download', 'help', 'mute-everyone',
-              'security'
-            ],
+            TOOLBAR_BUTTONS: user.role === 'STUDENT' ? studentButtons : teacherButtons ,
           }}
           roomName={roomName}
           displayName={userFullName} 
