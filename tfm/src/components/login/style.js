@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 export default makeStyles(theme => ({
     paper: {
@@ -26,3 +27,14 @@ export default makeStyles(theme => ({
       position: 'relative',
     },
 }));
+
+export const ColorButton = withStyles(theme => ({
+  root: {
+    color: '#000000',
+    backgroundColor: '#d6a82a',
+    '&:hover': {
+      backgroundColor: '#636363',
+    },
+    borderRadius: '10px'
+  }
+}))(Button);

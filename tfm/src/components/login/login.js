@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import SnackbarOpen from '../snackbar/snackbar';
 import { UserContext } from '../../userContext';
 import LoginService from '../../services/loginService';
+import { ColorButton } from '../homework/style';
 
 const Login = ({ loginUser }) => {
   const classes = style();
@@ -112,7 +113,7 @@ const Login = ({ loginUser }) => {
             autoComplete="current-password"
           />
           <div className={classes.wrapper}>
-            <Button
+            <ColorButton
               fullWidth
               variant="contained"
               color="primary"
@@ -121,7 +122,7 @@ const Login = ({ loginUser }) => {
               disabled={loginButtonDisabled()}
             >
               Login
-          </Button>
+            </ColorButton>
           </div>
         </form>
       </div>
