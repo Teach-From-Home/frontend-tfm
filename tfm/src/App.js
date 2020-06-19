@@ -12,6 +12,7 @@ import Forum from './components/forum/forum';
 import Profile from './components/profile/profile';
 import { UserContext } from './userContext';
 import PrivateRoute from './privateRoute'
+import StudentsHomework from './components/homework/studentsHomework';
 
 function App() {
   const [user, setUser] = useState('');
@@ -28,6 +29,7 @@ function App() {
 					<PrivateRoute exact path="/homework" component={Homework} />
 					<PrivateRoute exact path="/forum" component={Forum} />
 					<PrivateRoute exact path="/profile" component={Profile} />
+					<PrivateRoute exact path="/studentsHomework" component={StudentsHomework} />
 					<PrivateRoute exact path="/" component={Home} />
 				</div>
 			</UserContext.Provider>

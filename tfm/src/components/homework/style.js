@@ -3,7 +3,10 @@ import { Button, Typography } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
     backgroundImg: {
-        //backgroundImage: `url("/p1.jpg")`
+        backgroundImage: `url("/p1.jpg")`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
     },
     root: {
         display: 'flex',

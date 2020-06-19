@@ -19,7 +19,6 @@ export default function ForumPost(props) {
 
     const openComments = () => {
         getComments();
-        setShowComments(!showComments);
     }
 
     const getComments = async () => {
@@ -27,7 +26,6 @@ export default function ForumPost(props) {
             let data = await forumService.getPostComments(post.id);
             setComments(data);
             setIsLoaded(true);
-            if(data.length > 0) post.commentsAmount += 1
         } catch (error) {
             
         }

@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography, Grid, Card, Box, Avatar } from '@material-ui/core';
 import { useStyles, ColorButton } from './style';
 import AvatarWithName from '../avatarWithName';
+import { UserContext } from '../../userContext';
+import { useHistory } from 'react-router-dom';
 
 export default function HomeworkCard({homework}) {
     const classes = useStyles();
+    const history = useHistory();
+
+    const {user, setUser} = useContext(UserContext);
+
+    const redirectStudentHomework = () => {
+        setUser({
+            ...user,
+            selectedHomework: homework
+        })
+        history.push('/studentsHomework');
+    }
 
     return (
         <div className={classes.root}>
@@ -17,7 +30,15 @@ export default function HomeworkCard({homework}) {
                         <Grid item xs={10}>
                             <Typography variant="h6">{homework.title}</Typography>
                             <Typography variant="body1">{homework.description}</Typography>
-                            <ColorButton className={classes.button}>Enviar</ColorButton>
+                            {
+                                user.role === 'STUDENT' ?
+
+                                    <ColorButton className={classes.button}>Enviar</ColorButton>
+
+                                :
+
+                                    <ColorButton className={classes.button} onClick={redirectStudentHomework}>VER</ColorButton>
+                            }
                         </Grid>
                     </Grid>
                 </Box>

@@ -12,5 +12,10 @@ export default class HomeworkService {
         const result = await axios.post(`${URL}classroom/${classroomId}/homework/user/${userId}`, homework);
         return result.data;
     }
+
+    async getStudentsHomework(homeworkId){
+        const result = await axios.get(`${URL}homework/${homeworkId}/uploaded`, );
+        return result.data;
+    }
 }
 

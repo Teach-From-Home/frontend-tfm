@@ -12,7 +12,6 @@ export default function TeacherCard(props) {
 
     const [homeworks, setHomeworks] = useState();
 
-
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
 
