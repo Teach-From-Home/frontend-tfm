@@ -35,7 +35,7 @@ export default function HomeworkCard({ homework }) {
               <Typography variant='h6'>{homework.title}</Typography>
               <Typography variant='body1'>{homework.description}</Typography>
               {user.role === "STUDENT" ? (
-                <FileUpload hwId={homework.id}/>
+                <FileUpload  isUploaded={homework.uploaded} homeworkId={homework.id} />
               ) : (
                 <ColorButton
                   className={classes.button}
