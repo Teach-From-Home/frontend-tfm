@@ -10,12 +10,18 @@ const modelHomework = {
     available: false
 }
 
-export default function NewHomework() {
+export default function NewHomework(props) {
     const classes = useStyles();
+
+    const setSnackbar = props.setSnackbar;
+    const getHomeworksTeacher = props.getHomeworksTeacher;
+
     const [homework, setHomework] = useState(modelHomework);
     const [switchCheck, setSwitchCheck] = useState(false);
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
+
+
 
     useEffect(() => {
         if(user.modifyHomework){
@@ -38,15 +44,27 @@ export default function NewHomework() {
                 homeworkModified.title = homework.title;
                 homeworkModified.description = homework.description;
                 homeworkModified.available = switchCheck;
-                homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id);
+                homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id)
+                .then(() => getHomeworksTeacher());
                 setHomework(modelHomework);
+                setSnackbar({
+                    open: true,
+                    message: 'Tarea modificada exitosamente!',
+                    severity: 'success'
+                });
             } catch (error) {
                 
             }
         }else{
             try {
                 homeworkService.newHomework(homework, user.id, user.selectedClassroom.id)
+                .then(() => getHomeworksTeacher());
                 setHomework(modelHomework);
+                setSnackbar({
+                    open: true,
+                    message: 'Nueva tarea agregada exitosamente!',
+                    severity: 'success'
+                });
             } catch (error) {
                 
             }
@@ -78,7 +96,7 @@ export default function NewHomework() {
                         <YellowSwitch checked={switchCheck} onChange={handleChange} name="switchCheck"></YellowSwitch>
                         <Grid item>
                             <ColorButton className={classes.button} onClick={cancel} style={{marginLeft: '10px'}}>Cancelar</ColorButton>
-                            <ColorButton className={classes.button} onClick={sendHomework} s>Subir</ColorButton>
+                            <ColorButton className={classes.button} onClick={sendHomework}>Subir</ColorButton>
                         </Grid>
                     </Grid>
                 </Box>

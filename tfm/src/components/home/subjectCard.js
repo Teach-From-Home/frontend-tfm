@@ -6,12 +6,15 @@ import { ColorButton, YellowTypography, useStyles } from './style';
 import Box from '@material-ui/core/Box';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../userContext'
+import ClassroomService from '../../services/classroomService';
 
 export default function SubjectCard({classroom}) {
     const classes = useStyles();
     const history = useHistory();
     const {user, setUser} = useContext(UserContext);
     const subject = classroom.subject;
+
+    const classroomService = new ClassroomService();
 
     const redirectForum = () => {
         setUser({
@@ -34,6 +37,7 @@ export default function SubjectCard({classroom}) {
             ...user,
             selectedClassroom: classroom
         });
+        if(user.role === 'TEACHER') classroomService.goLive(classroom.id);
         history.push('/call');
     }
 

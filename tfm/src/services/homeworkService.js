@@ -28,8 +28,8 @@ export default class HomeworkService {
     return result.data;
   }
 
-  async getStudentsHomework(homeworkId) {
-    const result = await axios.get(`${URL}homework/${homeworkId}/uploaded`);
+  async getStudentsHomework(homeworkId, userId) {
+    const result = await axios.get(`${URL}homework/${homeworkId}/uploaded/${userId}`);
     return result.data;
   }
 

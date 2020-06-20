@@ -9,31 +9,31 @@ import { UserContext } from '../../userContext';
 export default function TeacherCard(props) {
 
     const setSnackbar = props.setSnackbar;
-
+    const getHomeworks = props.getHomeworks;
     const [homeworks, setHomeworks] = useState();
 
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
-        getHomeworks();
+        getHomeworksTeacher();
         setUser({
             ...user,
             selectedHomework: null
         })
     }, [])
 
-    const getHomeworks = async () => {
-            try {
-                let homeworks = await homeworkService.getHomework(user.id, user.selectedClassroom.id);
-                setHomeworks(homeworks);
-            } catch (err) {
-                setSnackbar({
-                    open: true,
-                    message: err.message,
-                    severity: 'error'
-                });
-            }
+    const getHomeworksTeacher = async () => {
+        try {
+            let homeworks = await homeworkService.getHomework(user.id, user.selectedClassroom.id);
+            setHomeworks(homeworks);
+        } catch (err) {
+            setSnackbar({
+                open: true,
+                message: err.message,
+                severity: 'error'
+            });
+        }
     }
     
     return (
@@ -52,7 +52,7 @@ export default function TeacherCard(props) {
                 </Grid>
                 <Grid item xs={6}>
                     <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
-                    <NewHomework></NewHomework>
+                    <NewHomework setSnackbar={setSnackbar} getHomeworksTeacher={getHomeworksTeacher}></NewHomework>
                 </Grid>
             </Grid>
         </Fragment>

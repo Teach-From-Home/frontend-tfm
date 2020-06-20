@@ -28,7 +28,11 @@ export default function ForumPost(props) {
             setComments(data);
             setIsLoaded(true);
         } catch (error) {
-            
+            setSnackbar({
+                open: true,
+                message: 'err.response.data.message', //todo ERROR ESTE
+                severity: 'error'
+            });
         }
     }
 

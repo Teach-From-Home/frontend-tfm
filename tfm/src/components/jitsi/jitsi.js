@@ -26,11 +26,11 @@ const JitsiVideo = () => {
           containerStyle={{ width: '100%', height: '1000px' }}
           interfaceConfig={{    
             SHOW_JITSI_WATERMARK: false,
-            TOOLBAR_BUTTONS: user.role === 'STUDENT' ? studentButtons : teacherButtons ,
+            TOOLBAR_BUTTONS: user.role === 'STUDENT' ? studentButtons : teacherButtons
           }}
           roomName={roomName}
           displayName={userFullName} 
-      />
+        />
     </div>
 
   )

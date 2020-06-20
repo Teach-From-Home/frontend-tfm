@@ -32,7 +32,6 @@ export default function Forum() {
     }
 
     const getForumPosts = async () => {
-        if(!isLoaded){
             try {
                 let posts = await forumService.getForumPosts(user.id, user.selectedClassroom.id);
                 setPosts(posts);
@@ -44,7 +43,6 @@ export default function Forum() {
                     severity: 'error'
                 });
             }
-        }
     }
 
     //TODO SEARCH DE FORO
@@ -52,11 +50,11 @@ export default function Forum() {
     
     return (
         <div>
-            <NewPost setSnackbar={setSnackbar}></NewPost>
+            <NewPost setSnackbar={setSnackbar} getForumPosts={getForumPosts}></NewPost>
             {
-                isLoaded ?
+                posts ?
                     posts.map(p => {
-                        return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar}/>
+                        return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} />
                     })
                 :
                 <div></div>

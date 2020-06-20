@@ -10,9 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export default function Homework() {
   const classes = useStyles();
   const { user, setUser } = useContext(UserContext);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [homeworks, setHomeworks] = useState();
-  const [homeworksDone, setHomeworksDone] = useState();
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -36,7 +34,6 @@ export default function Homework() {
   };
 
   const getHomeworks = async () => {
-    if (!isLoaded) {
       try {
         let homeworks = await homeworkService.getHomework(
           user.id,
@@ -51,15 +48,13 @@ export default function Homework() {
         });
         setHomeworks([])
       }
-      setIsLoaded(true);
-    }
   };
 
   return (
     <div className={classes.asd}>
       {user.role === "STUDENT" ? (
         <div className={classes.backgroundImg}>
-          {isLoaded ? (
+          {homeworks ? (
             homeworks.map((h) => {
               return <HomeworkCard homework={h} key={h.id} />;
             })
@@ -69,7 +64,7 @@ export default function Homework() {
         </div>
       ) : (
         <div>
-          <TeacherCard setSnackbar={setSnackbar}></TeacherCard>
+          <TeacherCard setSnackbar={setSnackbar} getHomeworks={getHomeworks}></TeacherCard>
         </div>
       )}
       <SnackbarOpen

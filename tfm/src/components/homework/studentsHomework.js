@@ -19,7 +19,7 @@ export default function StudentsHomework() {
 
     const getStudentsHomework = async () => {
         try {
-            let hs = await homeworkService.getStudentsHomework(user.selectedHomework.id);
+            let hs = await homeworkService.getStudentsHomework(user.selectedHomework.id, user.id);
             setHomeworks(hs);            
         } catch (error) {
             

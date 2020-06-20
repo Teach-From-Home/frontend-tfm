@@ -9,10 +9,13 @@ const postModel = {
     text: ''
 }
 
-export default function SearchPost({setSnackbar}) {
+export default function SearchPost(props) {
     const classes = useStyles();
     const [post, setPost] = useState(postModel);
     const {user, setUser} = useContext(UserContext);
+
+    const setSnackbar = props.setSnackbar;
+    const getForumPosts = props.getForumPosts;
 
     const forumService = new ForumService();
 
@@ -23,7 +26,8 @@ export default function SearchPost({setSnackbar}) {
 
     const sendPost = () => {
         try {
-            forumService.newPost(post, user.id, user.selectedClassroom.id);
+            forumService.newPost(post, user.id, user.selectedClassroom.id)
+            .then(() => getForumPosts());
             setPost(postModel);
             setSnackbar({
                 open: true,
@@ -33,7 +37,7 @@ export default function SearchPost({setSnackbar}) {
         } catch (err) {
             setSnackbar({
                 open: true,
-                message: err.response.data.message,
+                message: 'err.response.data.message', //todo ERROR ESTE
                 severity: 'error'
             });
         }
@@ -49,8 +53,8 @@ export default function SearchPost({setSnackbar}) {
                             <Avatar className={classes.largeAvatar}></Avatar>
                         </Grid> 
                         <Grid item xs={9}>
-                            <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange}></TextField><br/><br/>
-                            <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange}/>{/*TODO: validacion de caracteres*/} <br/>
+                            <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br/><br/>
+                            <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange} value={post.text}/>{/*TODO: validacion de caracteres*/} <br/>
                             <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
                         </Grid>
                     </Grid>
