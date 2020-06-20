@@ -49,8 +49,8 @@ export default function SubjectCard({classroom}) {
                         <Grid item xs={9}>
                             <Grid container direction="column" justify="flex-start" alignItems="flex-start">
                                 <YellowTypography component="h3" variant="h4">{subject.name}</YellowTypography>
-                                <Typography component="h4" variant="h5">Lunes 20:30 - 22:00 hs.</Typography>
-                                <Typography component="h4" variant="h5">Profesor/a: Barbara Menchon</Typography>
+                                <Typography component="h5" variant="h5">{classroom.name}</Typography>
+                                <Typography component="h5" variant="h5">nombre de 1 profe</Typography>
                             </Grid>
                         </Grid>
                         <Grid item xs className={classes.buttons}>
