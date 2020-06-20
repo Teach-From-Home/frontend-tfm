@@ -55,7 +55,7 @@ export default function Forum() {
             {
                 posts ?
                     posts.map(p => {
-                        return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} />
+                        return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} getForumPosts={getForumPosts}/>
                     })
                 :
                 <CircularProgress/>

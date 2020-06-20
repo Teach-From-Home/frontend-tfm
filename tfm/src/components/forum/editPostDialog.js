@@ -15,19 +15,13 @@ const postModel = {
 export default function EditPostDialog(props) {
     const classes = useStyles();
 
+    const { onClose, open, setSnackbar} = props;
+
     const {user, setUser} = useContext(UserContext);
-    const [post, setPost] = useState(postModel);
-
-    let postEdit = props.post;
-    const setSnackbar = props.setSnackbar;
-
+    
+    const [post, setPost] = useState(user.editPost);
+    
     const forumService = new ForumService();
-
-    const { onClose, selectedValue, open } = props;
-  
-    useEffect(() => {
-        setPost(postEdit);
-    }, [])
 
     const handleClose = () => {
       onClose();
@@ -48,7 +42,7 @@ export default function EditPostDialog(props) {
                     message: 'Post editado exitosamente!',
                     severity: 'success'
                 });
-                handleClose() ;
+                handleClose();
             })
             .catch((err) => {
                 setSnackbar({
@@ -69,18 +63,24 @@ export default function EditPostDialog(props) {
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} maxWidth={"sm"} spacing={2}>
             <DialogContent>
-            <Box m={2}>
-                <Grid container spacing={2}>
-                    <Grid item xs={2}>
-                        <Avatar className={classes.largeAvatar}>{user.name ? `${user.name.charAt(0)}${user.lastName.charAt(0)} `: ''}</Avatar>
-                    </Grid> 
-                    <Grid item xs={9}>
-                        <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br/><br/>
-                        <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange} value={post.text}/>{/*TODO: validacion de caracteres*/} <br/>
-                        <ColorButton onClick={sendPost} className={classes.button}>Enviar</ColorButton>
+            {console.log(user.editPost)}
+            {
+                user.editPost ? 
+                <Box m={2}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={2}>
+                            <Avatar className={classes.largeAvatar}>{user.name ? `${user.name.charAt(0)}${user.lastName.charAt(0)} `: ''}</Avatar>
+                        </Grid> 
+                        <Grid item xs={9}>
+                            <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title ? post.title : ''}></TextField><br/><br/>
+                            <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange} value={post.text ? post.text : ''}/>{/*TODO: validacion de caracteres*/} <br/>
+                            <ColorButton onClick={sendPost} className={classes.button}>Enviar</ColorButton>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
+                </Box>
+                :
+                <div></div>
+            }
             </DialogContent>
         </Dialog>
     )
@@ -89,4 +89,5 @@ export default function EditPostDialog(props) {
 EditPostDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
+    setSnackbar: PropTypes.func.isRequired
 };

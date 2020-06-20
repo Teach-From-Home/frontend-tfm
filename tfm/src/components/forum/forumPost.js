@@ -10,39 +10,48 @@ import Icon from '@material-ui/core/Icon';
 
 export default function ForumPost(props) {
     const classes = useStyles();
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
     
     const forumService = new ForumService();
     const post = props.post;
     const setSnackbar = props.setSnackbar;
+    const getForumPosts = props.getForumPosts;
 
     const {user, setUser} = useContext(UserContext);
 
+    useEffect(() => {
+        getComments();
+    }, []);
+
     //Para abrir el dialog
     const handleClickOpen = () => {
+        setUser({
+            ...user,
+            editPost: post
+        });
         setOpen(true);
     };
 
     //Para cerrar el dialog
     const handleClose = () => {
+        setUser({
+            ...user,
+            editPost: null
+        });
+        getForumPosts();
         setOpen(false);
     };
 
-    useEffect(() => {
-        getComments();
-    }, [])
-
     const openComments = () => {
-        getComments();
+        setShowComments(!showComments);
     }
 
     const getComments = async () => {
         try {
             let data = await forumService.getPostComments(post.id);
             setComments(data);
-            setIsLoaded(true);
         } catch (error) {
             setSnackbar({
                 open: true,
@@ -54,6 +63,26 @@ export default function ForumPost(props) {
 
     const canEdit = () => {
         return user.id === post.user.id;
+    }
+
+    const deletePost = () => {
+        try {
+            forumService.deletePost(post.id)
+            .then(() => {
+                setSnackbar({
+                    open: true,
+                    message: 'Post eliminado.',
+                    severity: 'success'
+                });
+                getForumPosts();
+            })
+        } catch (error) {
+            setSnackbar({
+                open: true,
+                message: 'Error al eliminar el post.',
+                severity: 'error'
+            });
+        }
     }
 
     return (
@@ -77,14 +106,25 @@ export default function ForumPost(props) {
                                 canEdit() ? <Button onClick={handleClickOpen}>Editar</Button> : <div></div>
                             }
                             {
-                                canEdit() ? <Button onClick={handleClickOpen}><Icon>delete</Icon></Button> : <div></div>
+                                canEdit() ? <Button onClick={deletePost}><Icon>delete</Icon></Button> : <div></div>
                             }
                         </Grid>
                     </div>
                 </Box>
                 <Divider></Divider>
-                <Comments comments={comments} postId={post.id} getComments={getComments} setSnackbar={setSnackbar}/>
-                <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar} post={post}></EditPostDialog>
+                {
+                    showComments ? 
+                        <Comments comments={comments} postId={post.id} getComments={getComments} setSnackbar={setSnackbar}/>
+                    :
+                        <div></div>
+                }
+                {
+                    user.editPost ? 
+                    <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar}></EditPostDialog>
+                    :
+                    <div></div>
+                }
+                
             </Card>
         </div>
     )

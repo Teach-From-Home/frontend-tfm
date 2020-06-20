@@ -26,7 +26,13 @@ export default class ForumService {
     async editPost(post, postId){
         var body = post;
         delete body.date;
+        console.log(postId);
         const result = await axios.put(`${URL}post/${postId}`, body);
+        return result.data;
+    }
+
+    async deletePost(postId){
+        const result = await axios.delete(`${URL}post/${postId}`);
         return result.data;
     }
 }
