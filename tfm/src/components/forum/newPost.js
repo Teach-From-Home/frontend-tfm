@@ -43,6 +43,10 @@ export default function SearchPost(props) {
         }
     }
 
+    const formHasData = () => {
+        return post.text !== '' && post.description !== ''
+    }
+
     return (
         <div className={classes.root}>
             <Card className={classes.searchCard}>
@@ -50,12 +54,16 @@ export default function SearchPost(props) {
                 <Box m={2}>
                     <Grid container spacing={4}>
                         <Grid item xs={2}>
-                            <Avatar className={classes.largeAvatar}></Avatar>
+                            <Avatar className={classes.largeAvatar}>{user.name ? `${user.name.charAt(0)}${user.lastName.charAt(0)} `: ''}</Avatar>
                         </Grid> 
                         <Grid item xs={9}>
                             <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br/><br/>
                             <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange} value={post.text}/>{/*TODO: validacion de caracteres*/} <br/>
-                            <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
+                            { formHasData() ?
+                                <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
+                                :
+                                <ColorButton className={classes.button} onClick={sendPost} disabled>Enviar</ColorButton>
+                            }
                         </Grid>
                     </Grid>
                 </Box>

@@ -22,5 +22,10 @@ export default class ForumService {
         const result = await axios.post(`${URL}post/${postId}/user/${userId}`, comment);
         return result.data;
     }
+
+    async editPost(post, postId){
+        const result = await axios.put(`${URL}post/${postId}`, post);
+        return result.data;
+    }
 }
 

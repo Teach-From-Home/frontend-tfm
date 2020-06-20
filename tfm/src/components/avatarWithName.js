@@ -22,8 +22,8 @@ export default function AvatarWithName(props) {
         <Avatar
           className={classes.large}
           src={props.url}
-        ></Avatar>
-        <Typography variant='h6'>{props.name}</Typography>
+        >{props.name ? `${props.name.charAt(0)}${props.lastName.charAt(0)} `: ''}</Avatar>
+        <Typography variant='h6'>{ props.name ? `${props.name} ${props.lastName}` : ''}</Typography>
       </Grid>
     </div>
   );

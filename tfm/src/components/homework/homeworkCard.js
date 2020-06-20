@@ -36,7 +36,8 @@ export default function HomeworkCard({ homework,callb }) {
           <Grid container spacing={3}>
             <Grid item xs={2}>
               <AvatarWithName
-                name={`${homework.teacher.name} ${homework.teacher.lastname} `}
+                name={`${homework.teacher.name}`}
+                lastName={`${homework.teacher.lastname}`}
               ></AvatarWithName>
             </Grid>
             <Grid item xs={10}>

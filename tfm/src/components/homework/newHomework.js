@@ -21,8 +21,6 @@ export default function NewHomework(props) {
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
 
-
-
     useEffect(() => {
         if(user.modifyHomework){
             setHomework(user.modifyHomework); 
@@ -53,7 +51,11 @@ export default function NewHomework(props) {
                     severity: 'success'
                 });
             } catch (error) {
-                
+                setSnackbar({
+                    open: true,
+                    message: 'error', //TODO
+                    severity: 'error'
+                });
             }
         }else{
             try {
@@ -66,11 +68,14 @@ export default function NewHomework(props) {
                     severity: 'success'
                 });
             } catch (error) {
-                
+                setSnackbar({
+                    open: true,
+                    message: 'error', //TODO
+                    severity: 'error'
+                });
             }
         }
-        
-    }
+    }    
 
     const cancel = () => {
         setUser({
@@ -79,11 +84,15 @@ export default function NewHomework(props) {
         });
         setHomework(modelHomework);
         setSwitchCheck(false);
-    }
+    };
 
     const handleChange = (event) => {
         setSwitchCheck( event.target.checked );
     };
+
+    const formHasData = () => {
+        return homework.description !== '' && homework.title !== '';
+    }
 
     return (
         <div className={classes.root}>
@@ -96,7 +105,11 @@ export default function NewHomework(props) {
                         <YellowSwitch checked={switchCheck} onChange={handleChange} name="switchCheck"></YellowSwitch>
                         <Grid item>
                             <ColorButton className={classes.button} onClick={cancel} style={{marginLeft: '10px'}}>Cancelar</ColorButton>
-                            <ColorButton className={classes.button} onClick={sendHomework}>Subir</ColorButton>
+                            { formHasData() ?
+                                <ColorButton className={classes.button} onClick={sendHomework}>Subir</ColorButton>
+                                :
+                                <ColorButton className={classes.button} onClick={sendHomework} disabled>Subir</ColorButton>
+                            }
                         </Grid>
                     </Grid>
                 </Box>

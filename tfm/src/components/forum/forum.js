@@ -4,6 +4,7 @@ import NewPost from './newPost'
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
 import SnackbarOpen from '../snackbar/snackbar'
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Forum() {
     const {user, setUser} = useContext(UserContext);
@@ -32,17 +33,17 @@ export default function Forum() {
     }
 
     const getForumPosts = async () => {
-            try {
-                let posts = await forumService.getForumPosts(user.id, user.selectedClassroom.id);
-                setPosts(posts);
-                setIsLoaded(true);
-            } catch (err) {
-                setSnackbar({
-                    open: true,
-                    message: err.response.data.error,
-                    severity: 'error'
-                });
-            }
+        try {
+            let posts = await forumService.getForumPosts(user.id, user.selectedClassroom.id);
+            setPosts(posts);
+            setIsLoaded(true);
+        } catch (err) {
+            setSnackbar({
+                open: true,
+                message: 'error', //TODO
+                severity: 'error'
+            });
+        }
     }
 
     //TODO SEARCH DE FORO
@@ -57,7 +58,7 @@ export default function Forum() {
                         return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} />
                     })
                 :
-                <div></div>
+                <CircularProgress/>
             }
             <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </div>

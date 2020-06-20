@@ -45,17 +45,26 @@ export default function Comments(props) {
         }
     }
 
+    const formHasData = () => {
+        return comment.text !== ''
+    }
+
     return (
         <div >
             <Box m={2}>
                 <Grid container spacing={2}>
                     <Grid item xs={'auto'}>
-                        <Avatar></Avatar>
+                    <Avatar>{`${user.name.charAt(0)}${user.lastName.charAt(0)}`}</Avatar>
                     </Grid> 
                     <Grid item xs={'auto'}>
                         <div className={classes.iconsBottom}>
                             <TextField label="Escribe tu mensaje..." multiline rowsMax={4} variant="outlined" name='text' onChange={handleInputChange} value={comment.text}/>{/*TODO: validacion de caracteres*/} <br/>
-                            <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment}>Enviar</ColorButton>
+                            {
+                                formHasData() ?
+                                <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment}>Enviar</ColorButton>
+                                :
+                                <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment} disabled>Enviar</ColorButton>
+                            }
                         </div>
                     </Grid>
                 </Grid>

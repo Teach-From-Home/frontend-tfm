@@ -6,7 +6,7 @@ export default function UserComment({ comment }) {
         <Fragment>
             <Grid container spacing={2}>
                 <Grid item xs={'auto'}>
-                    <Avatar></Avatar>
+                    <Avatar>{`${comment.user.name.charAt(0)}${comment.user.lastname.charAt(0)}`}</Avatar>
                 </Grid> 
                 <Grid item xs={'auto'}>
                     <Typography>{comment.text}</Typography>
