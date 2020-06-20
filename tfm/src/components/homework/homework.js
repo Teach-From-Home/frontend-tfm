@@ -43,7 +43,7 @@ export default function Homework() {
       } catch (err) {
         setSnackbar({
           open: true,
-          message: "No hay tareas para subir",
+          message: "Error al cargar las tarear intente nuevamente",
           severity: "info",
         });
         setHomeworks([])
@@ -56,7 +56,7 @@ export default function Homework() {
         <div className={classes.backgroundImg}>
           {homeworks ? (
             homeworks.map((h) => {
-              return <HomeworkCard homework={h} key={h.id} />;
+              return <HomeworkCard callb={getHomeworks} homework={h} key={h.id} />;
             })
           ) : (
             <CircularProgress />

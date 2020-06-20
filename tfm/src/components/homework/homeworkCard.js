@@ -5,9 +5,10 @@ import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";
 import { useHistory } from "react-router-dom";
 
+import TeacherFeedback from "./teacherFeedback";
 import FileUpload from "./fileUpload";
 
-export default function HomeworkCard({ homework }) {
+export default function HomeworkCard({ homework,callb }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -26,7 +27,7 @@ export default function HomeworkCard({ homework }) {
       ...user,
       modifyHomework: homework
     });
-  } 
+  }
 
   return (
     <div className={classes.root}>
@@ -42,26 +43,30 @@ export default function HomeworkCard({ homework }) {
               <Typography variant='h6'>{homework.title}</Typography>
               <Typography variant='body1'>{homework.description}</Typography>
               {user.role === "STUDENT" ? (
-                <FileUpload  isUploaded={homework.uploaded} homeworkId={homework.id} />
+                <span>
+                  <hr/>
+                  <TeacherFeedback homework={homework} />
+                  <FileUpload isUploaded={homework.uploaded} callb={callb} homeworkId={homework.id} />
+                </span>
               ) : (
-                <div>
-                  <Box m={2}>
-                    <ColorButton
-                      className={classes.button}
-                      onClick={fillModifyHomework}
-                      style={{marginLeft: '10px'}}
-                    >
-                      modificar
+                  <div>
+                    <Box m={2}>
+                      <ColorButton
+                        className={classes.button}
+                        onClick={fillModifyHomework}
+                        style={{ marginLeft: '10px' }}
+                      >
+                        modificar
                     </ColorButton>
-                    <ColorButton
-                      className={classes.button}
-                      onClick={redirectStudentHomework}
-                    >
-                      ver
+                      <ColorButton
+                        className={classes.button}
+                        onClick={redirectStudentHomework}
+                      >
+                        ver
                     </ColorButton>
-                  </Box>
-                </div>
-              )}
+                    </Box>
+                  </div>
+                )}
             </Grid>
           </Grid>
         </Box>

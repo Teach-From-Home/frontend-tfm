@@ -11,7 +11,7 @@ import SnackbarOpen from "../snackbar/snackbar";
 
 firebase.initializeApp(config);
 
-const FileUpload = ({ isUploaded, homeworkId }) => {
+const FileUpload = ({ isUploaded, homeworkId, callb }) => {
   const homeworkService = new HomeworkService();
   const { user, setUser } = useContext(UserContext);
 
@@ -56,7 +56,8 @@ const FileUpload = ({ isUploaded, homeworkId }) => {
 
   const saveUploadedUrl = (url) => {
     try {
-      homeworkService.uploadHomework(user.id, homeworkId, { file: url });
+      homeworkService.uploadHomework(user.id, homeworkId, { file: url })
+      .then(()=>callb())
       setSnackbar({
         open: true,
         message: "Archivo subido exitosamente!",
@@ -108,7 +109,7 @@ const FileUpload = ({ isUploaded, homeworkId }) => {
             {text}
             <FileUploader
               hidden
-              accept='.zip, .docx, .doc, .xlsx, .xls, .pdf, .rar'
+              accept='.zip, .docx, .doc, .xlsx, .xls, .pdf, .rar, image/*'
               storageRef={firebase.storage().ref("/homeworks")}
               onUploadStart={handeUploadStart}
               onUploadSuccess={handeUploadSucess}
