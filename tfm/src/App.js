@@ -15,7 +15,7 @@ import PrivateRoute from './privateRoute'
 import StudentsHomework from './components/homework/studentsHomework';
 
 function App() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("session")));
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser]);
 
   return (

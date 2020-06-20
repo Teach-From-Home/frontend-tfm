@@ -59,7 +59,13 @@ export const useStyles = makeStyles((theme) => ({
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
-    }
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
   }));
 
 export const ColorButton = withStyles(theme => ({
