@@ -41,4 +41,9 @@ export default class HomeworkService {
     const result = await axios.put(`${URL}homework/${homeworkId}`, homework);
     return result.data;
   }
+
+  async correctHomework(correction, userId, homeworkId){
+    const result = await axios.put(`${URL}homework/${homeworkId}/student/${userId}/uploadCorrection`, correction);
+    return result.data;
+  }
 }

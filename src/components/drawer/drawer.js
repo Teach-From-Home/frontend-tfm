@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Tooltip } from "@material-ui/core";
+import { Menu, MenuItem, Tooltip, ListItemIcon, ListItemText } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -166,13 +166,28 @@ export default function PersistentDrawerLeft() {
             <Divider />
             <List>
               <ListItem button key={"foro"} onClick={redirectForum}>
-                <YellowTypography variant='h5'>Foro</YellowTypography>
+                <ListItemIcon className={classes.icon}>
+                  <Icon>forum</Icon>
+                </ListItemIcon>
+                <ListItemText>
+                  <YellowTypography variant='subtitle1'>FORO</YellowTypography>
+                </ListItemText>
               </ListItem>
               <ListItem button key={"clase"} onClick={redirectClass}>
-                <YellowTypography variant='h5'>Clase</YellowTypography>
+                <ListItemIcon className={classes.icon}>
+                  <Icon>live_tv</Icon>
+                </ListItemIcon>
+                <ListItemText>
+                  <YellowTypography variant='subtitle1'>CLASE</YellowTypography>
+                </ListItemText>
               </ListItem>
               <ListItem button key={"tarea"} onClick={redirectHomework}>
-                <YellowTypography variant='h5'>Tarea</YellowTypography>
+                <ListItemIcon className={classes.icon}>
+                  <Icon>create</Icon>
+                </ListItemIcon>
+                <ListItemText>
+                  <YellowTypography variant='subtitle1'>TAREA</YellowTypography>
+                </ListItemText>
               </ListItem>
             </List>
             <Divider />

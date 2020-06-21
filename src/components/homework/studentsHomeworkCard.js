@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Grid, Box, TextField, Typography } from '@material-ui/core'
 import { ColorButton } from './style'
 import HomeworkService from '../../services/homeworkService';
 import AvatarWithName from '../avatarWithName';
 import UploadedDate from './uploadedDate';
 import Icon from '@material-ui/core/Icon';
+import { UserContext } from '../../userContext';
 
 const modelCorrection = {
-    comment: '',
-    grade: 4
+    coment: '',
+    grade: ''
 }
 
-export default function StudentsHomeworkCard({ homework }) {
+export default function StudentsHomeworkCard(props) {
 
     const homeworkService = new HomeworkService();
+
+    const homework = props.homework;
+    const setSnackbar = props.setSnackbar;
 
     const [showComment, setShowComment] = useState(false);
     const [correction, setCorrection] = useState(modelCorrection);
 
+    const {user, setUser} = useContext(UserContext);
+
     useEffect(() => {
         setCorrection({
-            comment: homework.coment,
+            coment: homework.coment,
             grade: homework.grade
         });
     }, []);
@@ -38,9 +44,27 @@ export default function StudentsHomeworkCard({ homework }) {
 
     const correct = () => {
         try {
-
+            homeworkService.correctHomework(correction, homework.student.id, user.selectedHomework.id)
+            .then( () => {
+                setSnackbar({
+                    open: true,
+                    message: 'Tarea corregida exitosamente!',
+                    severity: 'success'
+                });
+            })
+            .catch(() => {
+                setSnackbar({
+                    open: true,
+                    message: 'Error al corregir tarea...',
+                    severity: 'success'
+                });
+            })
         } catch (error) {
-
+            setSnackbar({
+                open: true,
+                message: 'Error al corregir tarea...',
+                severity: 'success'
+            });
         }
     }
 
@@ -68,12 +92,12 @@ export default function StudentsHomeworkCard({ homework }) {
                 {
                     showComment ?
                         <Grid container direction="row" justify="space-evenly" alignItems="center">
-                            <TextField label='Comentario' name='comment' value={correction.comment} onChange={update}></TextField>
+                            <TextField label='Comentario' name='coment' value={correction.coment} onChange={update}/>
                             <TextField label='Nota' type='number' name='grade' value={correction.grade} onChange={update} InputProps={{
                                 inputProps: {
                                     max: 10, min: 1
                                 }
-                            }}></TextField>
+                            }}/>
                             <ColorButton onClick={correct}>Enviar</ColorButton>
                         </Grid>
                         :

@@ -50,7 +50,11 @@ export default function SubjectCard({classroom}) {
                             <Grid container direction="column" justify="flex-start" alignItems="flex-start">
                                 <YellowTypography component="h3" variant="h4">{subject.name}</YellowTypography>
                                 <Typography component="h5" variant="h5">{classroom.name}</Typography>
-                                <Typography component="h5" variant="h5">nombre de 1 profe</Typography>
+                                {
+                                    classroom.teachers.map( t => {
+                                        return <Typography component="h5" variant="h5" key={t}>{t}</Typography>
+                                    })
+                                }
                             </Grid>
                         </Grid>
                         <Grid item xs className={classes.buttons}>

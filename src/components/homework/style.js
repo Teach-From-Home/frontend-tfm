@@ -7,7 +7,8 @@ export const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        height: '100%'
+        width: '100%',
+        height: '93.44vh'
     },
     root: {
         display: 'flex',

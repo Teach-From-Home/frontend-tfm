@@ -66,6 +66,9 @@ export const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
     },
+    icon:{
+      color: '#d6a82a'
+    }
   }));
 
 export const ColorButton = withStyles(theme => ({

@@ -47,7 +47,7 @@ export default function Home() {
             } catch (err) {
                 setSnackbar({
                     open: true,
-                    message: err.response.data.error,
+                    message: 'Error al cargar los classrooms...',
                     severity: 'error'
                 });
             }
