@@ -4,6 +4,7 @@ import { useStyles, ColorButton } from './style';
 import UserData from './userData';
 import { UserContext } from '../../userContext';
 import ProfileService from '../../services/profileService';
+import Calendar from './calendar'
 
 const modelProfile = {
 
@@ -12,10 +13,10 @@ const modelProfile = {
 export default function Profile() {
     const classes = useStyles();
     const [profile, setProfile] = useState();
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const profileService = new ProfileService();
 
-    useEffect(() => {
+    useEffect(() => { 
         getProfile();
     }, []);
 
@@ -24,19 +25,25 @@ export default function Profile() {
             let profile = await profileService.getProfile(user.id);
             setProfile(profile);
         } catch (error) {
-            
+
         }
     }
 
     return (
         <div className={classes.root}>
             <Box m={2}>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="space-between"
+                    container
+                >
+                    <Grid item xs>
                         <UserData profile={profile}></UserData>
-                    </Grid> 
-                    <Grid item xs={6}>
-                        holi
+                    </Grid>
+                    <Grid item xs>
+                        <Calendar />
                     </Grid>
                 </Grid>
             </Box>

@@ -122,7 +122,7 @@ export default function PersistentDrawerLeft() {
               >
                 <Tooltip title='Perfil' placement='bottom'>
                   <span onClick={handleClickMenu}>
-                    <AvatarWithName />
+                    <AvatarWithName name={user.name} lastName={user.lastName} noShowName/>
                   </span>
                 </Tooltip>
                 <Button

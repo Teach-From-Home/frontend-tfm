@@ -12,7 +12,7 @@ const postModel = {
 export default function SearchPost(props) {
     const classes = useStyles();
     const [post, setPost] = useState(postModel);
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const setSnackbar = props.setSnackbar;
     const getForumPosts = props.getForumPosts;
@@ -27,7 +27,7 @@ export default function SearchPost(props) {
     const sendPost = () => {
         try {
             forumService.newPost(post, user.id, user.selectedClassroom.id)
-            .then(() => getForumPosts());
+                .then(() => getForumPosts());
             setPost(postModel);
             setSnackbar({
                 open: true,
@@ -52,14 +52,16 @@ export default function SearchPost(props) {
             <Card className={classes.searchCard}>
                 <CardHeader title="Crea una publicacion" />
                 <Box m={2}>
-                    <Grid container spacing={4}>
-                        <Grid item xs={2}>
-                            <Avatar className={classes.largeAvatar}>{user.name ? `${user.name.charAt(0)}${user.lastName.charAt(0)} `: ''}</Avatar>
-                        </Grid> 
-                        <Grid item xs={9}>
-                            <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br/><br/>
-                            <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={4} variant="outlined" onChange={handleInputChange} value={post.text}/>{/*TODO: validacion de caracteres*/} <br/>
-                            { formHasData() ?
+                    <Grid container spacing={1}>
+
+                        <Grid item xs={0}>
+                            <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br /><br />
+                        </Grid>
+                        <Grid item xs={12} >
+                            <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={50} variant="outlined" onChange={handleInputChange} value={post.text} fullWidth />{/*TODO: validacion de caracteres*/} <br />
+                        </Grid>
+                        <Grid item xs={12}>
+                            {formHasData() ?
                                 <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
                                 :
                                 <ColorButton className={classes.button} onClick={sendPost} disabled>Enviar</ColorButton>

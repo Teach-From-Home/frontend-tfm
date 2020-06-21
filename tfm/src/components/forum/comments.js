@@ -12,7 +12,7 @@ const commentModel = {
 export default function Comments(props) {
     const classes = useStyles();
     const [comment, setComment] = useState(commentModel)
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const postId = props.postId;
     const comments = props.comments;
@@ -45,37 +45,34 @@ export default function Comments(props) {
         }
     }
 
-    const formHasData = () => {
-        return comment.text !== ''
-    }
+    const formHasData = comment.text !== ''
+
 
     return (
         <div >
-            <Box m={2}>
-                <Grid container spacing={2}>
-                    <Grid item xs={'auto'}>
-                    <Avatar>{`${user.name.charAt(0)}${user.lastName.charAt(0)}`}</Avatar>
-                    </Grid> 
-                    <Grid item xs={'auto'}>
+            <Box m={2} >
+                <Grid container spacing={2} justify="center">
+                    <Grid item xs={0}>
+                        <Avatar>{`${user.name.charAt(0)}${user.lastName.charAt(0)}`}</Avatar>
+                    </Grid>
+                    <Grid item xs={0}>
                         <div className={classes.iconsBottom}>
-                            <TextField label="Escribe tu mensaje..." multiline rowsMax={4} variant="outlined" name='text' onChange={handleInputChange} value={comment.text}/>{/*TODO: validacion de caracteres*/} <br/>
-                            {
-                                formHasData() ?
-                                <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment}>Enviar</ColorButton>
-                                :
-                                <ColorButton style={{marginLeft: '10px', marginTop: '10px'}} onClick={sendComment} disabled>Enviar</ColorButton>
-                            }
+                            <TextField label="Escribe tu comentario..." multiline rowsMax={50} variant="outlined" name='text'  onChange={handleInputChange} value={comment.text} />{/*TODO: validacion de caracteres*/} <br />
+
+                            <ColorButton style={{ marginLeft: '10px', marginTop: '10px' }} onClick={sendComment} disabled={!formHasData} >Enviar</ColorButton>
                         </div>
                     </Grid>
+                    <br />
                 </Grid>
                 {
                     comments.map(c => {
-                        return <UserComment comment={c} key={c.id}/>
+                        
+                        return <span><hr/><UserComment comment={c} key={c.id} /> <br /></span>
                     })
                 }
-                
+
             </Box>
-            
-    </div>
+
+        </div>
     )
 }

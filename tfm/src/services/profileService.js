@@ -7,5 +7,10 @@ export default class ProfileService {
         const result = await axios.get(`${URL}user/${userId}`);
         return result.data;
     }
+
+    async getCalendar(userId){
+        const result = await axios.get(`${URL}user/${userId}/calendar`);
+        return result.data;
+    }
 }
 

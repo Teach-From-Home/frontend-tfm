@@ -13,13 +13,13 @@ export default function ForumPost(props) {
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
-    
+
     const forumService = new ForumService();
     const post = props.post;
     const setSnackbar = props.setSnackbar;
     const getForumPosts = props.getForumPosts;
 
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     useEffect(() => {
         getComments();
@@ -68,14 +68,14 @@ export default function ForumPost(props) {
     const deletePost = () => {
         try {
             forumService.deletePost(post.id)
-            .then(() => {
-                setSnackbar({
-                    open: true,
-                    message: 'Post eliminado.',
-                    severity: 'success'
-                });
-                getForumPosts();
-            })
+                .then(() => {
+                    setSnackbar({
+                        open: true,
+                        message: 'Post eliminado.',
+                        severity: 'success'
+                    });
+                    getForumPosts();
+                })
         } catch (error) {
             setSnackbar({
                 open: true,
@@ -92,7 +92,7 @@ export default function ForumPost(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={3}>
                             <AvatarWithName name={`${post.user.name}`} lastName={`${post.user.lastname}`}></AvatarWithName>
-                        </Grid> 
+                        </Grid>
                         <Grid item xs={9}>
                             <Typography variant="h6">{post.title}</Typography>
                             <Typography variant="body1">{post.text}</Typography>
@@ -101,7 +101,7 @@ export default function ForumPost(props) {
                     </Grid>
                     <div className={classes.iconsBottom}>
                         <Grid container spacing={2}>
-                            <Button onClick={openComments}>{ comments.length === 1 ?  `${ comments.length } comentario` : `${ comments.length } comentarios`}</Button>
+                            <Button onClick={openComments}>{comments.length === 1 ? `${comments.length} comentario` : `${comments.length} comentarios`}</Button>
                             {
                                 canEdit() ? <Button onClick={handleClickOpen}>Editar</Button> : <div></div>
                             }
@@ -113,18 +113,18 @@ export default function ForumPost(props) {
                 </Box>
                 <Divider></Divider>
                 {
-                    showComments ? 
-                        <Comments comments={comments} postId={post.id} getComments={getComments} setSnackbar={setSnackbar}/>
-                    :
+                    showComments ?
+                        <Comments comments={comments} postId={post.id} getComments={getComments} setSnackbar={setSnackbar} />
+                        :
                         <div></div>
                 }
                 {
-                    user.editPost ? 
-                    <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar}></EditPostDialog>
-                    :
-                    <div></div>
+                    user.editPost ?
+                        <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar}></EditPostDialog>
+                        :
+                        <div></div>
                 }
-                
+
             </Card>
         </div>
     )
