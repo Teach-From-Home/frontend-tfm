@@ -4,6 +4,7 @@ import { useStyles, ColorButton } from './style';
 import UserComment from './userComment';
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
+import AvatarWithName from '../avatarWithName';
 
 const commentModel = {
     text: ''
@@ -53,7 +54,7 @@ export default function Comments(props) {
             <Box m={2} >
                 <Grid container spacing={2} justify="center">
                     <Grid item xs={0}>
-                        <Avatar>{`${user.name.charAt(0)}${user.lastName.charAt(0)}`}</Avatar>
+                        <AvatarWithName name={user.name} lastName={user.lastName} noShowName/>
                     </Grid>
                     <Grid item xs={0}>
                         <div className={classes.iconsBottom}>

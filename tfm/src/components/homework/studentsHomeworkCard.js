@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Card, Typography, Avatar, Button, Grid, Box, TextField } from '@material-ui/core'
 import { ColorButton } from './style'
 import HomeworkService from '../../services/homeworkService';
+import AvatarWithName from '../avatarWithName';
 
 const modelCorrection = {
     comment: '',
@@ -38,8 +39,7 @@ export default function StudentsHomeworkCard({homework}) {
         <Card>
             <Box m={2}> 
             <Grid container direction="row" justify="space-evenly" alignItems="center">
-                <Avatar style={{marginLeft: '10px'}}></Avatar>
-                <Typography style={{marginLeft: '10px'}}>{`${homework.student.name} ${homework.student.lastname}`}</Typography>
+                <AvatarWithName name={homework.user.name} lastName={homework.user.lastName} noShowName/>
                 <ColorButton style={{marginLeft: '10px'}}>descargar tarea</ColorButton>
                 <ColorButton style={{marginLeft: '10px'}} onClick={openComment}>corregir</ColorButton>
             </Grid>

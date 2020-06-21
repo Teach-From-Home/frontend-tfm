@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(6),
     height: theme.spacing(6),
     backgroundSize: "cover",
-
+    color: "#d6a82a",
+    backgroundColor: "#303030",
     backgroundPosition: "top center",
 
     borderRadius: "50%",
