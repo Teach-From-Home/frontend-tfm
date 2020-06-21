@@ -101,8 +101,8 @@ export default function PersistentDrawerLeft() {
                   <MenuIcon />
                 </IconButton>
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
               <Button
                 onClick={redirectHome}
                 edge='start'
@@ -120,11 +120,9 @@ export default function PersistentDrawerLeft() {
                   height: "3rem",
                 }}
               >
-                <Tooltip title='Perfil' placement='bottom'>
-                  <span onClick={handleClickMenu}>
-                    <AvatarWithName name={user.name} lastName={user.lastName} noShowName/>
-                  </span>
-                </Tooltip>
+                <span onClick={handleClickMenu}>
+                  <AvatarWithName name={user.name} lastName={user.lastName} noShowName />
+                </span>
                 <Button
                   color='inherit'
                   aria-controls='simple-menu'
@@ -161,8 +159,8 @@ export default function PersistentDrawerLeft() {
                 {theme.direction === "ltr" ? (
                   <ChevronLeftIcon />
                 ) : (
-                  <ChevronRightIcon />
-                )}
+                    <ChevronRightIcon />
+                  )}
               </IconButton>
             </div>
             <Divider />
@@ -181,8 +179,8 @@ export default function PersistentDrawerLeft() {
           </Drawer>
         </div>
       ) : (
-        <div></div>
-      )}
+          <div></div>
+        )}
     </div>
   );
 }

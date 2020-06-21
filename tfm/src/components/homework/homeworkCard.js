@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import TeacherFeedback from "./teacherFeedback";
 import FileUpload from "./fileUpload";
 
-export default function HomeworkCard({ homework,callb }) {
+export default function HomeworkCard({ homework, callb }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -29,6 +29,12 @@ export default function HomeworkCard({ homework,callb }) {
     });
   }
 
+  const uploaded = homework.uploadedHomeworks[0];
+  const uploadedOutOfTerm = () => {
+    if (uploaded)
+      return uploaded.outOfTerm
+  }
+
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -43,9 +49,27 @@ export default function HomeworkCard({ homework,callb }) {
             <Grid item xs={10}>
               <Typography variant='h6'>{homework.title}</Typography>
               <Typography variant='body1'>{homework.description}</Typography>
+              {homework.uploaded ?
+                <span>
+                  {
+                    uploadedOutOfTerm() ?
+                      <Typography variant='body1' color="error">Entregada fuera de termino el {uploaded.uploadDate}</Typography> :
+                      <Typography variant='body1'>Entregada el {uploaded.uploadDate}</Typography>
+                  }
+                </span> :
+                <span>
+                  {
+                    homework.isOnTerm ?
+                      <Typography variant='body1'>Entregar antes del: {homework.deadLine}</Typography> :
+                      <Typography variant='body1' color="error">Vencida el {homework.deadLine}</Typography>
+                  }
+                </span>
+              }
+
+              {console.log(homework)}
               {user.role === "STUDENT" ? (
                 <span>
-                  <hr/>
+                  <hr />
                   <TeacherFeedback homework={homework} />
                   <FileUpload isUploaded={homework.uploaded} callb={callb} homeworkId={homework.id} />
                 </span>
