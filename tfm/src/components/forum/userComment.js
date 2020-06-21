@@ -14,9 +14,10 @@ export default function UserComment({ comment }) {
                 <Grid container xs={'auto'} justify="flex-start" alignItems="center" direction="row">
                 <AvatarWithName name={comment.user.name} lastName={comment.user.lastname} noShowName/><br />
                     <Grid item xs={2} >
-                        <Typography variant="caption">{comment.user.name} {comment.user.lastname}</Typography>
+                        <Typography variant="body3">{comment.user.name} {comment.user.lastname}</Typography>
                     </Grid>
-                    <Grid item xs={3} >
+                    -
+                    <Grid item xs={2} >
                         <Typography variant="caption">{comment.date}</Typography>
                     </Grid>
                 </Grid>

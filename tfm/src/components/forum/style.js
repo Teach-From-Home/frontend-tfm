@@ -1,5 +1,5 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Switch } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,3 +36,18 @@ export const ColorButton = withStyles(theme => ({
       borderRadius: '10px'
     }
 }))(Button);
+
+export const YellowSwitch = withStyles({
+    switchBase: {
+      color: "#e3e3e3",
+      '&$checked': {
+        color: "#d6a82a",
+      },
+      
+      '&$checked + $track': {
+        backgroundColor: "#d6a82a",
+      },
+    },
+    checked: {},
+    track: {backgroundColor: "#a3a3a3",},
+})(Switch);

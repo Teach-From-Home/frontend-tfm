@@ -44,14 +44,15 @@ export const YellowTypography = withStyles({
 
 export const YellowSwitch = withStyles({
     switchBase: {
-      color: "#636363",
+      color: "#e3e3e3",
       '&$checked': {
         color: "#d6a82a",
       },
+      
       '&$checked + $track': {
         backgroundColor: "#d6a82a",
       },
     },
     checked: {},
-    track: {},
+    track: {backgroundColor: "#a3a3a3",},
 })(Switch);

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react'
-import { Grid, Card, Box, Avatar, CardHeader, TextField } from '@material-ui/core';
-import { useStyles, ColorButton } from './style';
+import { Grid, Card, Box, Avatar, CardHeader, TextField, Typography } from '@material-ui/core';
+import { useStyles, ColorButton, YellowSwitch } from './style';
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
 
 const postModel = {
     title: '',
-    text: ''
+    text: '',
+    isPrivate:false,
 }
 
 export default function SearchPost(props) {
@@ -47,6 +48,10 @@ export default function SearchPost(props) {
         return post.text !== '' && post.description !== ''
     }
 
+    const handleSwitchChange = () => {
+        setPost({ ...post, isPrivate: !post.isPrivate });
+    };
+
     return (
         <div className={classes.root}>
             <Card className={classes.searchCard}>
@@ -59,6 +64,12 @@ export default function SearchPost(props) {
                         </Grid>
                         <Grid item xs={12} >
                             <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={50} variant="outlined" onChange={handleInputChange} value={post.text} fullWidth />{/*TODO: validacion de caracteres*/} <br />
+                        </Grid>
+                        <Grid item xs={12} >
+                            {user.role == "STUDENT" ?
+                                <span><Typography> Privado? </Typography><YellowSwitch checked={post.isPrivate} onChange={handleSwitchChange} name="isPrivate" ></YellowSwitch> </span> :
+                                <span></span>}
+
                         </Grid>
                         <Grid item xs={12}>
                             {formHasData() ?

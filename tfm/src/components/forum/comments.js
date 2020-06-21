@@ -63,12 +63,12 @@ export default function Comments(props) {
                             <ColorButton style={{ marginLeft: '10px', marginTop: '10px' }} onClick={sendComment} disabled={!formHasData} >Enviar</ColorButton>
                         </div>
                     </Grid>
-                    <br />
                 </Grid>
+                <br/>
                 {
                     comments.map(c => {
                         
-                        return <span><hr/><UserComment comment={c} key={c.id} /> <br /></span>
+                        return <span><hr/><UserComment comment={c} key={c.id} /></span>
                     })
                 }
 
