@@ -47,7 +47,7 @@ export default function HomeworkCard({ homework, callb, viewStudent }) {
               {user.role === "STUDENT" ? (
                 <span>
                   <TeacherFeedback uploaded={homework.uploadedHomeworks[0]} homework={homework} />
-                  <FileUpload isUploaded={homework.uploaded} callb={callb} homeworkId={homework.id} />
+                  <FileUpload callb={callb} homework={homework} />
                 </span>
               ) : (
                   <div>

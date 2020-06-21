@@ -20,6 +20,10 @@ export default class HomeworkService {
     await axios.post(`${URL}homework/${homeworkId}/user/${userId}`, hw);
   }
 
+  async reUploadHomework(userId, homeworkId, hw) {
+    await axios.put(`${URL}homework/${homeworkId}/user/${userId}`, hw);
+  }
+
   async newHomework(homework, userId, classroomId) {
     const result = await axios.post(
       `${URL}classroom/${classroomId}/homework/user/${userId}`,

@@ -11,7 +11,7 @@ import SnackbarOpen from "../snackbar/snackbar";
 
 firebase.initializeApp(config);
 
-const FileUpload = ({ isUploaded, homeworkId, callb }) => {
+const FileUpload = ({homework, callb }) => {
   const homeworkService = new HomeworkService();
   const { user, setUser } = useContext(UserContext);
 
@@ -22,7 +22,7 @@ const FileUpload = ({ isUploaded, homeworkId, callb }) => {
   });
   const [file, setfile] = useState();
   const [uploadProgress, setuploadProgress] = useState(0);
-  const [uploaded, setuploaded] = useState(isUploaded);
+  const [uploaded, setuploaded] = useState(homework.uploaded);
   const [uploading, setuploading] = useState(false);
 
   const handeUploadStart = () => {
@@ -56,8 +56,9 @@ const FileUpload = ({ isUploaded, homeworkId, callb }) => {
 
   const saveUploadedUrl = (url) => {
     try {
-      homeworkService.uploadHomework(user.id, homeworkId, { file: url })
-      .then(()=>callb())
+      uploaded ?
+      homeworkService.reUploadHomework(user.id, homework.id, { file: url }).then(()=>callb()):
+      homeworkService.uploadHomework(user.id, homework.id, { file: url }).then(()=>callb())
       setSnackbar({
         open: true,
         message: "Archivo subido exitosamente!",
