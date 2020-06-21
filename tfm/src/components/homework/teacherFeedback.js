@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Badge } from "@material-ui/core";
+import UploadedDate from "./uploadedDate";
 
 const teacherFeedback = ({ uploaded, homework }) => {
 
@@ -18,16 +19,12 @@ const teacherFeedback = ({ uploaded, homework }) => {
             <hr />
         </span>
     )
-    
+
     if (!uploaded) return <span></span>
 
     return (
         <div>
-            {
-                uploadedOutOfTerm() ?
-                    <Typography variant='body1' color="error">Entregada fuera de termino el {uploaded.uploadDate}</Typography> :
-                    <Typography variant='body1'>Entregada el {uploaded.uploadDate}</Typography>
-            }
+            <UploadedDate uploadedOutOfTerm={uploadedOutOfTerm()} uploadDate={uploaded.uploadDate} />
             <hr />
             {uploaded.grade ?
                 <div>
