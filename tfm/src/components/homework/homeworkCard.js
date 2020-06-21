@@ -65,8 +65,6 @@ export default function HomeworkCard({ homework, callb }) {
                   }
                 </span>
               }
-
-              {console.log(homework)}
               {user.role === "STUDENT" ? (
                 <span>
                   <hr />
