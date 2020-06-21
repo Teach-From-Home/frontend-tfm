@@ -66,7 +66,6 @@ export default function EditPostDialog(props) {
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} maxWidth={"sm"} spacing={2}>
             <DialogContent>
-                {console.log(user.editPost)}
                 {
                     user.editPost ?
                         <Box m={2}>

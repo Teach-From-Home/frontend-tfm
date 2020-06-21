@@ -25,7 +25,6 @@ const teacherFeedback = ({ uploaded, homework }) => {
     return (
         <div>
             <UploadedDate uploadedOutOfTerm={uploadedOutOfTerm()} uploadDate={uploaded.uploadDate} />
-            <hr />
             {uploaded.grade ?
                 <div>
                     <Typography variant="h5" gutterBottom>Correccion</Typography>

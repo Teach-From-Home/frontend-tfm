@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { Card, Typography, Avatar, Button, Grid, Box, TextField } from '@material-ui/core'
+import React, { useState, useEffect } from 'react'
+import { Card, Grid, Box, TextField } from '@material-ui/core'
 import { ColorButton } from './style'
 import HomeworkService from '../../services/homeworkService';
 import AvatarWithName from '../avatarWithName';
+import UploadedDate from './uploadedDate';
+import Icon from '@material-ui/core/Icon';
 
 const modelCorrection = {
     comment: '',
@@ -15,6 +17,13 @@ export default function StudentsHomeworkCard({homework}) {
 
     const [showComment, setShowComment] = useState(false);
     const [correction, setCorrection] = useState(modelCorrection);
+
+    useEffect(() => {
+        setCorrection({
+            comment: homework.coment,
+            grade: homework.grade
+        });
+    }, []);
 
     const openComment = () => {
         setShowComment(!showComment);
@@ -38,10 +47,17 @@ export default function StudentsHomeworkCard({homework}) {
     return (
         <Card>
             <Box m={2}> 
+            <Grid container direction="row" alignItems="center" spacing={2}>
+                <Grid item>
+                    <AvatarWithName name={homework.student.name} lastName={homework.student.lastname} noShowName/>                
+                </Grid>
+                <Grid item>
+                    <UploadedDate uploadedOutOfTerm={homework.outOfTerm} uploadDate={homework.uploadDate}/>
+                </Grid>
+            </Grid>
             <Grid container direction="row" justify="space-evenly" alignItems="center">
-                <AvatarWithName name={homework.user.name} lastName={homework.user.lastName} noShowName/>
-                <ColorButton style={{marginLeft: '10px'}}>descargar tarea</ColorButton>
-                <ColorButton style={{marginLeft: '10px'}} onClick={openComment}>corregir</ColorButton>
+                <ColorButton style={{marginLeft: '10px'}}><Icon>get_app</Icon>descargar</ColorButton>
+                <ColorButton style={{marginLeft: '10px'}} onClick={openComment}>{homework.coment ? 'ver correccion' : 'corregir'}</ColorButton>
             </Grid>
             {
                 showComment ?
@@ -49,7 +65,7 @@ export default function StudentsHomeworkCard({homework}) {
                         <TextField label='Comentario' name='comment' value={correction.comment} onChange={update}></TextField>
                         <TextField label='Nota' type='number' name='grade' value={correction.grade} onChange={update} InputProps={{
                             inputProps: { 
-                                max: 10, min: 0 
+                                max: 10, min: 1
                             }
                         }}></TextField>
                         <ColorButton onClick={correct}>Enviar</ColorButton>

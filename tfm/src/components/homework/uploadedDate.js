@@ -9,6 +9,7 @@ const UploadedDate = ({uploadedOutOfTerm,uploadDate}) => {
                     <Typography variant='body1' color="error">Entregada fuera de termino el {uploadDate}</Typography> :
                     <Typography variant='body1'>Entregada el {uploadDate}</Typography>
             }
+            <hr/>
         </div>
     )
 }
