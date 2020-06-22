@@ -33,8 +33,11 @@ export default function Forum() {
     }
 
     const getForumPosts = async () => {
+
+        let classroomId = localStorage.getItem('classroomId');
+
         try {
-            let posts = await forumService.getForumPosts(user.id, user.selectedClassroom.id);
+            let posts = await forumService.getForumPosts(user.id, classroomId);
             setPosts(posts);
             setIsLoaded(true);
         } catch (err) {

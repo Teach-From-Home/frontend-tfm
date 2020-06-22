@@ -25,8 +25,11 @@ export default function TeacherCard(props) {
     }, [])
 
     const getHomeworksTeacher = async () => {
+
+        let classroomId = localStorage.getItem('classroomId');
+
         try {
-            let homeworks = await homeworkService.getHomework(user.id, user.selectedClassroom.id);
+            let homeworks = await homeworkService.getHomework(user.id, classroomId);
             setHomeworks(homeworks);
         } catch (err) {
             setSnackbar({
@@ -40,21 +43,13 @@ export default function TeacherCard(props) {
     return (
         <Fragment>
             <Box m={5}>
-                <Grid container
-                    direction="row"
-                    justify="center"
-                    alignItems="space-between"
-                    container
-                
-                >
-                    
+                <Grid container direction="row" justify="center" >
                     <Grid item xs>
                         <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
                         <NewHomework setSnackbar={setSnackbar} getHomeworksTeacher={getHomeworksTeacher}></NewHomework>
                     </Grid>
                     <hr/>
                     <Grid item xs>
-                        
                         <YellowTypography variant="h6">VER TAREA</YellowTypography>
                         {
                             homeworks ? 
@@ -65,7 +60,6 @@ export default function TeacherCard(props) {
                             <div></div>
                         }
                     </Grid>
-                    
                 </Grid>
             </Box>
         </Fragment>

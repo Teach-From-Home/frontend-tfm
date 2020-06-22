@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Grid, Avatar, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import AvatarWithName from '../avatarWithName';
 
 export default function UserComment({ comment }) {
@@ -11,10 +11,10 @@ export default function UserComment({ comment }) {
                 direction="row"
                 justify="flex-start"
                 alignItems="center">
-                <Grid container xs={'auto'} justify="flex-start" alignItems="center" direction="row">
+                <Grid container justify="flex-start" alignItems="center" direction="row">
                 <AvatarWithName name={comment.user.name} lastName={comment.user.lastname} noShowName/><br />
                     <Grid item xs={2} >
-                        <Typography variant="body3">{comment.user.name} {comment.user.lastname}</Typography>
+                        <Typography>{comment.user.name} {comment.user.lastname}</Typography>
                     </Grid>
                     -
                     <Grid item xs={2} >

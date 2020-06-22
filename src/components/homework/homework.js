@@ -34,24 +34,28 @@ export default function Homework() {
   };
 
   const getHomeworks = async () => {
-      try {
-        let homeworks = await homeworkService.getHomework(
-          user.id,
-          user.selectedClassroom.id
-        );
-        setHomeworks(homeworks);
-      } catch (err) {
-        setSnackbar({
-          open: true,
-          message: "Error al cargar las tarear intente nuevamente",
-          severity: "info",
-        });
-        setHomeworks([])
-      }
+    
+    let userId = localStorage.getItem('userId');
+    let classroomId = localStorage.getItem('classroomId');
+
+    try {
+      let homeworks = await homeworkService.getHomework(
+        userId,
+        classroomId
+      );
+      setHomeworks(homeworks);
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: "Error al cargar las tarear intente nuevamente",
+        severity: "info",
+      });
+      setHomeworks([])
+    }
   };
 
   return (
-    <div className={classes.asd}>
+    <div>
       {user.role === "STUDENT" ? (
         <div className={classes.backgroundImg}>
           {homeworks ? (

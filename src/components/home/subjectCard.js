@@ -21,6 +21,8 @@ export default function SubjectCard({ classroom }) {
             ...user,
             selectedClassroom: classroom
         });
+        localStorage.setItem('selectedClassroom', classroom.id);
+        fillLocalStorage();
         history.push('/forum');
     }
 
@@ -29,6 +31,8 @@ export default function SubjectCard({ classroom }) {
             ...user,
             selectedClassroom: classroom
         });
+        localStorage.setItem('selectedClassroom', classroom.id);
+        fillLocalStorage();
         history.push('/homework');
     }
 
@@ -37,8 +41,14 @@ export default function SubjectCard({ classroom }) {
             ...user,
             selectedClassroom: classroom
         });
-        if (user.role === 'TEACHER') classroomService.goLive(classroom.id);
+        if(user.role === 'TEACHER') classroomService.goLive(classroom.id);
+        fillLocalStorage();
         history.push('/call');
+    }
+
+    const fillLocalStorage = () => {
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('classroomId', classroom.id);
     }
 
     return (

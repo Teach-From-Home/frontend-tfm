@@ -26,8 +26,11 @@ export default function SearchPost(props) {
     }
 
     const sendPost = () => {
+
+        let classroomId = localStorage.getItem('classroomId');
+
         try {
-            forumService.newPost(post, user.id, user.selectedClassroom.id)
+            forumService.newPost(post, user.id, classroomId)
                 .then(() => getForumPosts());
             setPost(postModel);
             setSnackbar({
@@ -59,16 +62,14 @@ export default function SearchPost(props) {
                 <Box m={2}>
                     <Grid container spacing={1}>
 
-                        <Grid item xs={0}>
+                        <Grid item xs={'auto'}>
                             <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br /><br />
                         </Grid>
                         <Grid item xs={12} >
                             <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={50} variant="outlined" onChange={handleInputChange} value={post.text} fullWidth />{/*TODO: validacion de caracteres*/} <br />
                         </Grid>
                         <Grid item xs={12} >
-    
                                 <span><Typography> Privado? </Typography><YellowSwitch checked={post.isPrivate} onChange={handleSwitchChange} name="isPrivate" ></YellowSwitch> </span>
-
                         </Grid>
                         <Grid item xs={12}>
                             {formHasData() ?
