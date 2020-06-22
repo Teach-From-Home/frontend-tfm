@@ -5,7 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 
 
 const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur', 'raisehand', 'tileview'];
-const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone', 'raisehand', 'tileview'];
+const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone', 'raisehand', 'tileview','chat'];
 
 const JitsiVideo = () => {
 
