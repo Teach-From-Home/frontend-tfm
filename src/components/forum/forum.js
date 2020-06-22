@@ -61,7 +61,7 @@ export default function Forum() {
                         return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} getForumPosts={getForumPosts}/>
                     })
                 :
-                <CircularProgress style={{color:'#636363', marginLeft: '10px', marginTop: '80px'}} />
+                <div><CircularProgress size={100} style={{color:'#636363', marginTop: '90px'}}/></div> 
             }
             <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </div>

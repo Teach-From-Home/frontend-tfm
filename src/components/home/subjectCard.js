@@ -41,7 +41,7 @@ export default function SubjectCard({ classroom }) {
             ...user,
             selectedClassroom: classroom
         });
-        if(user.role === 'TEACHER') classroomService.goLive(classroom.id);
+        if (user.role === 'TEACHER') classroomService.goLive(classroom.id);
         fillLocalStorage();
         history.push('/call');
     }
@@ -54,7 +54,7 @@ export default function SubjectCard({ classroom }) {
     return (
         <div className={classes.root}>
             <Card className={classes.card}>
-                <Box m={2}>
+                <Box m={1}>
                     <Grid container spacing={3} direction="column" alignItems="center">
                         <Grid item xs>
                             <Grid container direction="column" justify="center" alignItems="flex-start">
@@ -70,19 +70,10 @@ export default function SubjectCard({ classroom }) {
                         <Grid item xs className={classes.buttons} >
                             <Grid container
                                 direction="row" alignItems="center" justify="center"
-                                container
                             >
                                 <ColorButton className={classes.button} onClick={redirectForum}>Foro</ColorButton>
                                 <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton>
-                                {
-                                    user.role === 'STUDENT' ?
-                                        classroom.live ?
-                                            <ColorButton className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
-                                            :
-                                            <ColorButton disabled className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
-                                        :
-                                        <ColorButton className={classes.button} onClick={redirectCall}>Crear</ColorButton>
-                                }
+                                <ColorButton className={classes.button} onClick={redirectCall}>Clase</ColorButton>
                             </Grid>
                         </Grid>
                     </Grid>
