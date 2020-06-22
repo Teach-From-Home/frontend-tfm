@@ -10,12 +10,14 @@ import SnackbarOpen from '../snackbar/snackbar';
 import { UserContext } from '../../userContext';
 import LoginService from '../../services/loginService';
 import { ColorButton } from '../homework/style';
+import { CircularProgress } from '@material-ui/core';
 
 const Login = ({ loginUser }) => {
   const classes = style();
   let history = useHistory();
   const loginService = new LoginService();
   const {user, setUser} = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false)
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
@@ -43,9 +45,11 @@ const Login = ({ loginUser }) => {
 
   const login = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     try {
-      let dataUser = await loginService.login(userToLog);
+      let dataUser = await loginService.login(userToLog)
       setUser(dataUser);
+      setIsLoading(false);
       redirect();
     } catch (err) {
       setSnackbar({
@@ -68,7 +72,7 @@ const Login = ({ loginUser }) => {
   }
 
   const loginButtonDisabled = () => {
-    return isEmpty(userToLog.password) || isEmpty(userToLog.dni);
+    return isEmpty(userToLog.password) || isEmpty(userToLog.dni) || isLoading;
   }
 
   const isEmpty = (aField) => {
@@ -121,6 +125,7 @@ const Login = ({ loginUser }) => {
               >
                 Login
               </ColorButton>
+              {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
             </div>
           </form>
         </div>

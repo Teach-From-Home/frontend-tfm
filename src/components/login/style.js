@@ -21,6 +21,7 @@ export default makeStyles(theme => ({
       left: '50%',
       marginTop: -12,
       marginLeft: -12,
+      color:'#636363'
     },
     wrapper: {
       margin: theme.spacing(1),

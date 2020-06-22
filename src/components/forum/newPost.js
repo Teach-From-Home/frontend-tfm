@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Grid, Card, Box, Avatar, CardHeader, TextField, Typography } from '@material-ui/core';
+import { Grid, Card, Box, Avatar, CardHeader, TextField, Typography, CircularProgress } from '@material-ui/core';
 import { useStyles, ColorButton, YellowSwitch } from './style';
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
@@ -7,13 +7,14 @@ import { UserContext } from '../../userContext'
 const postModel = {
     title: '',
     text: '',
-    isPrivate:false,
+    isPrivate: false,
 }
 
 export default function SearchPost(props) {
     const classes = useStyles();
     const [post, setPost] = useState(postModel);
     const { user, setUser } = useContext(UserContext);
+    const [isLoading, setisLoading] = useState(false)
 
     const setSnackbar = props.setSnackbar;
     const getForumPosts = props.getForumPosts;
@@ -30,20 +31,25 @@ export default function SearchPost(props) {
         let classroomId = localStorage.getItem('classroomId');
 
         try {
-            forumService.newPost(post, user.id, classroomId)
-                .then(() => getForumPosts());
+            setisLoading(true)
+            forumService.newPost(post, user.id, user.selectedClassroom.id)
+                .then(() => {
+                    getForumPosts()
+                    setisLoading(false)
+                    setSnackbar({
+                        open: true,
+                        message: 'Nuevo post agregado exitosamente!',
+                        severity: 'success'
+                    });
+                });
             setPost(postModel);
-            setSnackbar({
-                open: true,
-                message: 'Nuevo post agregado exitosamente!',
-                severity: 'success'
-            });
         } catch (err) {
             setSnackbar({
                 open: true,
                 message: 'err.response.data.message', //todo ERROR ESTE
                 severity: 'error'
             });
+            setisLoading(false)
         }
     }
 
@@ -72,11 +78,10 @@ export default function SearchPost(props) {
                                 <span><Typography> Privado? </Typography><YellowSwitch checked={post.isPrivate} onChange={handleSwitchChange} name="isPrivate" ></YellowSwitch> </span>
                         </Grid>
                         <Grid item xs={12}>
-                            {formHasData() ?
-                                <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
-                                :
-                                <ColorButton className={classes.button} onClick={sendPost} disabled>Enviar</ColorButton>
-                            }
+                                {isLoading ? 
+                                <CircularProgress size={24} className={classes.buttonProgress} />: 
+                                <ColorButton className={classes.button} onClick={sendPost} disabled={!formHasData()}>Enviar</ColorButton>
+                                }
                         </Grid>
                     </Grid>
                 </Box>
