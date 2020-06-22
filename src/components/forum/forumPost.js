@@ -120,7 +120,7 @@ export default function ForumPost(props) {
                 }
                 {
                     user.editPost ?
-                        <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar}></EditPostDialog>
+                        <EditPostDialog open={open} onClose={handleClose} setSnackbar={setSnackbar} key={post.id}></EditPostDialog>
                         :
                         <div></div>
                 }

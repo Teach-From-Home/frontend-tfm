@@ -71,7 +71,7 @@ export default function EditPostDialog(props) {
                         <Box m={2}>
                             <Grid container spacing={1}>
 
-                                <Grid item xs={0}>
+                                <Grid item xs={'auto'}>
                                     <TextField label="Ingrese el titulo" name="title" variant="outlined" onChange={handleInputChange} value={post.title}></TextField><br /><br />
                                 </Grid>
                                 <Grid item xs={12} >

@@ -11,7 +11,6 @@ export default function HomeworkCard({ homework, callb, viewStudent }) {
   const classes = useStyles();
   const history = useHistory();
 
-
   const { user, setUser } = useContext(UserContext);
 
   const redirectStudentHomework = () => {

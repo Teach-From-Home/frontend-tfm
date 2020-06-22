@@ -9,6 +9,7 @@ export default class LoginService {
   }
   
   logout() {
+    localStorage.clear();
     sessionStorage.clear();
   }
 }

@@ -36,6 +36,9 @@ export default function NewHomework(props) {
     }
 
     const sendHomework = () => {
+
+        let classroomId = localStorage.getItem('classroomId');
+
         if(user.modifyHomework){
             try {
                 let homeworkModified = {};
@@ -59,7 +62,8 @@ export default function NewHomework(props) {
             }
         }else{
             try {
-                homeworkService.newHomework(homework, user.id, user.selectedClassroom.id)
+                debugger;
+                homeworkService.newHomework(homework, user.id, classroomId)
                 .then(() => getHomeworksTeacher());
                 setHomework(modelHomework);
                 setSnackbar({

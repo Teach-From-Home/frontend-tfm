@@ -43,6 +43,7 @@ export default function PersistentDrawerLeft() {
       ...user,
       selectedClassroom: null,
     });
+    localStorage.clear();
     history.push("/");
   };
 
@@ -71,10 +72,10 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleLogout = () => {
-    handleMenuClose()
-    setUser(null)
-    history.push('/login')
-    loginService.logout()
+    handleMenuClose();
+    setUser(null);
+    history.push('/login');
+    loginService.logout();
   };
 
   return (
@@ -90,7 +91,7 @@ export default function PersistentDrawerLeft() {
             style={{ backgroundColor: "#636363" }}
           >
             <Toolbar>
-              {user.selectedClassroom ? (
+              {localStorage.getItem('classroomId') ? (
                 <IconButton
                   color='inherit'
                   aria-label='open drawer'
