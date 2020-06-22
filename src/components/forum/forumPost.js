@@ -102,7 +102,7 @@ export default function ForumPost(props) {
                     </Grid>
                     <div className={classes.iconsBottom}>
                         <Grid container spacing={2}>
-                            <Button onClick={openComments}>{comments.length === 1 ? `${comments.length} comentario` : `${comments.length} comentarios`}</Button>
+                            <Button onClick={openComments}> <Icon>chat</Icon>{comments.length}</Button>
                             {
                                 canEdit() ? <Button onClick={handleClickOpen}>Editar</Button> : <div></div>
                             }
