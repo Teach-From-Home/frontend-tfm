@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Typography, Grid, Card, Box, Button, Divider, Badge } from '@material-ui/core';
+import { Typography, Grid, Card, Box, Button, Divider } from '@material-ui/core';
 import { useStyles, StyledBadge } from './style';
 import AvatarWithName from '../avatarWithName';
 import Comments from './comments';
