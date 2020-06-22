@@ -63,7 +63,7 @@ export default function Home() {
                             return (<SubjectCard classroom={c} key={c.id}></SubjectCard>)
                         })
                     :
-                    <div><CircularProgress /></div> 
+                    <div><CircularProgress size={100} style={{color:'#d6a82a', marginTop: '300px'}}/></div> 
                 }
                 <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
             </div>

@@ -47,7 +47,7 @@ export default function Homework() {
     } catch (err) {
       setSnackbar({
         open: true,
-        message: "Error al cargar las tarear intente nuevamente",
+        message: "No hay tareas para mostar",
         severity: "info",
       });
       setHomeworks([])
@@ -63,7 +63,7 @@ export default function Homework() {
               return <HomeworkCard callb={getHomeworks} homework={h} key={h.id} />;
             })
           ) : (
-            <CircularProgress />
+            <CircularProgress size={100} style={{color:'#d6a82a', marginTop: '300px'}}/>
           )}
         </div>
       ) : (
