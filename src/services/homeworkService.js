@@ -1,5 +1,6 @@
 import axios from "axios";
 import { URL } from "./URL";
+import { DialogTitle } from "@material-ui/core";
 
 export default class HomeworkService {
   async getHomework(userId, classroomId) {
@@ -25,10 +26,16 @@ export default class HomeworkService {
   }
 
   async newHomework(homework, userId, classroomId) {
-    const result = await axios.post(
-      `${URL}classroom/${classroomId}/homework/user/${userId}`,
-      homework
-    );
+    const { title, description, available, deadLine } = homework;
+
+    let hs = {
+      title: title,
+      description: description,
+      available: available,
+      deadLine: deadLine.format("DD/MM/yyyy")
+    }
+
+    const result = await axios.post(`${URL}classroom/${classroomId}/homework/user/${userId}`, hs);
     return result.data;
   }
 

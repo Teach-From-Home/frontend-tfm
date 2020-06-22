@@ -1,14 +1,51 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, Box, Grid, Card, Typography  } from '@material-ui/core';
+import { TextField, Box, Grid, Card, Typography, createMuiTheme, ThemeProvider  } from '@material-ui/core';
 import { ColorButton, useStyles, YellowSwitch } from './style';
 import HomeworkService from '../../services/homeworkService';
 import { UserContext } from '../../userContext';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import moment from 'moment';
 
 const modelHomework = {
     title: '',
     description: '',
-    available: false
+    available: false,
+    deadLine: moment()
 }
+
+const materialTheme = createMuiTheme({
+    overrides: {
+      MuiPickersToolbar: {
+        toolbar: {
+          backgroundColor: '#d6a82a',
+        },
+      },
+      MuiPickersCalendarHeader: {
+        switchHeader: {
+          // backgroundColor: lightBlue.A200,
+          // color: "white",
+        },
+      },
+      MuiPickersDay: {
+        day: {
+          color: '#d6a82a',
+        },
+        daySelected: {
+          backgroundColor: '#d6a82a',
+        },
+        current: {
+          color: '#d6a82a',
+        },
+      },
+      MuiButton: {
+        textPrimary: {
+            color: '#d6a82a',
+        }
+      }
+    },
+});
 
 export default function NewHomework(props) {
     const classes = useStyles();
@@ -18,13 +55,23 @@ export default function NewHomework(props) {
 
     const [homework, setHomework] = useState(modelHomework);
     const [switchCheck, setSwitchCheck] = useState(false);
+
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
         if(user.modifyHomework){
-            setHomework(user.modifyHomework); 
+            let deadLine = moment(user.modifyHomework.deadLine, 'DD/MM/yyyy'); //TE ODIO
+
+            setHomework({
+                title: user.modifyHomework.title,
+                description: user.modifyHomework.description,
+                available: user.modifyHomework.available,
+                deadLine: deadLine
+            });
+
             setSwitchCheck(user.modifyHomework.available);
+           
         } 
     }, [user])
 
@@ -32,6 +79,13 @@ export default function NewHomework(props) {
         setHomework({
           ...homework,
           [e.target.name]: e.target.value
+        });
+    }
+
+    const changeDeadLine = (date) => {
+        setHomework({
+            ...homework,
+            deadLine: date
         });
     }
 
@@ -45,6 +99,7 @@ export default function NewHomework(props) {
                 homeworkModified.title = homework.title;
                 homeworkModified.description = homework.description;
                 homeworkModified.available = switchCheck;
+                homeworkModified.deadLine = homework.deadLine.format("DD/MM/yyyy");
                 homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id)
                 .then(() => getHomeworksTeacher());
                 setHomework(modelHomework);
@@ -62,7 +117,6 @@ export default function NewHomework(props) {
             }
         }else{
             try {
-                debugger;
                 homeworkService.newHomework(homework, user.id, classroomId)
                 .then(() => getHomeworksTeacher());
                 setHomework(modelHomework);
@@ -107,6 +161,19 @@ export default function NewHomework(props) {
                         <TextField variant="outlined" margin="normal" name="description" label="Descripcion" id="description" multiline value={homework.description} onChange={update}></TextField>
                         <Typography>Disponible</Typography>
                         <YellowSwitch checked={switchCheck} onChange={handleChange} name="switchCheck"></YellowSwitch>
+                        <ThemeProvider theme={materialTheme}>
+                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                                <KeyboardDatePicker
+                                    clearable
+                                    value={homework.deadLine}
+                                    name="deadLine"
+                                    placeholder="Fecha limite"
+                                    onChange={changeDeadLine}
+                                    minDate={moment()}
+                                    format="DD/MM/yyyy"
+                                />
+                            </MuiPickersUtilsProvider>
+                        </ThemeProvider>
                         <Grid item >
                             <ColorButton className={classes.button} onClick={cancel} style={{marginLeft: '10px'}}>Cancelar</ColorButton>
                             { formHasData() ?
