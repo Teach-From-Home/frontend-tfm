@@ -4,8 +4,8 @@ import { UserContext } from '../../userContext';
 import { CircularProgress } from '@material-ui/core';
 
 
-const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur','raisehand'];
-const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone','raisehand',];
+const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur','raisehand','tileview'];
+const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone','raisehand','tileview'];
 
 const JitsiVideo = () => {
 
@@ -28,14 +28,15 @@ const JitsiVideo = () => {
           remoteVideoMenu: {
             disableKick: user.role === 'STUDENT',
           },
+          JITSI_WATERMARK_LINK: 'https://teach-from-home.web.app/'
         }}
         containerStyle={{ width: '100%', height: '100%' }}
         interfaceConfig={{
           SHOW_JITSI_WATERMARK: false,
-          TOOLBAR_BUTTONS: user.role === 'STUDENT' ? studentButtons : teacherButtons
+          TOOLBAR_BUTTONS: user.role === 'STUDENT' ? studentButtons : teacherButtons,
+          SHOW_CHROME_EXTENSION_BANNER: false,
         }}
         roomName={`TFM--${roomName}`}
-        password={`${roomName}-_-TFM-proyecto`}
         displayName={userFullName}
         loadingComponent={loader}
       />
