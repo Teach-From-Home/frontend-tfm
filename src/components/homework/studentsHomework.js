@@ -14,7 +14,7 @@ export default function StudentsHomework() {
         severity: "success",
     });
     
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     const homeworkService = new HomeworkService();
 
@@ -30,6 +30,7 @@ export default function StudentsHomework() {
 
     useEffect(() => {
         getStudentsHomework();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getStudentsHomework = async () => {

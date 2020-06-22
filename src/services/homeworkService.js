@@ -1,6 +1,5 @@
 import axios from "axios";
 import { URL } from "./URL";
-import { DialogTitle } from "@material-ui/core";
 
 export default class HomeworkService {
   async getHomework(userId, classroomId) {

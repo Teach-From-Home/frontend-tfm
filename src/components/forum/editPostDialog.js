@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Card, Box, Avatar, CardHeader, TextField, CircularProgress } from '@material-ui/core';
+import { Grid, Box, TextField, CircularProgress } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogContent } from '@material-ui/core';
 import { useStyles, ColorButton } from './style';
@@ -17,7 +17,7 @@ export default function EditPostDialog(props) {
 
     const { onClose, open, setSnackbar } = props;
 
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [post, setPost] = useState(user.editPost);
     const [loading, setloading] = useState(false)

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Typography, Grid, Card, Box, Avatar } from "@material-ui/core";
+import { Typography, Grid, Card, Box } from "@material-ui/core";
 import { useStyles, ColorButton } from "./style";
 import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";

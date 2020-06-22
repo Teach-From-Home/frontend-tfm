@@ -9,7 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Homework() {
   const classes = useStyles();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [homeworks, setHomeworks] = useState();
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -21,6 +21,7 @@ export default function Homework() {
 
   useEffect(() => {
     getHomeworks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closeSnackbar = (event, reason) => {

@@ -22,13 +22,14 @@ export default function StudentsHomeworkCard(props) {
     const [showComment, setShowComment] = useState(false);
     const [correction, setCorrection] = useState(modelCorrection);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         setCorrection({
             coment: homework.coment,
             grade: homework.grade
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const openComment = () => {
@@ -83,7 +84,7 @@ export default function StudentsHomeworkCard(props) {
                             </Grid>
 
                             <Grid item >
-                                <a href={homework.file} target="_blank" style={{ color: "inherit", textDecoration: "inherit" }} download><ColorButton style={{ marginLeft: '10px' }}><Icon>get_app</Icon> descargar</ColorButton></a>
+                                <a href={homework.file} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "inherit" }} download><ColorButton style={{ marginLeft: '10px' }}><Icon>get_app</Icon> descargar</ColorButton></a>
                                 <ColorButton style={{ marginLeft: '10px' }} onClick={openComment}>{homework.coment ? 'ver correccion' : 'corregir'}</ColorButton>
                             </Grid>
                         </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Grid, Box, Avatar, CardHeader, TextField, Typography, Divider, CircularProgress } from '@material-ui/core';
+import { Grid, Box, TextField, CircularProgress } from '@material-ui/core';
 import { useStyles, ColorButton } from './style';
 import UserComment from './userComment';
 import ForumService from '../../services/forumService';
@@ -13,7 +13,7 @@ const commentModel = {
 export default function Comments(props) {
     const classes = useStyles();
     const [comment, setComment] = useState(commentModel)
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [isLoading, setisLoading] = useState(false)
 
     const postId = props.postId;

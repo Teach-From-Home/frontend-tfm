@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Grid, Card, Box, Avatar, CardHeader, TextField, Typography, CircularProgress } from '@material-ui/core';
+import { Grid, Card, Box, CardHeader, TextField, Typography, CircularProgress } from '@material-ui/core';
 import { useStyles, ColorButton, YellowSwitch } from './style';
 import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
@@ -13,7 +13,7 @@ const postModel = {
 export default function SearchPost(props) {
     const classes = useStyles();
     const [post, setPost] = useState(postModel);
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [isLoading, setisLoading] = useState(false)
 
     const setSnackbar = props.setSnackbar;
@@ -27,8 +27,6 @@ export default function SearchPost(props) {
     }
 
     const sendPost = () => {
-
-        let classroomId = localStorage.getItem('classroomId');
 
         try {
             setisLoading(true)

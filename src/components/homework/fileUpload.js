@@ -6,20 +6,20 @@ import config from "../../config";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import HomeworkService from "../../services/homeworkService";
 import { UserContext } from "../../userContext";
-import { Typography } from "@material-ui/core";
 import SnackbarOpen from "../snackbar/snackbar";
 
 firebase.initializeApp(config);
 
 const FileUpload = ({homework, callb }) => {
   const homeworkService = new HomeworkService();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
+  // eslint-disable-next-line no-unused-vars
   const [file, setfile] = useState();
   const [uploadProgress, setuploadProgress] = useState(0);
   const [uploaded, setuploaded] = useState(homework.uploaded);

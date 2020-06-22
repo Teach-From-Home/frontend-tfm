@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Badge } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import UploadedDate from "./uploadedDate";
 
 const teacherFeedback = ({ uploaded, homework }) => {

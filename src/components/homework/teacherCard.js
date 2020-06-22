@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { Typography, Grid, TextField, Icon, Box, CircularProgress } from '@material-ui/core';
+import {  Grid, Box, CircularProgress } from '@material-ui/core';
 import { YellowTypography } from './style';
 import HomeworkCard from './homeworkCard';
 import NewHomework from './newHomework';
@@ -11,7 +11,6 @@ export default function TeacherCard(props) {
     const [homeworks, setHomeworks] = useState();
 
     const setSnackbar = props.setSnackbar;
-    const getHomeworks = props.getHomeworks;
 
     const homeworkService = new HomeworkService();
     const {user, setUser} = useContext(UserContext);
@@ -22,6 +21,7 @@ export default function TeacherCard(props) {
             ...user,
             selectedHomework: null
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getHomeworksTeacher = async () => {

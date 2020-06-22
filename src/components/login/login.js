@@ -16,7 +16,7 @@ const Login = ({ loginUser }) => {
   const classes = style();
   let history = useHistory();
   const loginService = new LoginService();
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false)
   const [snackbar, setSnackbar] = useState({
     open: false,

@@ -60,9 +60,6 @@ export const useStyles = makeStyles((theme) => ({
       }),
       marginLeft: 0,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
     title: {
       flexGrow: 1,
     },

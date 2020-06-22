@@ -1,23 +1,21 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { Typography, Grid, Box, Avatar } from '@material-ui/core';
-import { useStyles, ColorButton } from './style';
+import { Grid, Box } from '@material-ui/core';
+import { useStyles } from './style';
 import UserData from './userData';
 import { UserContext } from '../../userContext';
 import ProfileService from '../../services/profileService';
 import Calendar from './calendar'
 
-const modelProfile = {
-
-}
 
 export default function Profile() {
     const classes = useStyles();
     const [profile, setProfile] = useState();
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const profileService = new ProfileService();
 
-    useEffect(() => { 
+    useEffect(() => {
         getProfile();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getProfile = async () => {

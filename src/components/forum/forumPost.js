@@ -23,6 +23,7 @@ export default function ForumPost(props) {
 
     useEffect(() => {
         getComments();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //Para abrir el dialog

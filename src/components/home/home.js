@@ -22,6 +22,7 @@ export default function Home() {
 
     useEffect(() => {
         getClassrooms()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const closeSnackbar = (event, reason) => {

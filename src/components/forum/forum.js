@@ -7,9 +7,8 @@ import SnackbarOpen from '../snackbar/snackbar'
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Forum() {
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [posts, setPosts] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: '',
@@ -20,7 +19,8 @@ export default function Forum() {
 
     useEffect(() => {
         getForumPosts();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     const closeSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
@@ -39,7 +39,6 @@ export default function Forum() {
         try {
             let posts = await forumService.getForumPosts(user.id, classroomId);
             setPosts(posts);
-            setIsLoaded(true);
         } catch (err) {
             setSnackbar({
                 open: true,
