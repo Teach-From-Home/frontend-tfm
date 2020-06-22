@@ -66,9 +66,8 @@ export default function SearchPost(props) {
                             <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={50} variant="outlined" onChange={handleInputChange} value={post.text} fullWidth />{/*TODO: validacion de caracteres*/} <br />
                         </Grid>
                         <Grid item xs={12} >
-                            {user.role == "STUDENT" ?
-                                <span><Typography> Privado? </Typography><YellowSwitch checked={post.isPrivate} onChange={handleSwitchChange} name="isPrivate" ></YellowSwitch> </span> :
-                                <span></span>}
+    
+                                <span><Typography> Privado? </Typography><YellowSwitch checked={post.isPrivate} onChange={handleSwitchChange} name="isPrivate" ></YellowSwitch> </span>
 
                         </Grid>
                         <Grid item xs={12}>

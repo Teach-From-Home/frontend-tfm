@@ -8,10 +8,10 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../userContext'
 import ClassroomService from '../../services/classroomService';
 
-export default function SubjectCard({classroom}) {
+export default function SubjectCard({ classroom }) {
     const classes = useStyles();
     const history = useHistory();
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const subject = classroom.subject;
 
     const classroomService = new ClassroomService();
@@ -37,7 +37,7 @@ export default function SubjectCard({classroom}) {
             ...user,
             selectedClassroom: classroom
         });
-        if(user.role === 'TEACHER') classroomService.goLive(classroom.id);
+        if (user.role === 'TEACHER') classroomService.goLive(classroom.id);
         history.push('/call');
     }
 
@@ -45,30 +45,35 @@ export default function SubjectCard({classroom}) {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <Box m={2}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={9}>
-                            <Grid container direction="column" justify="flex-start" alignItems="flex-start">
+                    <Grid container spacing={3} direction="column" alignItems="center">
+                        <Grid item xs>
+                            <Grid container direction="column" justify="center" alignItems="flex-start">
                                 <YellowTypography component="h3" variant="h4">{subject.name}</YellowTypography>
                                 <Typography component="h5" variant="h5">{classroom.name}</Typography>
                                 {
-                                    classroom.teachers.map( t => {
+                                    classroom.teachers.map(t => {
                                         return <Typography component="h5" variant="h5" key={t}>{t}</Typography>
                                     })
                                 }
                             </Grid>
                         </Grid>
-                        <Grid item xs className={classes.buttons}>
-                            <ColorButton className={classes.button} onClick={redirectForum}>Foro</ColorButton> 
-                            <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton> 
-                            {
-                                user.role === 'STUDENT' ?
-                                    classroom.live ? 
-                                        <ColorButton className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
-                                    :
-                                        <ColorButton disabled className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
-                                :
-                                    <ColorButton className={classes.button} onClick={redirectCall}>Crear</ColorButton> 
-                            }
+                        <Grid item xs className={classes.buttons} >
+                            <Grid container
+                                direction="row" alignItems="center" justify="center"
+                                container
+                            >
+                                <ColorButton className={classes.button} onClick={redirectForum}>Foro</ColorButton>
+                                <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton>
+                                {
+                                    user.role === 'STUDENT' ?
+                                        classroom.live ?
+                                            <ColorButton className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
+                                            :
+                                            <ColorButton disabled className={classes.button} onClick={redirectCall}>En vivo</ColorButton>
+                                        :
+                                        <ColorButton className={classes.button} onClick={redirectCall}>Crear</ColorButton>
+                                }
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Box>

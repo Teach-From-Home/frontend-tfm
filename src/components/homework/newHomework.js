@@ -98,12 +98,12 @@ export default function NewHomework(props) {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <Box m={2}>
-                    <Grid container direction="column" justify="flex-start" alignItems="center">
+                    <Grid container direction="column" justify="center" alignItems="center">
                         <TextField variant="outlined" margin="normal" name="title" label="Titulo" id="title" value={homework.title} onChange={update}></TextField>
-                        <TextField variant="outlined" margin="normal" name="description" label="Descripcion" id="description" multiline rowsMax={4} value={homework.description} onChange={update}></TextField>
+                        <TextField variant="outlined" margin="normal" name="description" label="Descripcion" id="description" multiline value={homework.description} onChange={update}></TextField>
                         <Typography>Disponible</Typography>
                         <YellowSwitch checked={switchCheck} onChange={handleChange} name="switchCheck"></YellowSwitch>
-                        <Grid item>
+                        <Grid item >
                             <ColorButton className={classes.button} onClick={cancel} style={{marginLeft: '10px'}}>Cancelar</ColorButton>
                             { formHasData() ?
                                 <ColorButton className={classes.button} onClick={sendHomework}>Subir</ColorButton>
