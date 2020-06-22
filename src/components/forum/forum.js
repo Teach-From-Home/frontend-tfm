@@ -43,7 +43,7 @@ export default function Forum() {
         } catch (err) {
             setSnackbar({
                 open: true,
-                message: 'error', //TODO
+                message: 'Error al cargar los post del foro', //TODO
                 severity: 'error'
             });
         }
