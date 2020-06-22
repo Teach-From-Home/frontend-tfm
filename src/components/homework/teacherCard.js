@@ -39,23 +39,35 @@ export default function TeacherCard(props) {
     
     return (
         <Fragment>
-            <Grid container>
-                <Grid item xs={6}>
-                    <YellowTypography variant="h6">VER TAREA</YellowTypography>
-                    {
-                        homeworks ? 
-                            homeworks.map( h => {
-                                return <HomeworkCard homework={h} key={h.id}/>
-                            })
-                        :
-                        <div></div>
-                    }
+            <Box m={5}>
+                <Grid container
+                    direction="row"
+                    justify="center"
+                    alignItems="space-between"
+                    container
+                
+                >
+                    
+                    <Grid item xs>
+                        <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
+                        <NewHomework setSnackbar={setSnackbar} getHomeworksTeacher={getHomeworksTeacher}></NewHomework>
+                    </Grid>
+                    <hr/>
+                    <Grid item xs>
+                        
+                        <YellowTypography variant="h6">VER TAREA</YellowTypography>
+                        {
+                            homeworks ? 
+                                homeworks.map( h => {
+                                    return <HomeworkCard homework={h} key={h.id}/>
+                                })
+                            :
+                            <div></div>
+                        }
+                    </Grid>
+                    
                 </Grid>
-                <Grid item xs={6}>
-                    <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
-                    <NewHomework setSnackbar={setSnackbar} getHomeworksTeacher={getHomeworksTeacher}></NewHomework>
-                </Grid>
-            </Grid>
+            </Box>
         </Fragment>
     )
 }
