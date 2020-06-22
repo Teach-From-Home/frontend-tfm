@@ -4,7 +4,6 @@ import { useStyles, ColorButton } from "./style";
 import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";
 import { useHistory } from "react-router-dom";
-
 import TeacherFeedback from "./teacherFeedback";
 import FileUpload from "./fileUpload";
 
@@ -34,7 +33,7 @@ export default function HomeworkCard({ homework, callb, viewStudent }) {
     <div className={classes.root}>
       <Card className={classes.card}>
         <Box m={2}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} >
             <Grid item xs={2}>
               <AvatarWithName
                 name={`${homework.teacher.name}`}
