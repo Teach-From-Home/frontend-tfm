@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, Box, Grid, Card, Typography, createMuiTheme, ThemeProvider  } from '@material-ui/core';
+import { TextField, Box, Grid, Card, Typography, createMuiTheme, ThemeProvider, CircularProgress } from '@material-ui/core';
 import { ColorButton, useStyles, YellowSwitch } from './style';
 import HomeworkService from '../../services/homeworkService';
 import { UserContext } from '../../userContext';
@@ -17,33 +17,33 @@ const modelHomework = {
 
 const materialTheme = createMuiTheme({
     overrides: {
-      MuiPickersToolbar: {
-        toolbar: {
-          backgroundColor: '#d6a82a',
+        MuiPickersToolbar: {
+            toolbar: {
+                backgroundColor: '#d6a82a',
+            },
         },
-      },
-      MuiPickersCalendarHeader: {
-        switchHeader: {
-          // backgroundColor: lightBlue.A200,
-          // color: "white",
+        MuiPickersCalendarHeader: {
+            switchHeader: {
+                // backgroundColor: lightBlue.A200,
+                // color: "white",
+            },
         },
-      },
-      MuiPickersDay: {
-        day: {
-          color: '#d6a82a',
+        MuiPickersDay: {
+            day: {
+                color: '#d6a82a',
+            },
+            daySelected: {
+                backgroundColor: '#d6a82a',
+            },
+            current: {
+                color: '#d6a82a',
+            },
         },
-        daySelected: {
-          backgroundColor: '#d6a82a',
-        },
-        current: {
-          color: '#d6a82a',
-        },
-      },
-      MuiButton: {
-        textPrimary: {
-            color: '#d6a82a',
+        MuiButton: {
+            textPrimary: {
+                color: '#d6a82a',
+            }
         }
-      }
     },
 });
 
@@ -55,12 +55,13 @@ export default function NewHomework(props) {
 
     const [homework, setHomework] = useState(modelHomework);
     const [switchCheck, setSwitchCheck] = useState(false);
+    const [loading, setloading] = useState(false)
 
     const homeworkService = new HomeworkService();
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     useEffect(() => {
-        if(user.modifyHomework){
+        if (user.modifyHomework) {
             let deadLine = moment(user.modifyHomework.deadLine, 'DD/MM/yyyy'); //TE ODIO
 
             setHomework({
@@ -71,14 +72,14 @@ export default function NewHomework(props) {
             });
 
             setSwitchCheck(user.modifyHomework.available);
-           
-        } 
+
+        }
     }, [user])
 
     const update = e => {
         setHomework({
-          ...homework,
-          [e.target.name]: e.target.value
+            ...homework,
+            [e.target.name]: e.target.value
         });
     }
 
@@ -90,50 +91,56 @@ export default function NewHomework(props) {
     }
 
     const sendHomework = () => {
-
+        setloading(true)
         let classroomId = localStorage.getItem('classroomId');
 
-        if(user.modifyHomework){
-            try {
-                let homeworkModified = {};
-                homeworkModified.title = homework.title;
-                homeworkModified.description = homework.description;
-                homeworkModified.available = switchCheck;
-                homeworkModified.deadLine = homework.deadLine.format("DD/MM/yyyy");
-                homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id)
-                .then(() => getHomeworksTeacher());
-                setHomework(modelHomework);
-                setSnackbar({
-                    open: true,
-                    message: 'Tarea modificada exitosamente!',
-                    severity: 'success'
-                });
-            } catch (error) {
-                setSnackbar({
-                    open: true,
-                    message: 'error', //TODO
-                    severity: 'error'
-                });
-            }
-        }else{
-            try {
-                homeworkService.newHomework(homework, user.id, classroomId)
-                .then(() => getHomeworksTeacher());
-                setHomework(modelHomework);
-                setSnackbar({
-                    open: true,
-                    message: 'Nueva tarea agregada exitosamente!',
-                    severity: 'success'
-                });
-            } catch (error) {
-                setSnackbar({
-                    open: true,
-                    message: 'error', //TODO
-                    severity: 'error'
-                });
-            }
+        if (user.modifyHomework) {
+            let homeworkModified = {};
+            homeworkModified.title = homework.title;
+            homeworkModified.description = homework.description;
+            homeworkModified.available = switchCheck;
+            homeworkModified.deadLine = homework.deadLine.format("DD/MM/yyyy");
+            homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id)
+                .then(() => {
+                    getHomeworksTeacher()
+                    setloading(false)
+                    setSnackbar({
+                        open: true,
+                        message: 'Tarea modificada exitosamente!',
+                        severity: 'success'
+                    });
+                    setHomework(modelHomework);
+                })
+                .catch(() => {
+                    setloading(false)
+                    setSnackbar({
+                        open: true,
+                        message: 'error al subir la tarea', //TODO
+                        severity: 'error'
+                    })
+                })
+        } else {
+            homeworkService.newHomework(homework, user.id, classroomId)
+                .then(() => {
+                    getHomeworksTeacher()
+                    setloading(false)
+                    setSnackbar({
+                        open: true,
+                        message: 'Nueva tarea agregada exitosamente!',
+                        severity: 'success'
+                    });
+                    setHomework(modelHomework)
+                })
+                .catch(() => {
+                    setloading(false)
+                    setSnackbar({
+                        open: true,
+                        message: 'error al subir la tarea', //TODO
+                        severity: 'error'
+                    })
+                })
         }
-    }    
+    }
 
     const cancel = () => {
         setUser({
@@ -145,7 +152,7 @@ export default function NewHomework(props) {
     };
 
     const handleChange = (event) => {
-        setSwitchCheck( event.target.checked );
+        setSwitchCheck(event.target.checked);
     };
 
     const formHasData = () => {
@@ -175,16 +182,20 @@ export default function NewHomework(props) {
                             </MuiPickersUtilsProvider>
                         </ThemeProvider>
                         <Grid item >
-                            <ColorButton className={classes.button} onClick={cancel} style={{marginLeft: '10px'}}>Cancelar</ColorButton>
-                            { formHasData() ?
-                                <ColorButton className={classes.button} onClick={sendHomework}>Subir</ColorButton>
+                            <br/>
+                            {loading ?
+                                <CircularProgress style={{ color: '#636363' }} />
                                 :
-                                <ColorButton className={classes.button} onClick={sendHomework} disabled>Subir</ColorButton>
+                                <span>
+                                    <ColorButton className={classes.button} onClick={cancel} style={{ marginLeft: '10px' }}>Cancelar</ColorButton>
+                                    <ColorButton className={classes.button} onClick={sendHomework} disabled={!formHasData()} >Subir</ColorButton>
+                                </span>
                             }
+
                         </Grid>
                     </Grid>
                 </Box>
-                
+
             </Card>
         </div>
     )

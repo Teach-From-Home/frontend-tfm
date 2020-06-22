@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { Typography, Grid, TextField, Icon, Box } from '@material-ui/core';
+import { Typography, Grid, TextField, Icon, Box, CircularProgress } from '@material-ui/core';
 import { YellowTypography } from './style';
 import HomeworkCard from './homeworkCard';
 import NewHomework from './newHomework';
@@ -48,7 +48,6 @@ export default function TeacherCard(props) {
                         <YellowTypography variant="h6">{user.modifyHomework ? "MODIFICAR TAREA" : "NUEVA TAREA"}</YellowTypography>
                         <NewHomework setSnackbar={setSnackbar} getHomeworksTeacher={getHomeworksTeacher}></NewHomework>
                     </Grid>
-                    <hr/>
                     <Grid item xs>
                         <YellowTypography variant="h6">VER TAREA</YellowTypography>
                         {
@@ -57,7 +56,8 @@ export default function TeacherCard(props) {
                                     return <HomeworkCard homework={h} key={h.id}/>
                                 })
                             :
-                            <div></div>
+                            <CircularProgress size={100} style={{color:'#636363', marginTop: '200px'}}/>
+
                         }
                     </Grid>
                 </Grid>

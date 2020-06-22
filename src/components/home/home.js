@@ -45,6 +45,7 @@ export default function Home() {
                 });
                 setIsLoaded(true);
             } catch (err) {
+                setIsLoaded(true);
                 setSnackbar({
                     open: true,
                     message: 'Error al cargar los classrooms...',

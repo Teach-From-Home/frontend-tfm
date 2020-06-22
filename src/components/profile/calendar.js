@@ -45,7 +45,7 @@ const Calendar = () => {
         <div>
             <br/>
             {loading ?
-                <CircularProgress /> :
+                <CircularProgress size={100} style={{color:'#636363', marginTop: '150px'}}/> :
                 <div >
                     {renderCard()}
                 </div>}

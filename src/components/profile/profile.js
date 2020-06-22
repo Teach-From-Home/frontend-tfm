@@ -36,12 +36,11 @@ export default function Profile() {
                     container
                     direction="row"
                     justify="center"
-                    container
                 >
-                    <Grid item xs={'auto'}>
+                    <Grid item xs>
                         <UserData profile={profile}></UserData>
                     </Grid>
-                    <Grid item xs={'auto'}>
+                    <Grid item xs>
                         <Calendar />
                     </Grid>
                 </Grid>

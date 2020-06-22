@@ -4,8 +4,8 @@ import { UserContext } from '../../userContext';
 import { CircularProgress } from '@material-ui/core';
 
 
-const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur','raisehand','tileview'];
-const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone','raisehand','tileview'];
+const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur', 'raisehand', 'tileview'];
+const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur', 'fullscreen', 'recording', 'etherpad', 'mute-everyone', 'raisehand', 'tileview'];
 
 const JitsiVideo = () => {
 
@@ -15,7 +15,12 @@ const JitsiVideo = () => {
 
   const roomName = `TFM--${user.selectedClassroom.keyName}`;
 
-  const loader = () => { return (<span style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /> </span>) }
+  const loader = () => {
+    return (
+    <span style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <CircularProgress size={100} style={{ color: '#636363' }} />
+    </span>)
+  }
 
   return (
     <div style={{ marginTop: 60, width: '100vw', height: '92vh' }}>
