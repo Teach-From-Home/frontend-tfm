@@ -55,7 +55,7 @@ export default function ForumPost(props) {
         } catch (error) {
             setSnackbar({
                 open: true,
-                message: 'err.response.data.message', //todo ERROR ESTE
+                message: 'Error al cargar los comentarios', //todo ERROR ESTE
                 severity: 'error'
             });
         }

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Card, Box, Avatar, CardHeader, TextField } from '@material-ui/core';
+import { Grid, Card, Box, Avatar, CardHeader, TextField, CircularProgress } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogContent } from '@material-ui/core';
 import { useStyles, ColorButton } from './style';
@@ -20,6 +20,7 @@ export default function EditPostDialog(props) {
     const { user, setUser } = useContext(UserContext);
 
     const [post, setPost] = useState(user.editPost);
+    const [loading, setloading] = useState(false)
 
     const forumService = new ForumService();
 
@@ -33,10 +34,12 @@ export default function EditPostDialog(props) {
     }
 
     const sendPost = () => {
+        setloading(true)
         try {
             forumService.editPost(post, post.id)
                 .then(() => {
                     setPost(postModel);
+                    setloading(false)
                     setSnackbar({
                         open: true,
                         message: 'Post editado exitosamente!',
@@ -78,10 +81,11 @@ export default function EditPostDialog(props) {
                                     <TextField label="Escribe tu mensaje..." name="text" multiline rowsMax={50} variant="outlined" onChange={handleInputChange} value={post.text} fullWidth />{/*TODO: validacion de caracteres*/} <br />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    {formHasData() ?
-                                        <ColorButton className={classes.button} onClick={sendPost}>Enviar</ColorButton>
+
+                                    {loading ?
+                                        <CircularProgress size={24} style={{ color: '#636363', marginLeft: '10px', marginTop: '13px' }} />
                                         :
-                                        <ColorButton className={classes.button} onClick={sendPost} disabled>Enviar</ColorButton>
+                                        <ColorButton className={classes.button} onClick={sendPost} disabled={!formHasData()}>Enviar</ColorButton>
                                     }
                                 </Grid>
                             </Grid>

@@ -59,15 +59,15 @@ export default function Comments(props) {
         <div >
             <Box m={2} >
                 <Grid container spacing={2} justify="center">
-                    <Grid item xs={0}>
+                    <Grid item >
                         <AvatarWithName name={user.name} lastName={user.lastName} noShowName/>
                     </Grid>
-                    <Grid item xs={0}>
+                    <Grid item>
                         <div className={classes.iconsBottom}>
                             <TextField label="Escribe tu comentario..." multiline rowsMax={50} variant="outlined" name='text'  onChange={handleInputChange} value={comment.text} />{/*TODO: validacion de caracteres*/} <br />
 
                             {isLoading ? 
-                                <CircularProgress size={24} style={{color:'#636363', marginLeft: '10px', marginTop: '10px'}} />: 
+                                <CircularProgress size={24} style={{color:'#636363', marginLeft: '10px', marginTop: '13px'}} />: 
                                 <ColorButton style={{ marginLeft: '10px', marginTop: '10px' }} onClick={sendComment} disabled={!formHasData} >Enviar</ColorButton>
                                 }
                         </div>

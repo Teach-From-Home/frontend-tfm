@@ -90,10 +90,7 @@ const FileUpload = ({homework, callb }) => {
     return (
       <div>
         {uploading ? (
-          <span>
-            <Typography>Subiendo archivo</Typography>
-            <CircularProgress variant='static' value={uploadProgress} />
-          </span>
+            <CircularProgress variant='static' style={{color:'#636363'}} value={uploadProgress} />
         ) : (
           <label
             style={{

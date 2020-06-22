@@ -43,7 +43,7 @@ export default function Forum() {
         } catch (err) {
             setSnackbar({
                 open: true,
-                message: 'error', //TODO
+                message: 'Error al cargar los post del foro', //TODO
                 severity: 'error'
             });
         }
@@ -61,7 +61,7 @@ export default function Forum() {
                         return <ForumPost post={p} key={p.id} setSnackbar={setSnackbar} getForumPosts={getForumPosts}/>
                     })
                 :
-                <CircularProgress/>
+                <div><CircularProgress size={100} style={{color:'#636363', marginTop: '90px'}}/></div> 
             }
             <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </div>
