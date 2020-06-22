@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import TeacherFeedback from "./teacherFeedback";
 import FileUpload from "./fileUpload";
 
-export default function HomeworkCard({ homework, callb, viewStudent }) {
+export default function HomeworkCard({ homework, callb, teacher }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -41,6 +41,12 @@ export default function HomeworkCard({ homework, callb, viewStudent }) {
             </Grid>
             <Grid item xs={10}>
               <Typography variant='h6'>{homework.title}</Typography>
+              {teacher ?
+                <span>
+                  {homework.available ? <Typography variant="caption">Activa</Typography> : <Typography variant="caption" style={{ color: "red" }}>Inactiva</Typography>}
+                </span>
+                : ""
+              }
               <Typography variant='body1'>{homework.description}</Typography>
               {user.role === "STUDENT" ? (
                 <span>

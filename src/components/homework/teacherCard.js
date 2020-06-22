@@ -53,7 +53,7 @@ export default function TeacherCard(props) {
                         {
                             homeworks ? 
                                 homeworks.map( h => {
-                                    return <HomeworkCard homework={h} key={h.id}/>
+                                    return <HomeworkCard teacher homework={h} key={h.id}/>
                                 })
                             :
                             <CircularProgress size={100} style={{color:'#636363', marginTop: '200px'}}/>
