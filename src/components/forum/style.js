@@ -1,5 +1,5 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button, Switch } from '@material-ui/core';
+import { Button, Switch, Badge } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +31,11 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: -12,
     color: '#636363'
   },
+  badge: {
+    color: "#636363",
+    background: "#d6a82a"
+  }
+
 }));
 
 export const ColorButton = withStyles(theme => ({
@@ -58,3 +63,26 @@ export const YellowSwitch = withStyles({
   checked: {},
   track: { backgroundColor: "#a3a3a3", },
 })(Switch);
+
+export const StyledBadge = withStyles((theme) => ({
+  badge: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    boxSizing: 'border-box',
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: theme.typography.pxToRem(12),
+    minWidth: 10 * 2,
+    lineHeight: 1,
+    height: 10 * 2,
+    borderRadius: 10,
+    zIndex: 1, // Render the badge on top of potential ripples.
+    padding: '0 6px',
+    backgroundColor: '#d6a82a',
+    color: '#303030'
+  },
+}))(Badge);

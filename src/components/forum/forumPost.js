@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Typography, Grid, Card, Box, Button, Divider } from '@material-ui/core';
-import { useStyles } from './style';
+import { Typography, Grid, Card, Box, Button, Divider, Badge } from '@material-ui/core';
+import { useStyles, StyledBadge } from './style';
 import AvatarWithName from '../avatarWithName';
 import Comments from './comments';
 import ForumService from '../../services/forumService';
@@ -102,12 +102,16 @@ export default function ForumPost(props) {
                     </Grid>
                     <div className={classes.iconsBottom}>
                         <Grid container spacing={2}>
-                            <Button onClick={openComments}> <Icon>chat</Icon>{comments.length}</Button>
+                            <Button onClick={openComments}>
+                                <StyledBadge badgeContent={comments.length}>
+                                    <Icon style={{color:"#636363"}}>chat</Icon>
+                                </StyledBadge>
+                            </Button>
                             {
-                                canEdit() ? <Button onClick={handleClickOpen}>Editar</Button> : <div></div>
+                                canEdit() ? <Button onClick={handleClickOpen}><Icon style={{color:"#636363"}}>edit</Icon></Button> : <div></div>
                             }
                             {
-                                canEdit() ? <Button onClick={deletePost}><Icon>delete</Icon></Button> : <div></div>
+                                canEdit() ? <Button onClick={deletePost}><Icon style={{color:"#636363"}}>delete</Icon></Button> : <div></div>
                             }
                         </Grid>
                     </div>
