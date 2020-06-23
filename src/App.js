@@ -13,6 +13,8 @@ import Profile from './components/profile/profile';
 import { UserContext } from './userContext';
 import PrivateRoute from './privateRoute'
 import StudentsHomework from './components/homework/studentsHomework';
+import Exam from './components/exam/exam';
+import Bibliography from './components/bibliography/bibliography';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("session")));
@@ -30,6 +32,8 @@ function App() {
 					<PrivateRoute exact path="/forum" component={Forum} />
 					<PrivateRoute exact path="/profile" component={Profile} />
 					<PrivateRoute exact path="/studentsHomework" component={StudentsHomework} />
+					<PrivateRoute exact path="/exam" component={Exam} />
+					<PrivateRoute exact path="/bibliography" component={Bibliography} />
 					<PrivateRoute exact path="/" component={Home} />
 				</div>
 			</UserContext.Provider>

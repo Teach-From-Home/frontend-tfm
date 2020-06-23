@@ -54,9 +54,10 @@ const Login = ({ loginUser }) => {
     } catch (err) {
       setSnackbar({
         open: true,
-        message: "error",
+        message: "Usuario o contraseña invalida.",
         severity: 'error'
       });
+      setIsLoading(false);
     }
   }
 

@@ -63,6 +63,14 @@ export default function PersistentDrawerLeft() {
     history.push("/homework");
   };
 
+  const redirectExam = () => {
+    history.push("/exam");
+  };
+  
+  const redirectBibliography = () => {
+    history.push("/bibliography");
+  };
+
   const handleClickMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -190,8 +198,24 @@ export default function PersistentDrawerLeft() {
                   <YellowTypography variant='subtitle1'>TAREA</YellowTypography>
                 </ListItemText>
               </ListItem>
+              <ListItem button key={"examen"} onClick={redirectExam}>
+                <ListItemIcon className={classes.icon}>
+                  <Icon>menu_book</Icon>
+                </ListItemIcon>
+                <ListItemText>
+                  <YellowTypography variant='subtitle1'>EXAMEN</YellowTypography>
+                </ListItemText>
+              </ListItem>
+              <ListItem button key={"bibliografia"} onClick={redirectBibliography}>
+                <ListItemIcon className={classes.icon}>
+                  <Icon>description</Icon>
+                </ListItemIcon>
+                <ListItemText>
+                  <YellowTypography variant='subtitle1'>BIBLIOGRAFIA</YellowTypography>
+                </ListItemText>
+              </ListItem>
             </List>
-            <Divider />
+            <Divider/>
           </Drawer>
         </div>
       ) : (
