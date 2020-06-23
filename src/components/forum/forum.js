@@ -5,6 +5,7 @@ import ForumService from '../../services/forumService';
 import { UserContext } from '../../userContext'
 import SnackbarOpen from '../snackbar/snackbar'
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Typography } from '@material-ui/core';
 
 export default function Forum() {
     const {user} = useContext(UserContext);
@@ -62,6 +63,7 @@ export default function Forum() {
                 :
                 <div><CircularProgress size={100} style={{color:'#636363', marginTop: '90px'}}/></div> 
             }
+            {posts.length === 0 ? <Typography variant="h3" style={{marginTop:'100px',color:'#636363'}}> No hay posts subidos aun..</Typography> :""}
             <SnackbarOpen open={snackbar.open} message={snackbar.message} severity={snackbar.severity} closeSnac={closeSnackbar}/>
         </div>
     )

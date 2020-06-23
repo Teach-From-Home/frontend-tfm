@@ -125,7 +125,7 @@ const Login = ({ loginUser }) => {
               >
                 Login
               </ColorButton>
-              {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+              {isLoading && <CircularProgress size={24}  style={{color:'#636363'}} className={classes.buttonProgress} />}
             </div>
           </form>
         </div>
