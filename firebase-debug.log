@@ -1,0 +1,26 @@
+[debug] [2020-06-23T16:23:23.516Z] ----------------------------------------------------------------------
+[debug] [2020-06-23T16:23:23.518Z] Command:       /Users/ext_jagomez/.nvm/versions/node/v10.21.0/bin/node /Users/ext_jagomez/.nvm/versions/node/v10.21.0/bin/firebase deploy
+[debug] [2020-06-23T16:23:23.518Z] CLI Version:   8.4.3
+[debug] [2020-06-23T16:23:23.518Z] Platform:      darwin
+[debug] [2020-06-23T16:23:23.518Z] Node Version:  v10.21.0
+[debug] [2020-06-23T16:23:23.519Z] Time:          Tue Jun 23 2020 13:23:23 GMT-0300 (Argentina Standard Time)
+[debug] [2020-06-23T16:23:23.519Z] ----------------------------------------------------------------------
+[debug] [2020-06-23T16:23:23.519Z] 
+[debug] [2020-06-23T16:23:23.530Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-23T16:23:23.530Z] > authorizing via signed-in user
+[debug] [2020-06-23T16:23:23.530Z] [iam] checking project teach-from-home for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-06-23T16:23:23.533Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/teach-from-home:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-06-23T16:23:24.608Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 23 Jun 2020 16:23:24 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=922","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-06-23T16:23:24.610Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/teach-from-home  
+ 
+[debug] [2020-06-23T16:23:25.834Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 23 Jun 2020 16:23:25 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'teach-from-home'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-06-23T16:23:25.838Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/teach-from-home/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-06-23T16:23:27.577Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 23 Jun 2020 16:23:27 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-28=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[teach-from-home]: beginning deploy... 
+[info] i  hosting[teach-from-home]: found 22 files in build 
