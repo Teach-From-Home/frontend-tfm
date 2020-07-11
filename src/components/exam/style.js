@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button, Radio } from '@material-ui/core';
+import { Button, Radio, Typography, Switch } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
 }));
@@ -25,3 +25,24 @@ export const ColorRadio = withStyles({
   },
   checked: {},
 })((props) => <Radio color="default" {...props} />);
+
+export const YellowTypography = withStyles({
+  root: {
+    color: "#d6a82a"
+  }
+})(Typography);
+
+export const YellowSwitch = withStyles({
+  switchBase: {
+    color: "#e3e3e3",
+    '&$checked': {
+      color: "#d6a82a",
+    },
+    
+    '&$checked + $track': {
+      backgroundColor: "#d6a82a",
+    },
+  },
+  checked: {},
+  track: {backgroundColor: "#a3a3a3",},
+})(Switch);

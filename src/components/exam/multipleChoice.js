@@ -2,27 +2,25 @@ import React, { useState } from "react";
 import {
   TextField,
   Box,
-  Radio,
   Grid,
 } from "@material-ui/core";
 import { ColorButton, ColorRadio } from "../exam/style";
-
-export default function MultipleChoice() {
-  return (
-    <div>
-      <TextField label="Pregunta"  style={{ width: '290px' }}></TextField>
-      <ExamChoice></ExamChoice>
-    </div>
-  );
-}
+import Exam from "./exam";
 
 const modelOpcion = {
   selected: false,
   question: "",
 };
 
-function ExamChoice() {
-  const [selectedValue, setSelectedValue] = React.useState("1");
+const modelQuestion = {
+  title: '',
+  type: 'choice',
+  questions: []
+}
+
+export default function MultipleChoice({setExam, exam}) {
+  const [selectedValue, setSelectedValue] = useState();
+  const [question, setQuestion] = useState(modelQuestion);
   const [opcion1, setOpcion1] = useState(modelOpcion);
   const [opcion2, setOpcion2] = useState(modelOpcion);
   const [opcion3, setOpcion3] = useState(modelOpcion);
@@ -51,6 +49,13 @@ function ExamChoice() {
         selected: true,
       });
     }
+  };
+
+  const update = (e) => {
+    setQuestion({
+      ...question,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const update1 = (e) => {
@@ -82,10 +87,36 @@ function ExamChoice() {
   };
 
   const finishQuestion = () => {
+    let questions = [opcion1, opcion2, opcion3, opcion4]; 
+    
+    setQuestion({
+      ...question,
+      questions: questions
+    });  
+
+
+    //!Medio chanchullo pero por ahora es lo q se me ocurrio. NO ESTOY ORGULLOSO
+    let eQuestions = exam.questions
+
+    eQuestions.push(question);
+
+    setExam({
+      ...exam,
+      questions: eQuestions
+    })
+
   };
 
   return (
     <div>
+      <TextField variant="outlined"
+            margin="normal"
+            name="title"
+            label="Titulo"
+            value={question.title}
+            onChange={update}
+            style={{ width: '290px' }}>
+            </TextField>
       <Box m={2}>
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid item>
