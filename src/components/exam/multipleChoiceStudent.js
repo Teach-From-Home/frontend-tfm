@@ -8,12 +8,15 @@ import {
   RadioGroup,
   FormControlLabel,
   CardHeader,
+  Typography,
+  TextField,
 } from "@material-ui/core";
 
 export default function MultipleChoiceStudent({ question, index, readOnly }) {
   const classes = useStyles();
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState("1");
+  const [modifyMultipleChoice, setModifyMultipleChoice] = useState(false);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -21,20 +24,20 @@ export default function MultipleChoiceStudent({ question, index, readOnly }) {
 
   useEffect(() => {
     getOkAnswer();
-  }, [])
+  }, []);
 
   const getOkAnswer = () => {
     let ans = question.options.map((o, index) => {
-        if(o.selected) return index;
+      if (o.selected) return index;
     });
 
-    setValue(ans.find(a => a !== undefined).toString())
-  }
+    setValue(ans.find((a) => a !== undefined).toString());
+  };
 
   return (
     <div className={classes.root}>
       <Card className={classes.searchCard}>
-      <CardHeader title={`${index + 1}. ${question.title}`} />
+        <CardHeader title={`${index + 1}. ${question.title}`} />
         <Box m={2}>
           <Grid
             container
@@ -50,33 +53,35 @@ export default function MultipleChoiceStudent({ question, index, readOnly }) {
                   label={question.options[0].question}
                   disabled={readOnly}
                 />
+                { modifyMultipleChoice ? <TextField></TextField> : null}
                 <FormControlLabel
                   value="1"
                   control={<ColorRadio />}
                   label={question.options[1].question}
                   disabled={readOnly}
                 />
+                { modifyMultipleChoice ? <TextField></TextField> : null}
                 <FormControlLabel
                   value="2"
                   control={<ColorRadio />}
                   label={question.options[2].question}
                   disabled={readOnly}
                 />
+                { modifyMultipleChoice ? <TextField></TextField> : null}
                 <FormControlLabel
                   value="3"
                   control={<ColorRadio />}
                   label={question.options[3].question}
                   disabled={readOnly}
                 />
+                { modifyMultipleChoice ? <TextField></TextField> : null}
               </RadioGroup>
             </FormControl>
           </Grid>
-          {
-              readOnly ? 
-              <ColorButton onClick={modifyMultipleChoice}>Modificar</ColorButton>
-              :
-              null
-          }
+          {readOnly ? (
+            <ColorButton onClick={() => setModifyMultipleChoice(!modifyMultipleChoice)}>Modificar</ColorButton>
+          ) 
+          : null}
         </Box>
       </Card>
     </div>
