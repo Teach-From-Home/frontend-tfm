@@ -3,6 +3,14 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Button, Radio, Typography, Switch } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  searchCard: {
+    minWidth: 350
+  }
 }));
 
 export const ColorButton = withStyles(theme => ({

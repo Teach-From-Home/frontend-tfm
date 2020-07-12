@@ -1,26 +1,19 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Box,
-  Grid,
-} from "@material-ui/core";
+import { TextField, Box, Grid } from "@material-ui/core";
 import { ColorButton, ColorRadio } from "../exam/style";
-import Exam from "./exam";
 
 const modelOpcion = {
   selected: false,
   question: "",
 };
 
-const modelQuestion = {
-  title: '',
-  type: 'choice',
-  questions: []
-}
-
-export default function MultipleChoice({setExam, exam}) {
+export default function MultipleChoice({
+  setExam,
+  exam,
+  setShowMultipleChoice,
+}) {
   const [selectedValue, setSelectedValue] = useState();
-  const [question, setQuestion] = useState(modelQuestion);
+  const [title, setTitle] = useState("");
   const [opcion1, setOpcion1] = useState(modelOpcion);
   const [opcion2, setOpcion2] = useState(modelOpcion);
   const [opcion3, setOpcion3] = useState(modelOpcion);
@@ -28,6 +21,22 @@ export default function MultipleChoice({setExam, exam}) {
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+    setOpcion1({
+      ...opcion1,
+      selected: false,
+    });
+    setOpcion2({
+      ...opcion2,
+      selected: false,
+    });
+    setOpcion3({
+      ...opcion3,
+      selected: false,
+    });
+    setOpcion4({
+      ...opcion4,
+      selected: false,
+    });
     if (event.target.value === "1") {
       setOpcion1({
         ...opcion1,
@@ -49,13 +58,6 @@ export default function MultipleChoice({setExam, exam}) {
         selected: true,
       });
     }
-  };
-
-  const update = (e) => {
-    setQuestion({
-      ...question,
-      [e.target.name]: e.target.value,
-    });
   };
 
   const update1 = (e) => {
@@ -87,36 +89,36 @@ export default function MultipleChoice({setExam, exam}) {
   };
 
   const finishQuestion = () => {
-    let questions = [opcion1, opcion2, opcion3, opcion4]; 
-    
-    setQuestion({
-      ...question,
-      questions: questions
-    });  
-
-
     //!Medio chanchullo pero por ahora es lo q se me ocurrio. NO ESTOY ORGULLOSO
-    let eQuestions = exam.questions
+    let questionObj = {
+      title: title,
+      type: "choice",
+      options: [opcion1, opcion2, opcion3, opcion4],
+    };
 
-    eQuestions.push(question);
+    let eQuestions = exam.questions;
+
+    eQuestions.push(questionObj);
 
     setExam({
       ...exam,
-      questions: eQuestions
-    })
+      questions: eQuestions,
+    });
 
+    setShowMultipleChoice(false);
   };
 
   return (
     <div>
-      <TextField variant="outlined"
-            margin="normal"
-            name="title"
-            label="Titulo"
-            value={question.title}
-            onChange={update}
-            style={{ width: '290px' }}>
-            </TextField>
+      <TextField
+        variant="outlined"
+        margin="normal"
+        name="title"
+        label="Titulo"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        style={{ width: "290px" }}
+      ></TextField>
       <Box m={2}>
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid item>
@@ -130,7 +132,7 @@ export default function MultipleChoice({setExam, exam}) {
               name="question"
               onChange={update1}
               value={opcion1.question}
-              style={{ width: '250px' }}
+              style={{ width: "250px" }}
             ></TextField>
           </Grid>
           <Grid item>
@@ -144,7 +146,7 @@ export default function MultipleChoice({setExam, exam}) {
               name="question"
               onChange={update2}
               value={opcion2.question}
-              style={{ width: '250px' }}
+              style={{ width: "250px" }}
             ></TextField>
           </Grid>
           <Grid item>
@@ -158,7 +160,7 @@ export default function MultipleChoice({setExam, exam}) {
               name="question"
               onChange={update3}
               value={opcion3.question}
-              style={{ width: '250px' }}
+              style={{ width: "250px" }}
             ></TextField>
           </Grid>
           <Grid item>
@@ -172,7 +174,7 @@ export default function MultipleChoice({setExam, exam}) {
               name="question"
               onChange={update4}
               value={opcion4.question}
-              style={{ width: '250px' }}
+              style={{ width: "250px" }}
             ></TextField>
           </Grid>
           <ColorButton onClick={finishQuestion}>Terminar</ColorButton>
