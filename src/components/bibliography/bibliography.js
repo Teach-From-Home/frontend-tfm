@@ -8,7 +8,7 @@ import Item from './item'
 
 const bibliographyService = new BibliographyService();
 const biblioInit = {
-    id:"",
+    id: "",
     title: "",
     description: "",
     file: "",
@@ -23,12 +23,15 @@ export default function Bibliography() {
     const editMode = user.role === "TEACHER"
 
     useEffect(() => {
+        fetchData()
+    }, [])
+
+    const fetchData = () => {
         bibliographyService.getBiblio(classroomId)
             .then(res => setBibliography(res))
             .catch(e => console.log(e))
-    }, [])
-
-    const selectItem = (item) =>{
+    }
+    const selectItem = (item) => {
         setSelectedItem(item)
     }
 
@@ -44,18 +47,15 @@ export default function Bibliography() {
         )
     }
 
-    const onBiblioChange = e => {
-        setSelectedItem({
-            ...selectedItem,
-            [e.target.name]: e.target.value
-        });
-    }
-
-    const uploadBiblio = () => {
-        selectedItem.id ? 
-        bibliographyService.updateBiblio(classroomId,selectedItem)
-        :
-        bibliographyService.createBiblio(classroomId,selectedItem)
+    const uploadBiblio = (item) => {
+        selectedItem.id ?
+            bibliographyService.updateBiblio(classroomId, item)
+                .then(() => alert("updatea2"))
+                .finally(() => fetchData())
+            :
+            bibliographyService.createBiblio(classroomId, item)
+                .then(() => alert("crea2"))
+                .finally(() => fetchData())
     }
 
     return (
@@ -70,7 +70,7 @@ export default function Bibliography() {
                 {
                     editMode ?
                         <Grid item xs={10}>
-                            <Uploadnew item={selectedItem} onChange={onBiblioChange} handleUpload={uploadBiblio} />
+                            <Uploadnew itemP={selectedItem} handleUpload={uploadBiblio} />
                         </Grid> :
                         null
 
