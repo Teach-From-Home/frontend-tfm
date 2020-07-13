@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TextField, Box, Grid } from "@material-ui/core";
 import { ColorButton, ColorRadio } from "../exam/style";
+import { UserContext } from "../../userContext";
 
 const modelOpcion = {
   selected: false,
@@ -12,12 +13,60 @@ export default function MultipleChoice({
   exam,
   setShowMultipleChoice,
 }) {
-  const [selectedValue, setSelectedValue] = useState();
+  const [selectedValue, setSelectedValue] = useState(null);
   const [title, setTitle] = useState("");
   const [opcion1, setOpcion1] = useState(modelOpcion);
   const [opcion2, setOpcion2] = useState(modelOpcion);
   const [opcion3, setOpcion3] = useState(modelOpcion);
   const [opcion4, setOpcion4] = useState(modelOpcion);
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user.modifyMultipleChoice) {
+      setTitle(user.modifyMultipleChoice.title);
+
+      setOpcion1({
+        question: user.modifyMultipleChoice.options[0].question,
+        selected: false,
+      });
+
+      setOpcion2({
+        question: user.modifyMultipleChoice.options[1].question,
+        selected: false,
+      });
+
+      setOpcion3({
+        question: user.modifyMultipleChoice.options[2].question,
+        selected: false,
+      });
+
+      setOpcion4({
+        question: user.modifyMultipleChoice.options[3].question,
+        selected: false,
+      });
+
+      let qs = exam.questions.filter((q) => {
+        return q !== user.modifyMultipleChoice;
+      });
+
+      setExam({
+        ...exam,
+        questions: qs,
+      });
+
+      setUser({
+        ...user,
+        modifyMultipleChoice: null,
+      });
+    } else {
+      setOpcion1(modelOpcion);
+      setOpcion2(modelOpcion);
+      setOpcion3(modelOpcion);
+      setOpcion4(modelOpcion);
+      setTitle("");
+      setSelectedValue(null);
+    }
+  }, []);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -37,22 +86,22 @@ export default function MultipleChoice({
       ...opcion4,
       selected: false,
     });
-    if (event.target.value === "1") {
+    if (event.target.value === "0") {
       setOpcion1({
         ...opcion1,
         selected: true,
       });
-    } else if (event.target.value === "2") {
+    } else if (event.target.value === "1") {
       setOpcion2({
         ...opcion2,
         selected: true,
       });
-    } else if (event.target.value === "3") {
+    } else if (event.target.value === "2") {
       setOpcion3({
         ...opcion3,
         selected: true,
       });
-    } else if (event.target.value === "4") {
+    } else if (event.target.value === "3") {
       setOpcion4({
         ...opcion4,
         selected: true,
@@ -108,6 +157,14 @@ export default function MultipleChoice({
     setShowMultipleChoice(false);
   };
 
+  const disableButton = () => {
+    return (
+      selectedValue === undefined ||
+      selectedValue === null ||
+      selectedValue === ""
+    );
+  };
+
   return (
     <div>
       <TextField
@@ -123,6 +180,20 @@ export default function MultipleChoice({
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid item>
             <ColorRadio
+              checked={selectedValue === "0"}
+              onChange={handleChange}
+              value="0"
+              name="radio-button-demo"
+            />
+            <TextField
+              name="question"
+              onChange={update1}
+              value={opcion1.question}
+              style={{ width: "250px" }}
+            ></TextField>
+          </Grid>
+          <Grid item>
+            <ColorRadio
               checked={selectedValue === "1"}
               onChange={handleChange}
               value="1"
@@ -130,8 +201,8 @@ export default function MultipleChoice({
             />
             <TextField
               name="question"
-              onChange={update1}
-              value={opcion1.question}
+              onChange={update2}
+              value={opcion2.question}
               style={{ width: "250px" }}
             ></TextField>
           </Grid>
@@ -144,8 +215,8 @@ export default function MultipleChoice({
             />
             <TextField
               name="question"
-              onChange={update2}
-              value={opcion2.question}
+              onChange={update3}
+              value={opcion3.question}
               style={{ width: "250px" }}
             ></TextField>
           </Grid>
@@ -158,26 +229,16 @@ export default function MultipleChoice({
             />
             <TextField
               name="question"
-              onChange={update3}
-              value={opcion3.question}
-              style={{ width: "250px" }}
-            ></TextField>
-          </Grid>
-          <Grid item>
-            <ColorRadio
-              checked={selectedValue === "4"}
-              onChange={handleChange}
-              value="4"
-              name="radio-button-demo"
-            />
-            <TextField
-              name="question"
               onChange={update4}
               value={opcion4.question}
               style={{ width: "250px" }}
             ></TextField>
           </Grid>
-          <ColorButton onClick={finishQuestion}>Terminar</ColorButton>
+          {disableButton() ? (
+            <ColorButton disabled>Terminar</ColorButton>
+          ) : (
+            <ColorButton onClick={finishQuestion}>Terminar</ColorButton>
+          )}
         </Grid>
       </Box>
     </div>
