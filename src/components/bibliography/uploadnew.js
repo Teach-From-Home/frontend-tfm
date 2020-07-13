@@ -27,6 +27,8 @@ function Uploadnew({ itemP, handleUpload }) {
         });
     }
 
+    const cantUpload = item.title === "" && item.file === ""
+
     return (
         <div>
             <Card style={{ marginTop: "10px" }}>
@@ -41,8 +43,8 @@ function Uploadnew({ itemP, handleUpload }) {
                         </Grid>
 
                     </Grid>
-                    <ColorButton style={{ marginTop: '20px' }} onClick={() => handleUpload(item)}>
-                        <Icon>backup</Icon> <span style={{ marginLeft: "10px" }}>Subir bibliografia</span>
+                    <ColorButton style={{ marginTop: '20px' }} onClick={() => handleUpload(item)} disabled={cantUpload}>
+                        <Icon>backup</Icon> <span style={{ marginLeft: "10px" }} >Subir bibliografia</span>
                     </ColorButton>
                 </Box>
             </Card>
