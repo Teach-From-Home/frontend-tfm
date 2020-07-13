@@ -5,7 +5,6 @@ import {
   TextField,
   Box,
   Grid,
-  Card,
   Typography,
   createMuiTheme,
   ThemeProvider,
@@ -18,6 +17,7 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import moment from "moment";
 import MultipleChoiceStudent from "./multipleChoiceStudent";
 import ADesarrollarStudent from "./aDesarrollarStudent";
+import ExamService from "../../services/examService";
 
 const modelExam = {
   title: "",
@@ -65,6 +65,8 @@ export default function Exam() {
   const [showADesarrollar, setShowADesarrollar] = useState(false);
   const [switchCheck, setSwitchCheck] = useState(false);
 
+  const examService = new ExamService();
+
   const update = (e) => {
     setExam({
       ...exam,
@@ -83,7 +85,13 @@ export default function Exam() {
     setSwitchCheck(event.target.checked);
   };
 
-  const sendExam = () => {};
+  const sendExam = () => {
+    let classroomId = localStorage.getItem("classroomId");
+
+    try {
+      let resp = examService.newExam(exam, classroomId).then((r) => {});
+    } catch (error) {}
+  };
 
   return (
     <div>
@@ -126,6 +134,9 @@ export default function Exam() {
               />
             </MuiPickersUtilsProvider>
           </ThemeProvider>
+          <ColorButton onClick={sendExam} style={{ marginTop: "10px" }}>
+            Enviar examen
+          </ColorButton>
           <Box m={2}>
             <Grid>
               <ColorButton
@@ -144,30 +155,42 @@ export default function Exam() {
         </Grid>
       </Box>
       {showMultipleChoice ? (
-        <MultipleChoice setExam={setExam} exam={exam} setShowMultipleChoice={setShowMultipleChoice}></MultipleChoice>
+        <MultipleChoice
+          setExam={setExam}
+          exam={exam}
+          setShowMultipleChoice={setShowMultipleChoice}
+        ></MultipleChoice>
       ) : null}
       {showADesarrollar ? (
-        <ADesarrollar setExam={setExam} exam={exam} setShowADesarrollar={setShowADesarrollar}></ADesarrollar>
+        <ADesarrollar
+          setExam={setExam}
+          exam={exam}
+          setShowADesarrollar={setShowADesarrollar}
+        ></ADesarrollar>
       ) : null}
-      <ColorButton onClick={sendExam}>Enviar examen</ColorButton>
-      {
-        exam.questions ?
-          exam.questions.map((q, i) => {
-            return(
+      {exam.questions
+        ? exam.questions.map((q, i) => {
+            return (
               <Box m={1} key={i}>
-              {
-              q.type === 'choice' ?
-                <MultipleChoiceStudent question={q} index={i} readOnly/>
-              :
-                <ADesarrollarStudent question={q} index={i}/>
-              }
+                {q.type === "choice" ? (
+                  <MultipleChoiceStudent
+                    question={q}
+                    index={i}
+                    setShowMultipleChoice={setShowMultipleChoice}
+                    readOnly
+                  />
+                ) : (
+                  <ADesarrollarStudent
+                    question={q}
+                    index={i}
+                    setShowADesarrollar={setShowADesarrollar}
+                    readOnly
+                  />
+                )}
               </Box>
-            )
+            );
           })
-          
-        :
-          null
-      }
+        : null}
     </div>
   );
 }
