@@ -8,5 +8,18 @@ export default class BibliographyService {
         return result.data;
     }
 
+    async updateBiblio(classroomId,item) {
+        await axios.put(`${URL}classroom/${classroomId}/bibliography/${item.id}`,item);
+    }
+
+    async createBiblio(classroomId,item) {
+        await axios.post(`${URL}classroom/${classroomId}/bibliography`,item);
+    }
+
+    async removeBiblio(classroomId,itemId) {
+        await axios.delete(`${URL}classroom/${classroomId}/bibliography${itemId}`);
+    }
+
+
 }
 
