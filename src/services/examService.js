@@ -22,4 +22,27 @@ export default class ExamService {
 
     return result.data;
   }
+
+  async getExam(userId, classroomId) {
+    const result = await axios.get(
+      `${URL}classroom/${classroomId}/user/${userId}/exams`
+    );
+    return result.data;
+  }
+
+  async editExam(exam){
+
+    let dL = exam.deadLine.format("DD/MM/yyyy");
+
+    let ex = {
+      ...exam,
+      deadLine: dL
+    }
+
+    const result = await axios.put(
+      `${URL}exam`,
+      ex
+    );
+    return result.data;
+  }
 }
