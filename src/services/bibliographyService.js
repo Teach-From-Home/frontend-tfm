@@ -17,7 +17,7 @@ export default class BibliographyService {
     }
 
     async removeBiblio(classroomId,itemId) {
-        await axios.delete(`${URL}classroom/${classroomId}/bibliography${itemId}`);
+        await axios.delete(`${URL}classroom/${classroomId}/bibliography/${itemId}`);
     }
 
 

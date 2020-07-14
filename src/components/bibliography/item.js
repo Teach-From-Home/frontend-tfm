@@ -3,7 +3,7 @@ import { Typography, Card } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { ColorButton } from "./style"
 
-function item({ item, editMode, onSelect }) {
+function item({ item, editMode, onSelect, handleDelete }) {
     return (
         <Card>
             <Typography variant="h5" >{item.title}</Typography>
@@ -25,7 +25,7 @@ function item({ item, editMode, onSelect }) {
             </a>
             {
                 editMode ?
-                    <ColorButton style={{ margin: '10px' }}>
+                    <ColorButton style={{ margin: '10px' }} onClick={()=> handleDelete(item.id) }>
                         <Icon>delete</Icon>
                     </ColorButton>
                     : null

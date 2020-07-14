@@ -4,7 +4,7 @@ import firebase from "firebase";
 import Icon from '@material-ui/core/Icon';
 import { ColorButton } from "./style"
 import SnackbarOpen from "../snackbar/snackbar";
-import { TextField, Box, Grid, Card, Typography, ListItem, CircularProgress, } from '@material-ui/core';
+import { TextField, Box, Grid, Card, Typography, CircularProgress, } from '@material-ui/core';
 
 //const e = { target: { value:"", name:"" }}
 
@@ -29,7 +29,8 @@ function Uploadnew({ itemP, handleUpload }) {
         });
     }
 
-    const cantUpload = item.title === "" && item.file === ""
+    const cantUpload = item.title === "" || item.file === ""
+
 
     const hasNoItemSelected = item.file === ""
 
