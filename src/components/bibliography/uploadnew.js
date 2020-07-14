@@ -3,13 +3,12 @@ import FileUploader from "react-firebase-file-uploader";
 import firebase from "firebase";
 import Icon from '@material-ui/core/Icon';
 import { ColorButton } from "./style"
-import SnackbarOpen from "../snackbar/snackbar";
 import { TextField, Box, Grid, Card, Typography, CircularProgress, } from '@material-ui/core';
 
 //const e = { target: { value:"", name:"" }}
 
 
-function Uploadnew({ itemP, handleUpload }) {
+function Uploadnew({ itemP, handleUpload, loading }) {
     const [item, setItem] = useState(itemP)
     const [uploadProgress, setuploadProgress] = useState(0);
     const [uploading, setuploading] = useState(false);
@@ -41,7 +40,7 @@ function Uploadnew({ itemP, handleUpload }) {
 
     const handeUploadSucess = (name) => {
         setuploadProgress(100);
-       
+
         firebase
             .storage()
             .ref("bibliography")
@@ -49,7 +48,7 @@ function Uploadnew({ itemP, handleUpload }) {
             .getDownloadURL()
             .then((url) => {
                 setuploading(false);
-                setItem({...item, file:url});
+                setItem({ ...item, file: url });
             });
     };
 
@@ -86,8 +85,8 @@ function Uploadnew({ itemP, handleUpload }) {
                                     cursor: "pointer",
                                     padding: 10,
                                 }}
-                            >   
-                                <strong>{!hasNoItemSelected? "Seleccionar otro archivo" : "Seleccionar archivo"}</strong>
+                            >
+                                <strong>{!hasNoItemSelected ? "Seleccionar otro archivo" : "Seleccionar archivo"}</strong>
                                 <FileUploader
                                     hidden
                                     accept='*'
@@ -98,7 +97,7 @@ function Uploadnew({ itemP, handleUpload }) {
                                     randomizeFilename
                                 />
                             </label>
-                        )}<br/>
+                        )}<br />
                     < ColorButton style={{ marginTop: '20px' }} onClick={() => handleUpload(item)} disabled={cantUpload}>
                         <Icon>backup</Icon> <span style={{ marginLeft: "10px" }} >Subir bibliografia</span>
                     </ColorButton>
