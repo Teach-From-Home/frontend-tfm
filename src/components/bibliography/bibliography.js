@@ -48,10 +48,8 @@ export default function Bibliography() {
     bibliographyService.getBiblio(classroomId)
       .then(res => {
         setBibliography(res)
-        setTimeout(() => {
 
-          setLoading(false)
-        }, 3000);
+        setLoading(false)
       })
       .catch(e => {
         setLoading(false)
