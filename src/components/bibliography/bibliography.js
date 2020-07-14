@@ -51,11 +51,17 @@ export default function Bibliography() {
         selectedItem.id ?
             bibliographyService.updateBiblio(classroomId, item)
                 .then(() => alert("updatea2"))
-                .finally(() => fetchData())
+                .finally(() => {
+                    fetchData()
+                    setSelectedItem(biblioInit)
+                })
             :
             bibliographyService.createBiblio(classroomId, item)
                 .then(() => alert("crea2"))
-                .finally(() => fetchData())
+                .finally(() => {
+                    fetchData()
+                    setSelectedItem(biblioInit)
+                })
     }
 
     return (
