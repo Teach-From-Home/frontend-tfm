@@ -1,7 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import TeacherExam from "./teacherExam";
 import SnackbarOpen from "../snackbar/snackbar";
 import ExamService from "../../services/examService";
+import { UserContext } from "../../userContext";
+import StudentExam from "./studentExam";
 
 export default function Exam() {
   const [exams, setExams] = useState([]);
@@ -10,6 +12,8 @@ export default function Exam() {
     message: "",
     severity: "success",
   });
+
+  const { user, setUser } = useContext(UserContext);
 
   const examService = new ExamService();
 
@@ -47,7 +51,11 @@ export default function Exam() {
 
   return (
     <Fragment>
-      <TeacherExam exams={exams}></TeacherExam>
+      {user.role === "STUDENT" ? (
+        <StudentExam exams={exams} getExams={getExams} />
+      ) : (
+        <TeacherExam exams={exams} getExams={getExams} />
+      )}
       <SnackbarOpen
         open={snackbar.open}
         message={snackbar.message}

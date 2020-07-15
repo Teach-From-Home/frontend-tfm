@@ -16,7 +16,7 @@ import { UserContext } from "../../userContext";
 export default function MultipleChoiceStudent({ question, index, setShowMultipleChoice, readOnly }) {
   const classes = useStyles();
 
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState('1');
 
   const { user, setUser } = useContext(UserContext);
 
@@ -29,11 +29,15 @@ export default function MultipleChoiceStudent({ question, index, setShowMultiple
   }, []);
 
   const getOkAnswer = () => {
-    let ans = question.options.map((o, index) => {
-      if (o.selected) return index;
-    });
+    if(user.role === 'TEACHER'){
+      let ans = question.options.map((o, index) => {
+        if (o.selected) return index;
+      });
 
-    setValue(ans.find((a) => a !== undefined).toString());
+      setValue(ans.find((a) => a !== undefined).toString());
+    }else{
+      setValue('');
+    }
   };
 
   const fillModifyMultipleChoice = () => {

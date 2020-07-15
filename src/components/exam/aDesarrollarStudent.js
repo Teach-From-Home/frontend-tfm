@@ -39,7 +39,7 @@ export default function ADesarrollarStudent({
         <Box m={2}>
           {user.role === "STUDENT" ? (
             <TextField
-              label="Escribe tu comentario..."
+              label="Escribe tu respuesta..."
               answer
               rowsMax={50}
               variant="outlined"

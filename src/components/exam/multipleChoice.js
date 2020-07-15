@@ -66,6 +66,7 @@ export default function MultipleChoice({
       setTitle("");
       setSelectedValue(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event) => {

@@ -61,7 +61,7 @@ const materialTheme = createMuiTheme({
   },
 });
 
-export default function Exam() {
+export default function NewExam({ getExams }) {
   const classes = useStyles();
   const [exam, setExam] = useState(modelExam);
   const [showMultipleChoice, setShowMultipleChoice] = useState(false);
@@ -101,13 +101,19 @@ export default function Exam() {
 
   const handleChange = (event) => {
     setSwitchCheck(event.target.checked);
+    setExam({
+      ...exam,
+      available: event.target.checked
+    });
   };
 
   const sendExam = () => {
     let classroomId = localStorage.getItem("classroomId");
 
     try {
-      let resp = examService.newExam(exam, classroomId).then((r) => {});
+      let resp = examService.newExam(exam, classroomId).then((r) => {
+        getExams();
+      });
     } catch (error) {}
   };
 
@@ -115,7 +121,9 @@ export default function Exam() {
     let classroomId = localStorage.getItem("classroomId");
 
     try {
-      let resp = examService.editExam(exam).then((r) => {});
+      let resp = examService.editExam(exam).then((r) => {
+        getExams();
+      });
     } catch (error) {}
   };
 
