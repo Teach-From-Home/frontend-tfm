@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Card,
   Typography,
@@ -19,6 +19,10 @@ export default function ADesarrollarStudent({
   const [answer, setAnswer] = useState("");
   const { user, setUser } = useContext(UserContext);
 
+  useEffect(() => {
+    createAnswer();
+  }, [answer]);
+
   const handleInputChange = (e) => {
     const { value, name } = e.target;
     setAnswer({ ...answer, [name]: value });
@@ -30,6 +34,25 @@ export default function ADesarrollarStudent({
       modifyADesarrollar: question,
     });
     setShowADesarrollar(true);
+  };
+
+  const createAnswer = () => {
+    if (user.role === "STUDENT") {
+      let ans = {
+        type: "write",
+        title: question.title,
+        answer: answer,
+      };
+
+      let eQuestions = user.finishedExam;
+
+      eQuestions.push(ans);
+
+      setUser({
+        ...user,
+        finishedExam: eQuestions,
+      });
+    }
   };
 
   return (

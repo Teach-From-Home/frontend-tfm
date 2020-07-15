@@ -19,15 +19,16 @@ export default function ExamLive() {
   const [exam, setExam] = useState();
 
   useEffect(() => {
-    if (user.selectedExam) {
-      setExam(user.selectedExam);
-    }
+    if (user.selectedExam) setExam(user.selectedExam);
+    setUser({
+      ...user,
+      finishedExam: [],
+    });
   }, []);
 
   const finishExam = () => {
-      let e = exam;
-    debugger;
-  }
+    let e = exam;
+  };
 
   return (
     <div>
@@ -50,7 +51,7 @@ export default function ExamLive() {
             );
           })
         : null}
-        <ColorButton onClick={finishExam}>Terminar</ColorButton>
+      <ColorButton onClick={finishExam}>Terminar</ColorButton>
     </div>
   );
 }

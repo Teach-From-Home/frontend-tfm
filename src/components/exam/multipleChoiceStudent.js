@@ -13,10 +13,15 @@ import {
 } from "@material-ui/core";
 import { UserContext } from "../../userContext";
 
-export default function MultipleChoiceStudent({ question, index, setShowMultipleChoice, readOnly }) {
+export default function MultipleChoiceStudent({
+  question,
+  index,
+  setShowMultipleChoice,
+  readOnly,
+}) {
   const classes = useStyles();
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState("");
 
   const { user, setUser } = useContext(UserContext);
 
@@ -26,27 +31,39 @@ export default function MultipleChoiceStudent({ question, index, setShowMultiple
 
   useEffect(() => {
     getOkAnswer();
-  }, []);
+    createAnswer();
+  }, [value]);
 
   const getOkAnswer = () => {
-    if(user.role === 'TEACHER'){
+    if (user.role === "TEACHER") {
       let ans = question.options.map((o, index) => {
         if (o.selected) return index;
       });
 
       setValue(ans.find((a) => a !== undefined).toString());
-    }else{
-      setValue('');
     }
   };
 
   const fillModifyMultipleChoice = () => {
     setUser({
       ...user,
-      modifyMultipleChoice: question
+      modifyMultipleChoice: question,
     });
     setShowMultipleChoice(true);
-  }
+  };
+
+  const createAnswer = () => {
+    if (user.role === "STUDENT") {
+      let eQuestions = user.finishedExam;
+
+      eQuestions.push(question);
+
+      setUser({
+        ...user,
+        finishedExam: eQuestions,
+      });
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -89,9 +106,10 @@ export default function MultipleChoiceStudent({ question, index, setShowMultiple
             </FormControl>
           </Grid>
           {readOnly ? (
-            <ColorButton onClick={fillModifyMultipleChoice}>Modificar</ColorButton>
-          ) 
-          : null}
+            <ColorButton onClick={fillModifyMultipleChoice}>
+              Modificar
+            </ColorButton>
+          ) : null}
         </Box>
       </Card>
     </div>
