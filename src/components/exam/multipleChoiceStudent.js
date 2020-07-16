@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { ColorButton, ColorRadio, useStyles } from "../exam/style";
 import {
   Card,
@@ -12,12 +12,15 @@ import {
   TextField,
 } from "@material-ui/core";
 import { UserContext } from "../../userContext";
+import _ from 'lodash';
 
 export default function MultipleChoiceStudent({
   question,
   index,
   setShowMultipleChoice,
   readOnly,
+  getRespp,
+  setRespp
 }) {
   const classes = useStyles();
 
@@ -26,12 +29,16 @@ export default function MultipleChoiceStudent({
   const { user, setUser } = useContext(UserContext);
 
   const handleChange = (event) => {
+    clearTrueDataFromOptions(); //pongo todas en false 
     setValue(event.target.value);
+    selectThisOne(event.target.value); //selecciono la q toco
   };
 
   useEffect(() => {
     getOkAnswer();
-    createAnswer();
+    if(value){
+      debounceSearch.current(value);
+    }
   }, [value]);
 
   const getOkAnswer = () => {
@@ -52,18 +59,35 @@ export default function MultipleChoiceStudent({
     setShowMultipleChoice(true);
   };
 
-  const createAnswer = () => {
+  const createAnswer = (answer) => {
     if (user.role === "STUDENT") {
-      let eQuestions = user.finishedExam;
+      if(answer === '') return;
 
-      eQuestions.push(question);
+      let resp = getRespp();
 
-      setUser({
-        ...user,
-        finishedExam: eQuestions,
-      });
+      //filtro las questions y saco la que es igual a la q estoy tocando ahora.
+      let qs = resp.filter(q => q.title !== question.title)
+
+      //a las que me quedaron, les pusheo la nueva asi 'piso' la vieja.
+      qs.push(question);
+
+      setRespp(qs);
     }
   };
+
+  const debounceSearch = useRef(
+    _.debounce(answer => {
+      createAnswer(answer);
+    }, 1000)
+  )
+
+  const clearTrueDataFromOptions = () => {
+    question.options.forEach(q => { q.selected = false});
+  }
+
+  const selectThisOne = (index) => {
+    question.options[parseInt(index)].selected = true;
+  }
 
   return (
     <div className={classes.root}>

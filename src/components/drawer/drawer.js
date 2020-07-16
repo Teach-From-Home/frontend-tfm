@@ -49,26 +49,32 @@ export default function PersistentDrawerLeft() {
 
   const redirectProfile = () => {
     history.push("/profile");
+    setOpen(false);
   };
 
   const redirectForum = () => {
     history.push("/forum");
+    setOpen(false);
   };
 
   const redirectClass = () => {
     history.push("/call");
+    setOpen(false);
   };
 
   const redirectHomework = () => {
     history.push("/homework");
+    setOpen(false);
   };
 
   const redirectExam = () => {
     history.push("/exam");
+    setOpen(false);
   };
   
   const redirectBibliography = () => {
     history.push("/bibliography");
+    setOpen(false);
   };
 
   const handleClickMenu = (event) => {

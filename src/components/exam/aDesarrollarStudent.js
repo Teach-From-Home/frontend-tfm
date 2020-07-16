@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   Card,
   Typography,
@@ -8,19 +8,24 @@ import {
 } from "@material-ui/core";
 import { UserContext } from "../../userContext";
 import { useStyles, ColorButton } from "./style";
+import _ from 'lodash';
 
 export default function ADesarrollarStudent({
   question,
   index,
   setShowADesarrollar,
   readOnly,
+  getRespp,
+  setRespp
 }) {
   const classes = useStyles();
   const [answer, setAnswer] = useState("");
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    createAnswer();
+    if(answer){
+      debounceSearch.current(answer);
+    }
   }, [answer]);
 
   const handleInputChange = (e) => {
@@ -36,24 +41,32 @@ export default function ADesarrollarStudent({
     setShowADesarrollar(true);
   };
 
-  const createAnswer = () => {
+  const createAnswer = (answer) => {
     if (user.role === "STUDENT") {
+      if(answer.text === '') return;
       let ans = {
         type: "write",
         title: question.title,
-        answer: answer,
+        answer: answer.text,
       };
 
-      let eQuestions = user.finishedExam;
+      let resp = getRespp();
 
-      eQuestions.push(ans);
+      //filtro las questions y saco la que es igual a la q estoy tocando ahora.
+      let qs = resp.filter(q => q.title !== ans.title)
 
-      setUser({
-        ...user,
-        finishedExam: eQuestions,
-      });
+      //a las que me quedaron, les pusheo la nueva asi 'piso' la vieja.
+      qs.push(ans);
+
+      setRespp(qs);
     }
   };
+
+  const debounceSearch = useRef(
+    _.debounce(answer => {
+      createAnswer(answer);
+    }, 1000)
+  )
 
   return (
     <div className={classes.root}>

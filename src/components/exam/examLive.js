@@ -17,6 +17,8 @@ const modelExam = {
 export default function ExamLive() {
   const { user, setUser } = useContext(UserContext);
   const [exam, setExam] = useState();
+  
+  let resp = [];
 
   useEffect(() => {
     if (user.selectedExam) setExam(user.selectedExam);
@@ -25,6 +27,14 @@ export default function ExamLive() {
       finishedExam: [],
     });
   }, []);
+
+  const setRespp = (thing) => {
+    resp = thing
+  }
+
+  const getRespp = () => {
+    return resp
+  }
 
   const finishExam = () => {
     let e = exam;
@@ -39,11 +49,17 @@ export default function ExamLive() {
                 {q.type === "choice" ? (
                   <MultipleChoiceStudent
                     question={q}
+                    setRespp={setRespp}
+                    getRespp={getRespp}
+                    get resp
                     index={i}
                   />
                 ) : (
                   <ADesarrollarStudent
                     question={q}
+                    setRespp={setRespp}
+                    getRespp={getRespp}
+                    resp={resp}
                     index={i}
                   />
                 )}
