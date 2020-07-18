@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Typography, Grid, Card, Box } from "@material-ui/core";
+import { Typography, Grid, Card, Box, Icon } from "@material-ui/core";
 import { useStyles, ColorButton } from "./style";
 import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";
@@ -28,6 +28,9 @@ export default function HomeworkCard({ homework, callb, teacher }) {
     });
   }
 
+  const hasFile = homework.file === "" || !homework.file
+  
+
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -50,6 +53,12 @@ export default function HomeworkCard({ homework, callb, teacher }) {
               <Typography variant='body1'>{homework.description}</Typography>
               {user.role === "STUDENT" ? (
                 <span>
+                  {hasFile ? null :
+                  <a href={homework.file} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "inherit" }} download>
+                    <ColorButton style={{ margin: '10px' }}>
+                      <Icon>get_app</Icon>
+                    </ColorButton>
+                  </a>}
                   <TeacherFeedback uploaded={homework.uploadedHomeworks[0]} homework={homework} />
                   <FileUpload callb={callb} homework={homework} />
                 </span>

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, Box, Grid, Card, Typography, createMuiTheme, ThemeProvider, CircularProgress } from '@material-ui/core';
+import { TextField, Box, Grid, Card, Typography, createMuiTheme, ThemeProvider, CircularProgress, Icon } from '@material-ui/core';
 import { ColorButton, useStyles, YellowSwitch } from './style';
 import HomeworkService from '../../services/homeworkService';
 import { UserContext } from '../../userContext';
@@ -7,12 +7,15 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import moment from 'moment';
+import FileUploader from "react-firebase-file-uploader";
+import firebase from "firebase";
 
 const modelHomework = {
     title: '',
     description: '',
     available: false,
-    deadLine: moment()
+    deadLine: moment(),
+    file: '',
 }
 
 const materialTheme = createMuiTheme({
@@ -56,6 +59,8 @@ export default function NewHomework(props) {
     const [homework, setHomework] = useState(modelHomework);
     const [switchCheck, setSwitchCheck] = useState(false);
     const [loading, setloading] = useState(false)
+    const [uploadProgress, setuploadProgress] = useState(0);
+    const [uploading, setuploading] = useState(false);
 
     const homeworkService = new HomeworkService();
     const { user, setUser } = useContext(UserContext);
@@ -68,7 +73,8 @@ export default function NewHomework(props) {
                 title: user.modifyHomework.title,
                 description: user.modifyHomework.description,
                 available: user.modifyHomework.available,
-                deadLine: deadLine
+                deadLine: deadLine,
+                file: user.modifyHomework.file,
             });
 
             setSwitchCheck(user.modifyHomework.available);
@@ -100,6 +106,7 @@ export default function NewHomework(props) {
             homeworkModified.description = homework.description;
             homeworkModified.available = switchCheck;
             homeworkModified.deadLine = homework.deadLine.format("DD/MM/yyyy");
+            homeworkModified.file = homework.file;
             homeworkService.modifyHomework(homeworkModified, user.modifyHomework.id)
                 .then(() => {
                     getHomeworksTeacher()
@@ -120,6 +127,8 @@ export default function NewHomework(props) {
                     })
                 })
         } else {
+            setHomework({...homework, available:switchCheck})
+            debugger
             homeworkService.newHomework(homework, user.id, classroomId)
                 .then(() => {
                     getHomeworksTeacher()
@@ -159,6 +168,32 @@ export default function NewHomework(props) {
         return homework.description !== '' && homework.title !== '';
     }
 
+    const handeUploadStart = () => {
+        setuploading(true);
+        setuploadProgress(0);
+    };
+
+    const handeUploadSucess = (name) => {
+        setuploadProgress(100);
+
+        firebase
+            .storage()
+            .ref("homeworkst")
+            .child(name)
+            .getDownloadURL()
+            .then((url) => {
+                setuploading(false);
+                setHomework({ ...homework, file: url });
+            });
+    };
+
+
+    const handleProgess = (progress) => {
+        setuploadProgress(progress);
+    };
+
+    const hasFile = homework.file === "" || !homework.file
+
     return (
         <div className={classes.root}>
             <Card className={classes.card}>
@@ -181,8 +216,38 @@ export default function NewHomework(props) {
                                 />
                             </MuiPickersUtilsProvider>
                         </ThemeProvider>
+                        <Grid item>
+                            <br />
+                            {uploading ? (
+                                <CircularProgress variant='static' style={{ color: '#636363' }} value={uploadProgress} />
+                            ) : (
+                                    <label
+                                        style={{
+                                            color: "#000000",
+                                            backgroundColor: "#d6a82a",
+                                            "&:hover": {
+                                                backgroundColor: "#636363",
+                                            },
+                                            borderRadius: "10px",
+                                            cursor: "pointer",
+                                            padding: 10,
+                                        }}
+                                    >
+                                        <strong>{ hasFile ? <Icon style={{ paddingTop: 5 }}>attachment</Icon> : <span><Icon style={{ paddingTop: 5 }}>attachment</Icon> Seleccionar otro archivo</span>}</strong>
+                                        <FileUploader
+                                            hidden
+                                            accept='*'
+                                            storageRef={firebase.storage().ref("/homeworkst")}
+                                            onUploadStart={handeUploadStart}
+                                            onUploadSuccess={handeUploadSucess}
+                                            onProgress={handleProgess}
+                                            randomizeFilename
+                                        />
+                                    </label>
+                                )}
+                        </Grid>
                         <Grid item >
-                            <br/>
+                            <br />
                             {loading ?
                                 <CircularProgress style={{ color: '#636363' }} />
                                 :

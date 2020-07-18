@@ -25,13 +25,14 @@ export default class HomeworkService {
   }
 
   async newHomework(homework, userId, classroomId) {
-    const { title, description, available, deadLine } = homework;
+    const { title, description, available, deadLine, file } = homework;
 
     let hs = {
       title: title,
       description: description,
       available: available,
-      deadLine: deadLine.format("DD/MM/yyyy")
+      deadLine: deadLine.format("DD/MM/yyyy"),
+      file:file,
     }
 
     const result = await axios.post(`${URL}classroom/${classroomId}/homework/user/${userId}`, hs);
