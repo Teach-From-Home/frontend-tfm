@@ -16,6 +16,7 @@
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "react": "^16.13.1",
+    "react-big-calendar": "^0.26.0",
     "react-dom": "^16.13.1",
     "react-firebase-file-uploader": "^2.4.3",
     "react-jitsi": "^1.0.3",

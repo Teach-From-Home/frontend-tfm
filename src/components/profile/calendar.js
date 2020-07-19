@@ -1,9 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../userContext'
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core'
 import ProfileService from '../../services/profileService'
+import moment from 'moment'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-const Calendar = () => {
+const localizer = momentLocalizer(moment)
+
+const Calendars = () => {
     const service = new ProfileService()
     const { user } = useContext(UserContext);
     const [loading, setLoading] = useState(true)
@@ -51,8 +56,16 @@ const Calendar = () => {
                 <div >
                     {renderCard()}
                 </div>}
+            <div style={{height:'500px'}}>
+                <Calendar
+                    localizer={localizer}
+                    events={[]}
+                    startAccessor="start"
+                    endAccessor="end"
+                />
+            </div>
         </div>
     )
 }
 
-export default Calendar
+export default Calendars
