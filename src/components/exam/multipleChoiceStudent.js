@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { ColorButton, ColorRadio, useStyles } from "../exam/style";
+import { ColorButton, ColorRadio, useStyles, YellowTypography } from "../exam/style";
 import {
   Card,
   Grid,
@@ -20,7 +20,8 @@ export default function MultipleChoiceStudent({
   setShowMultipleChoice,
   readOnly,
   getRespp,
-  setRespp
+  setRespp,
+  finished
 }) {
   const classes = useStyles();
 
@@ -129,11 +130,13 @@ export default function MultipleChoiceStudent({
               </RadioGroup>
             </FormControl>
           </Grid>
-          {readOnly ? (
+          {readOnly && !finished ? (
             <ColorButton onClick={fillModifyMultipleChoice}>
               Modificar
             </ColorButton>
-          ) : null}
+          ) :
+          <YellowTypography>{question.validAnswer}</YellowTypography>
+        }
         </Box>
       </Card>
     </div>

@@ -5,18 +5,13 @@ import { Box } from "@material-ui/core";
 import MultipleChoiceStudent from "./multipleChoiceStudent";
 import ADesarrollarStudent from "./aDesarrollarStudent";
 import { ColorButton } from "./style";
-
-const modelExam = {
-  id: "",
-  title: "",
-  description: "",
-  deadLine: moment(),
-  questions: [],
-};
+import ExamService from "../../services/examService";
 
 export default function ExamLive() {
   const { user, setUser } = useContext(UserContext);
   const [exam, setExam] = useState();
+
+  const examService = new ExamService();
   
   let resp = [];
 
@@ -37,7 +32,13 @@ export default function ExamLive() {
   }
 
   const finishExam = () => {
-    let e = exam;
+    try {
+      let response = examService.postExam(exam.id, user.id, resp);
+      console.log(response);
+    } catch (error) {
+      
+    }
+
   };
 
   return (

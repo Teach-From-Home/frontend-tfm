@@ -7,7 +7,7 @@ import {
   Box,
 } from "@material-ui/core";
 import { UserContext } from "../../userContext";
-import { useStyles, ColorButton } from "./style";
+import { useStyles, ColorButton, YellowTypography } from "./style";
 import _ from 'lodash';
 
 export default function ADesarrollarStudent({
@@ -16,7 +16,8 @@ export default function ADesarrollarStudent({
   setShowADesarrollar,
   readOnly,
   getRespp,
-  setRespp
+  setRespp,
+  finished
 }) {
   const classes = useStyles();
   const [answer, setAnswer] = useState("");
@@ -84,7 +85,10 @@ export default function ADesarrollarStudent({
               value={answer.text}
             />
           ) : (
+            !finished ? 
             <ColorButton onClick={fillADesarrollar}>Modificar</ColorButton>
+            :
+            <YellowTypography>{question.answer}</YellowTypography>
           )}
         </Box>
       </Card>

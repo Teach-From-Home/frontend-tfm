@@ -45,4 +45,28 @@ export default class ExamService {
     );
     return result.data;
   }
+
+  async postExam(examId, userId, questions){
+
+    let qs = {
+      questions: questions
+    }
+
+    const result = await axios.put(`${URL}exam/${examId}/user/${userId}`, qs);
+    return result.data
+  }
+
+  startExam(examId, userId){
+    axios.post(`${URL}exam/${examId}/user/${userId}`);
+  }
+
+  async getStudentsExams(examId){
+    const result = await axios.get(`${URL}exam/${examId}`);
+    return result.data;
+  }
+
+  async correctExam(correction, userId, examId){
+    const result = await axios.post(`${URL}exam/${examId}/user/${userId}/comment`, correction);
+    return result.data;
+  }
 }

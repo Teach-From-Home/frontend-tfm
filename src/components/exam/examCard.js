@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Typography, Grid, Card, Box } from "@material-ui/core";
 import { useStyles, ColorButton, YellowTypography } from "./style";
 import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";
 import { useHistory } from "react-router-dom";
+import ExamService from "../../services/examService";
+import FinishedExam from "./finishedExam";
 
 const modelExam = {
   title: "",
@@ -15,13 +17,16 @@ export default function ExamCard({ exam, teacher }) {
   const history = useHistory();
 
   const { user, setUser } = useContext(UserContext);
+  const [showFinishedExam, setShowFinishedExam] = useState(false);
+
+  const examService = new ExamService();
 
   const redirectStudentExam = () => {
     setUser({
       ...user,
       selectedExam: exam,
     });
-    //history.push("/studentsHomework");
+    history.push("/studentsExam");
   };
 
   const fillModifyExam = () => {
@@ -37,7 +42,8 @@ export default function ExamCard({ exam, teacher }) {
       selectedExam: exam,
     });
     history.push("/examLive");
-  }
+    examService.startExam(exam.id, user.id);
+  };
 
   return (
     <div className={classes.root}>
@@ -62,9 +68,20 @@ export default function ExamCard({ exam, teacher }) {
               <Typography variant="body1">{exam.description}</Typography>
               <Typography variant="body1">{`Fecha del examen: ${exam.deadLine}`}</Typography>
               {user.role === "STUDENT" ? (
-                <span>
-                  <ColorButton onClick={redirectDoExam}>Entrar</ColorButton>
-                </span>
+                <div>
+                  {exam.uploaded ? (
+                    <ColorButton
+                      onClick={() => {
+                        setShowFinishedExam(!showFinishedExam);
+                      }}
+                    >
+                      Ver examen
+                    </ColorButton>
+                  ) : (
+                    <ColorButton onClick={redirectDoExam}>Entrar</ColorButton>
+                  )}
+                  
+                </div>
               ) : (
                 <div>
                   <Box m={2}>
@@ -84,6 +101,7 @@ export default function ExamCard({ exam, teacher }) {
                   </Box>
                 </div>
               )}
+              {showFinishedExam ? <FinishedExam exam={exam} /> : null}
             </Grid>
           </Grid>
         </Box>
