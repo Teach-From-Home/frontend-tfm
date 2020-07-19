@@ -128,7 +128,6 @@ export default function NewHomework(props) {
                 })
         } else {
             setHomework({...homework, available:switchCheck})
-            debugger
             homeworkService.newHomework(homework, user.id, classroomId)
                 .then(() => {
                     getHomeworksTeacher()

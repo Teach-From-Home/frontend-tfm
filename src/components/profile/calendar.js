@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../userContext'
-import { CircularProgress, Typography } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 import ProfileService from '../../services/profileService'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -24,24 +24,9 @@ const Calendars = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const renderCard = () => {
-    // eslint-disable-next-line eqeqeq
-    if (calendar.length == 0) return (<Typography variant="h4" >No hay eventos para mostrar</Typography>)
-    return (
-      <div>
-        <Typography variant="h4" >Calendario</Typography>   <br />
-        <hr />
-        {calendar.map((entry, id) => {
-          return (<div key={id}> {SingleCard(entry)} </div>)
-        })}
-
-      </div>)
-  }
-
-
   return (
     <div>
-      {selected ? <SingleCard calendarEntry={selected} /> : null}
+      {selected ? <SingleCard calendarEntry={selected.extendedProps} /> : null}
       <br />
       {loading ?
         <CircularProgress size={100} style={{ color: '#636363', marginTop: '150px' }} /> :
