@@ -5,11 +5,12 @@ import ForumService from "../../services/forumService";
 import { UserContext } from "../../userContext";
 import SnackbarOpen from "../snackbar/snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Typography } from "@material-ui/core";
+import { Typography, TextField, InputAdornment, Icon } from "@material-ui/core";
 
 export default function Forum() {
   const { user } = useContext(UserContext);
   const [posts, setPosts] = useState(false);
+  const [fileteredPosts, setFileteredPosts] = useState([]);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -39,6 +40,7 @@ export default function Forum() {
     try {
       let posts = await forumService.getForumPosts(user.id, classroomId);
       setPosts(posts);
+      setFileteredPosts(posts)
     } catch (err) {
       setSnackbar({
         open: true,
@@ -48,7 +50,16 @@ export default function Forum() {
     }
   };
 
-  //TODO SEARCH DE FORO
+  const handleFilter = (e) => {
+    if (!posts)
+      return
+    if (e.target.value === "" || e.target.value === " ") {
+      setFileteredPosts(posts)
+      return posts
+    }
+    setFileteredPosts(posts.filter(post => post.title.toLowerCase().includes(e.target.value)))
+  }
+
   //TODO SNACKBAR !
 
   return (
@@ -57,8 +68,28 @@ export default function Forum() {
         setSnackbar={setSnackbar}
         getForumPosts={getForumPosts}
       ></NewPost>
+      <br/>
+       <TextField
+        label="Buscar un post"
+        onChange={handleFilter}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Icon>search</Icon>
+            </InputAdornment>
+          ),
+        }}
+      />
       {posts ? (
-        posts.map((p) => {
+        fileteredPosts.length === 0 ? 
+        <Typography
+          variant="h3"
+          style={{ marginTop: "100px", color: "#636363" }}
+        >
+          No hay posts que cumplan el criterio de busqueda
+        </Typography>
+        :
+        fileteredPosts.map((p) => {
           return (
             <ForumPost
               post={p}
@@ -69,24 +100,22 @@ export default function Forum() {
           );
         })
       ) : (
-        <div>
-          <CircularProgress
-            size={100}
-            style={{ color: "#636363", marginTop: "90px" }}
-          />
-        </div>
-      )}
+          <div>
+            <CircularProgress
+              size={100}
+              style={{ color: "#636363", marginTop: "90px" }}
+            />
+          </div>
+        )}
       {posts.length === 0 ? (
         <Typography
           variant="h3"
           style={{ marginTop: "100px", color: "#636363" }}
         >
-          {" "}
+          {""}
           No hay posts subidos aun..
         </Typography>
-      ) : (
-        ""
-      )}
+      ) : null }
       <SnackbarOpen
         open={snackbar.open}
         message={snackbar.message}
