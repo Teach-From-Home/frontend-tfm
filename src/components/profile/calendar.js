@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import SingleCard from './singleEvent'
 
 import './style.css'
+import { YellowTypography } from '../exam/style'
 
 
 const Calendars = () => {
@@ -27,6 +28,7 @@ const Calendars = () => {
 
   return (
     <div>
+      <YellowTypography variant="h4">CALENDARIO ACADÉMICO</YellowTypography>
       {selected ? <SingleCard calendarEntry={selected} /> : null}
       <br />
       {loading ?
