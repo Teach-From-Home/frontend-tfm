@@ -36,7 +36,7 @@ export default function Profile() {
                     justify="center"
                 >
                     <Grid item xs>
-                        <UserData profile={profile}></UserData>
+                        <UserData profile={profile} setProfile={setProfile}></UserData>
                     </Grid>
                     <Grid item xs>
                         <Calendar />

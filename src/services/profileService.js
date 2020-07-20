@@ -12,5 +12,12 @@ export default class ProfileService {
         const result = await axios.get(`${URL}user/${userId}/calendar`);
         return result.data;
     }
+
+    async editProfile(profile){
+        let userId = profile.id;
+
+        const result = await axios.put(`${URL}user/${userId}`, profile);
+        return result.data;
+    }
 }
 
