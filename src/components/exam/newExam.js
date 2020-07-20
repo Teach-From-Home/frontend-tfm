@@ -128,6 +128,7 @@ export default function NewExam({ getExams }) {
     try {
       let resp = examService.editExam(exam).then((r) => {
         getExams();
+        setExam({...modelExam, questions: []});
       });
     } catch (error) {}
   };
