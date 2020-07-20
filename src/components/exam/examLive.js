@@ -1,15 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../userContext";
-import moment from "moment";
+import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
+import SnackbarOpen from "../snackbar/snackbar";
 import MultipleChoiceStudent from "./multipleChoiceStudent";
 import ADesarrollarStudent from "./aDesarrollarStudent";
 import { ColorButton } from "./style";
 import ExamService from "../../services/examService";
 
 export default function ExamLive() {
+  const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [exam, setExam] = useState();
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const examService = new ExamService();
   
@@ -23,6 +30,16 @@ export default function ExamLive() {
     });
   }, []);
 
+  const closeSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbar({
+      ...snackbar,
+      open: false,
+    });
+  };
+
   const setRespp = (thing) => {
     resp = thing
   }
@@ -33,12 +50,33 @@ export default function ExamLive() {
 
   const finishExam = () => {
     try {
-      let response = examService.postExam(exam.id, user.id, resp);
-      console.log(response);
+      examService.postExam(exam.id, user.id, resp).then(r => {
+        setSnackbar({
+          open: true,
+          message: "Examen entregado.",
+          severity: "success",
+        })
+        
+      })
+      .catch(e => {
+        setSnackbar({
+          open: true,
+          message: "Error al entregar el examen.",
+          severity: "error",
+        })
+      })
     } catch (error) {
+      setSnackbar({
+        open: true,
+        message: "Error al entregar el examen.",
+        severity: "error",
+      })
       
     }
 
+    setTimeout(() => {
+      history.push("/exam");
+    }, 2000);
   };
 
   return (
@@ -69,6 +107,12 @@ export default function ExamLive() {
           })
         : null}
       <ColorButton onClick={finishExam}>Terminar</ColorButton>
+      <SnackbarOpen
+        open={snackbar.open}
+        message={snackbar.message}
+        severity={snackbar.severity}
+        closeSnac={closeSnackbar}
+      />
     </div>
   );
 }

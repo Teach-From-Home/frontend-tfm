@@ -5,7 +5,7 @@ import { UserContext } from "../../userContext";
 import NewExam from "./newExam";
 import ExamCard from "./examCard";
 
-export default function TeacherExam({ exams, getExams }) {
+export default function TeacherExam({ exams, getExams, setSnackbar }) {
   const { user, setUser } = useContext(UserContext);
 
   return (
@@ -16,7 +16,7 @@ export default function TeacherExam({ exams, getExams }) {
             <YellowTypography variant="h6">
               {user.modifyExam ? "MODIFICAR EXAMEN" : "NUEVO EXAMEN"}
             </YellowTypography>
-            <NewExam getExams={getExams}></NewExam>
+            <NewExam getExams={getExams} setSnackbar={setSnackbar}></NewExam>
           </Grid>
           <Grid item xs>
             <YellowTypography variant="h6">VER EXAMEN</YellowTypography>

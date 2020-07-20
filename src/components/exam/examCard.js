@@ -1,16 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Typography, Grid, Card, Box } from "@material-ui/core";
 import { useStyles, ColorButton, YellowTypography } from "./style";
-import AvatarWithName from "../avatarWithName";
 import { UserContext } from "../../userContext";
 import { useHistory } from "react-router-dom";
 import ExamService from "../../services/examService";
 import FinishedExam from "./finishedExam";
-
-const modelExam = {
-  title: "",
-  nose: "",
-};
 
 export default function ExamCard({ exam, teacher }) {
   const classes = useStyles();
@@ -67,7 +61,7 @@ export default function ExamCard({ exam, teacher }) {
               )}
               <Typography variant="body1">{exam.description}</Typography>
               <Typography variant="body1">{`Fecha del examen: ${exam.deadLine}`}</Typography>
-
+              <Typography variant="body1">{`Minutos para resolver: ${exam.minutes}`}</Typography>
               {exam.uploaded &&
               exam.uploadedExam.grade &&
               exam.uploadedExam.teacherComment ? (
@@ -77,7 +71,7 @@ export default function ExamCard({ exam, teacher }) {
                 </span>
               ) : (
                 <YellowTypography>
-                  {user.role === 'STUDENT' ? "Aun no ha sido corregido su examen." : ""}
+                  {user.role === 'STUDENT' && exam.uploaded? "Aun no ha sido corregido su examen." : ""}
                 </YellowTypography>
               )}
 

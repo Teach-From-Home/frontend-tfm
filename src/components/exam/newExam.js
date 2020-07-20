@@ -63,7 +63,7 @@ const materialTheme = createMuiTheme({
   },
 });
 
-export default function NewExam({ getExams }) {
+export default function NewExam({ getExams, setSnackbar }) {
   const classes = useStyles();
   const [exam, setExam] = useState(modelExam);
   const [showMultipleChoice, setShowMultipleChoice] = useState(false);
@@ -85,7 +85,7 @@ export default function NewExam({ getExams }) {
 
       setSwitchCheck(user.modifyExam.available);
     }else{
-      setExam(modelExam)
+      setExam({...modelExam, questions: []});
     }
   }, [user]);
 
@@ -118,6 +118,11 @@ export default function NewExam({ getExams }) {
       let resp = examService.newExam(exam, classroomId).then((r) => {
         getExams();
         setExam({...modelExam, questions: []});
+        setSnackbar({
+          open: true,
+          message: "Nuevo examen creado exitosamente.",
+          severity: "success",
+        });
       });
     } catch (error) {}
   };
@@ -129,6 +134,11 @@ export default function NewExam({ getExams }) {
       let resp = examService.editExam(exam).then((r) => {
         getExams();
         setExam({...modelExam, questions: []});
+        setSnackbar({
+          open: true,
+          message: "Examen editado exitosamente.",
+          severity: "success",
+        });
       });
     } catch (error) {}
   };

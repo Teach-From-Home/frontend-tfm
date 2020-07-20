@@ -54,7 +54,7 @@ export default function Exam() {
       {user.role === "STUDENT" ? (
         <StudentExam exams={exams} getExams={getExams} />
       ) : (
-        <TeacherExam exams={exams} getExams={getExams} />
+        <TeacherExam exams={exams} getExams={getExams} setSnackbar={setSnackbar}/>
       )}
       <SnackbarOpen
         open={snackbar.open}

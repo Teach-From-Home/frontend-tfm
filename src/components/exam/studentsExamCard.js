@@ -44,17 +44,12 @@ export default function StudentsExamCard({ exam, setSnackbar }) {
       examService
         .correctExam(correction, exam.studentId, user.selectedExam.id)
         .then(() => {
+          setShowComment(!showComment);
+          setShowFinishedExam(!showFinishedExam);
           setSnackbar({
             open: true,
             message: "Examen corregido exitosamente!",
             severity: "success",
-          });
-        })
-        .catch(() => {
-          setSnackbar({
-            open: true,
-            message: "Error al corregir examen...",
-            severity: "error",
           });
         });
     } catch (error) {
