@@ -16,16 +16,16 @@ function SingleEvent(props) {
 
     const fillLocalStorage = () => {
         localStorage.setItem('userId', user.id);
-        localStorage.setItem('classroomId', props.calendarEntry.classroomId);
+        localStorage.setItem('classroomId', props.calendarEntry.extendedProps.classroomId);
     }
 
     return (
         <div>
             <Typography variant="h5">Consigna: {props.calendarEntry.title}</Typography>
             <br />
-            <Typography variant="body1" color="textSecondary">Fecha limite: {props.calendarEntry.deadLine}</Typography>
-            <Typography variant="body1" color="textSecondary">Materia: {props.calendarEntry.subjectName}</Typography>
-            {props.calendarEntry.type === "HW" ?
+            <Typography variant="body1" color="textSecondary">Fecha limite: {props.calendarEntry.extendedProps.deadLine}</Typography>
+            <Typography variant="body1" color="textSecondary">Materia: {props.calendarEntry.extendedProps.subjectName}</Typography>
+            {props.calendarEntry.extendedProps.type === "HW" ?
                 <Button onClick={()=>redirect("/homework")} > Ver tareas</Button>
                 : <Button onClick={()=>redirect("/exam")} > Ver examenes </Button>
             }

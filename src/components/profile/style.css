@@ -1,0 +1,13 @@
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #303030;
+    border-color: #303030;
+    color: #d6a82a;
+}
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child){
+    background-color: #303030;
+    border-color: #303030;
+    color: #d6a82a;
+}
