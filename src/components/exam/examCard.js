@@ -77,7 +77,7 @@ export default function ExamCard({ exam, teacher }) {
                 </span>
               ) : (
                 <YellowTypography>
-                  Aun no ha sido corregido su examen.
+                  {user.role === 'STUDENT' ? "Aun no ha sido corregido su examen." : ""}
                 </YellowTypography>
               )}
 

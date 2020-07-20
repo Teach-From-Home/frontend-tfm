@@ -5,13 +5,14 @@ export default class ExamService {
 
   async newExam(exam, classroomId) {
 
-    const { title, description, available, deadLine, questions } = exam;
+    const { title, description, available, deadLine, minutes, questions } = exam;
 
     let ex = {
         title: title,
         description: description,
         available: available,
         deadLine: deadLine.format("DD/MM/yyyy"),
+        minutes: minutes,
         questions: questions
     }
 
