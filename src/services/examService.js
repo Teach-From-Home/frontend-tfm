@@ -31,7 +31,6 @@ export default class ExamService {
   }
 
   async editExam(exam){
-
     let dL = exam.deadLine.format("DD/MM/yyyy");
 
     let ex = {

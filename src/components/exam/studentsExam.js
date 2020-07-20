@@ -53,10 +53,10 @@ export default function StudentsExam(props) {
                 {
                     !loading ?
                         <span>
-                            {exams.map((e, index) => {
+                            {exams.map((e) => {
                                 return (
                                     <Box m={2}>
-                                        <StudentsExamCard setSnackbar={setSnackbar} exam={e} key={index} />
+                                        <StudentsExamCard setSnackbar={setSnackbar} exam={e} key={e.id} />
                                     </Box>
                                 )
                             })}

@@ -19,45 +19,35 @@ export default function MultipleChoice({
   const [opcion2, setOpcion2] = useState(modelOpcion);
   const [opcion3, setOpcion3] = useState(modelOpcion);
   const [opcion4, setOpcion4] = useState(modelOpcion);
+  const [prev, setPrev] = useState("");
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user.modifyMultipleChoice) {
-      setTitle(user.modifyMultipleChoice.title);
+    let a = JSON.parse(localStorage.getItem("modifyMultipleChoice"));
+    if (a) {
+      setTitle(a.title);
 
       setOpcion1({
-        question: user.modifyMultipleChoice.options[0].question,
+        question: a.options[0].question,
         selected: false,
       });
 
       setOpcion2({
-        question: user.modifyMultipleChoice.options[1].question,
+        question: a.options[1].question,
         selected: false,
       });
 
       setOpcion3({
-        question: user.modifyMultipleChoice.options[2].question,
+        question: a.options[2].question,
         selected: false,
       });
 
       setOpcion4({
-        question: user.modifyMultipleChoice.options[3].question,
+        question: a.options[3].question,
         selected: false,
       });
 
-      let qs = exam.questions.filter((q) => {
-        return q !== user.modifyMultipleChoice;
-      });
-
-      setExam({
-        ...exam,
-        questions: qs,
-      });
-
-      setUser({
-        ...user,
-        modifyMultipleChoice: null,
-      });
+      setPrev(a);
     } else {
       setOpcion1(modelOpcion);
       setOpcion2(modelOpcion);
@@ -146,14 +136,37 @@ export default function MultipleChoice({
       options: [opcion1, opcion2, opcion3, opcion4],
     };
 
-    let eQuestions = exam.questions;
+    if (prev) {
+      let qs = exam.questions.map((q) => {
+        if (q.title == prev.title && prev.type == q.type) {
+          return questionObj;
+        } else {
+          return q;
+        }
+      });
 
-    eQuestions.push(questionObj);
+      setExam({
+        ...exam,
+        questions: qs,
+      });
 
-    setExam({
-      ...exam,
-      questions: eQuestions,
-    });
+      localStorage.setItem("modifyMultipleChoice", null);
+    } else {
+      let qs = exam.questions;
+
+      qs.push(questionObj);
+
+      setExam({
+        ...exam,
+        questions: [...qs],
+      });
+    }
+
+    setOpcion1(modelOpcion);
+    setOpcion2(modelOpcion);
+    setOpcion3(modelOpcion);
+    setOpcion4(modelOpcion);
+    setTitle("");
 
     setShowMultipleChoice(false);
   };

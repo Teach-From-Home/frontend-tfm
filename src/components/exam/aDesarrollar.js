@@ -6,26 +6,16 @@ import { UserContext } from "../../userContext";
 export default function ADesarrollar({ setExam, exam, setShowADesarrollar }) {
   const [title, setTitle] = useState("");
 
-  const { user, setUser } = useContext(UserContext);
+  const [prev, setPrev] = useState("");
 
   useEffect(() => {
-    if (user.modifyADesarrollar) {
-      setTitle(user.modifyADesarrollar.title);
-
-      let qs = exam.questions.filter((q) => {
-        return q !== user.modifyADesarrollar;
-      });
-
-      setExam({
-        ...exam,
-        questions: qs,
-      });
-
-      setUser({
-        ...user,
-        modifyADesarrollar: null,
-      });
+    let a = JSON.parse(localStorage.getItem("modifyADesarrollar"));
+    if (a) {
+      setTitle(a.title);
+      setPrev(a);
     } else {
+      setTitle('');
+      setPrev('');
     }
   }, []);
 
@@ -35,15 +25,34 @@ export default function ADesarrollar({ setExam, exam, setShowADesarrollar }) {
       title: title,
     };
 
-    let eQuestions = exam.questions;
+    if (prev) {
+      let qs = exam.questions.map((q) => {
+        if (q.title == prev.title && prev.type == q.type) {
+          return questionObj;
+        } else {
+          return q;
+        }
+      });
 
-    eQuestions.push(questionObj);
+      setExam({
+        ...exam,
+        questions: qs,
+      });
 
-    setExam({
-      ...exam,
-      questions: eQuestions,
-    });
+      localStorage.setItem("modifyADesarrollar", null);
+    }else{
+      let qs = exam.questions;
 
+      qs.push(questionObj);
+
+      setExam({
+        ...exam,
+        questions: [...qs],
+      });
+    }
+
+    setTitle('');
+    setPrev('');
     setShowADesarrollar(false);
   };
 

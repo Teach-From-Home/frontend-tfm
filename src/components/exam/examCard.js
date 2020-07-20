@@ -67,6 +67,20 @@ export default function ExamCard({ exam, teacher }) {
               )}
               <Typography variant="body1">{exam.description}</Typography>
               <Typography variant="body1">{`Fecha del examen: ${exam.deadLine}`}</Typography>
+
+              {exam.uploaded &&
+              exam.uploadedExam.grade &&
+              exam.uploadedExam.teacherComment ? (
+                <span>
+                  <YellowTypography>{`Nota: ${exam.uploadedExam.grade}`}</YellowTypography>
+                  <YellowTypography>{`Comentario: ${exam.uploadedExam.teacherComment}`}</YellowTypography>
+                </span>
+              ) : (
+                <YellowTypography>
+                  Aun no ha sido corregido su examen.
+                </YellowTypography>
+              )}
+
               {user.role === "STUDENT" ? (
                 <div>
                   {exam.uploaded ? (
@@ -80,7 +94,6 @@ export default function ExamCard({ exam, teacher }) {
                   ) : (
                     <ColorButton onClick={redirectDoExam}>Entrar</ColorButton>
                   )}
-                  
                 </div>
               ) : (
                 <div>
@@ -101,7 +114,9 @@ export default function ExamCard({ exam, teacher }) {
                   </Box>
                 </div>
               )}
-              {showFinishedExam ? <FinishedExam exam={exam} /> : null}
+              {showFinishedExam ? (
+                <FinishedExam exam={exam.uploadedExam} />
+              ) : null}
             </Grid>
           </Grid>
         </Box>

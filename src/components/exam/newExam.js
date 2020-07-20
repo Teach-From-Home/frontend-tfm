@@ -20,13 +20,15 @@ import MultipleChoiceStudent from "./multipleChoiceStudent";
 import ADesarrollarStudent from "./aDesarrollarStudent";
 import ExamService from "../../services/examService";
 import { UserContext } from "../../userContext";
+import { setLogLevel } from "firebase";
 
 const modelExam = {
   title: "",
   description: "",
   available: false,
   deadLine: moment(),
-  questions: [],
+  minutes: 0,
+  questions: []
 };
 
 const materialTheme = createMuiTheme({
@@ -82,6 +84,8 @@ export default function NewExam({ getExams }) {
       });
 
       setSwitchCheck(user.modifyExam.available);
+    }else{
+      setExam(modelExam)
     }
   }, [user]);
 
@@ -113,6 +117,7 @@ export default function NewExam({ getExams }) {
     try {
       let resp = examService.newExam(exam, classroomId).then((r) => {
         getExams();
+        setExam({...modelExam, questions: []});
       });
     } catch (error) {}
   };
@@ -174,6 +179,18 @@ export default function NewExam({ getExams }) {
                 />
               </MuiPickersUtilsProvider>
             </ThemeProvider>
+            <TextField
+              label="Minutos"
+              type="number"
+              name="minutes"
+              value={exam.minutes}
+              onChange={update}
+              InputProps={{
+                inputProps: {
+                  min: 1
+                },
+              }}
+            />
             {user.modifyExam ? (
               <ColorButton onClick={editExam} style={{ marginTop: "10px" }}>
                 Guardar cambios
@@ -214,7 +231,8 @@ export default function NewExam({ getExams }) {
             setShowADesarrollar={setShowADesarrollar}
           ></ADesarrollar>
         ) : null}
-        {exam.questions
+        {console.log(exam.questions),
+        exam.questions
           ? exam.questions.map((q, i) => {
               return (
                 <Box m={1} key={i}>
@@ -233,6 +251,7 @@ export default function NewExam({ getExams }) {
                       readOnly
                     />
                   )}
+                  
                 </Box>
               );
             })

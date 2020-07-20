@@ -42,7 +42,7 @@ export default function Exam() {
     } catch (err) {
       setSnackbar({
         open: true,
-        message: "No hay tareas para mostar",
+        message: "No hay examenes para mostrar",
         severity: "info",
       });
       setExams([]);

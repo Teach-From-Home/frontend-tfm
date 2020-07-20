@@ -40,10 +40,10 @@ export default function MultipleChoiceStudent({
     if(value){
       debounceSearch.current(value);
     }
-  }, [value]);
+  }, [value, question]);
 
   const getOkAnswer = () => {
-    if (user.role === "TEACHER") {
+    if (user.role === "TEACHER" || finished) {
       let ans = question.options.map((o, index) => {
         if (o.selected) return index;
       });
@@ -53,15 +53,16 @@ export default function MultipleChoiceStudent({
   };
 
   const fillModifyMultipleChoice = () => {
-    setUser({
+    /*setUser({
       ...user,
       modifyMultipleChoice: question,
-    });
+    });*/
+    localStorage.setItem('modifyMultipleChoice', JSON.stringify(question))
     setShowMultipleChoice(true);
   };
 
   const createAnswer = (answer) => {
-    if (user.role === "STUDENT") {
+    if (user.role === "STUDENT" && !finished) {
       if(answer === '') return;
 
       let resp = getRespp();
@@ -79,7 +80,7 @@ export default function MultipleChoiceStudent({
   const debounceSearch = useRef(
     _.debounce(answer => {
       createAnswer(answer);
-    }, 1000)
+    }, 1500)
   )
 
   const clearTrueDataFromOptions = () => {
@@ -135,7 +136,10 @@ export default function MultipleChoiceStudent({
               Modificar
             </ColorButton>
           ) :
+          readOnly ?
           <YellowTypography>{question.validAnswer}</YellowTypography>
+          :
+          null
         }
         </Box>
       </Card>

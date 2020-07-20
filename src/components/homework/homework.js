@@ -48,7 +48,7 @@ export default function Homework() {
     } catch (err) {
       setSnackbar({
         open: true,
-        message: "No hay tareas para mostar",
+        message: "No hay tareas para mostrar",
         severity: "info",
       });
       setHomeworks([])

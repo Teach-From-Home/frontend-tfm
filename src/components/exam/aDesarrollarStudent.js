@@ -24,7 +24,7 @@ export default function ADesarrollarStudent({
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if(answer){
+    if(answer && !readOnly && !finished){
       debounceSearch.current(answer);
     }
   }, [answer]);
@@ -35,10 +35,11 @@ export default function ADesarrollarStudent({
   };
 
   const fillADesarrollar = () => {
-    setUser({
+    /*setUser({
       ...user,
       modifyADesarrollar: question,
-    });
+    });*/
+    localStorage.setItem('modifyADesarrollar', JSON.stringify(question))
     setShowADesarrollar(true);
   };
 
@@ -66,7 +67,7 @@ export default function ADesarrollarStudent({
   const debounceSearch = useRef(
     _.debounce(answer => {
       createAnswer(answer);
-    }, 1000)
+    }, 1500)
   )
 
   return (
@@ -74,7 +75,7 @@ export default function ADesarrollarStudent({
       <Card className={classes.searchCard}>
         <CardHeader title={`${index + 1}. ${question.title}`} />
         <Box m={2}>
-          {user.role === "STUDENT" ? (
+          {user.role === "STUDENT" && !finished ? (
             <TextField
               label="Escribe tu respuesta..."
               answer

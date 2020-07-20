@@ -27,9 +27,7 @@ export default function FinishedExam({ exam }) {
                 )}
               </Box>
             );
-          },
-          console.log(exam))
-          
+          })
         : null}
     </div>
   );
