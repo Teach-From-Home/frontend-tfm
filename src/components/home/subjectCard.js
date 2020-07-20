@@ -46,6 +46,16 @@ export default function SubjectCard({ classroom }) {
         history.push('/call');
     }
 
+    const redirectExam = () => {
+        setUser({
+            ...user,
+            selectedClassroom: classroom
+        });
+        localStorage.setItem('selectedClassroom', classroom.id);
+        fillLocalStorage();
+        history.push('/exam');
+    }
+
     const fillLocalStorage = () => {
         localStorage.setItem('userId', user.id);
         localStorage.setItem('classroomId', classroom.id);
@@ -74,6 +84,7 @@ export default function SubjectCard({ classroom }) {
                                 <ColorButton className={classes.button} onClick={redirectForum}>Foro</ColorButton>
                                 <ColorButton className={classes.button} onClick={redirectHomework}>Tareas</ColorButton>
                                 <ColorButton className={classes.button} onClick={redirectCall}>Clase</ColorButton>
+                                <ColorButton className={classes.button} onClick={redirectExam}>Examenes</ColorButton>
                             </Grid>
                         </Grid>
                     </Grid>

@@ -69,4 +69,8 @@ export default class ExamService {
     const result = await axios.post(`${URL}exam/${examId}/user/${userId}/comment`, correction);
     return result.data;
   }
+
+  activateExam(classroomId, examId){
+    return axios.put(`${URL}classroom/${classroomId}/exam/${examId}/activate`);
+  }
 }

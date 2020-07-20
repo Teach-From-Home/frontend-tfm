@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import ExamService from "../../services/examService";
 import FinishedExam from "./finishedExam";
 
-export default function ExamCard({ exam, teacher }) {
+export default function ExamCard({ exam, teacher, getExams }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -36,8 +36,14 @@ export default function ExamCard({ exam, teacher }) {
       selectedExam: exam,
     });
     history.push("/examLive");
-    examService.startExam(exam.id, user.id);
+    if(!exam.uploaded) examService.startExam(exam.id, user.id)
   };
+
+  const activateExam = () => {
+    examService.activateExam(user.selectedClassroom, exam.id).then(() => {
+      getExams();
+    })
+  }
 
   return (
     <div className={classes.root}>
@@ -74,10 +80,9 @@ export default function ExamCard({ exam, teacher }) {
                   {user.role === 'STUDENT' && exam.uploaded? "Aun no ha sido corregido su examen." : ""}
                 </YellowTypography>
               )}
-
               {user.role === "STUDENT" ? (
                 <div>
-                  {exam.uploaded ? (
+                  {exam.uploaded && !exam.uploadedExam.examIsInprogress? (
                     <ColorButton
                       onClick={() => {
                         setShowFinishedExam(!showFinishedExam);
@@ -95,16 +100,34 @@ export default function ExamCard({ exam, teacher }) {
                     <ColorButton
                       className={classes.button}
                       onClick={fillModifyExam}
-                      style={{ marginLeft: "10px" }}
                     >
                       modificar
                     </ColorButton>
                     <ColorButton
                       className={classes.button}
                       onClick={redirectStudentExam}
+                      style={{marginLeft: '10px'}}
                     >
                       ver
                     </ColorButton>
+                    {
+                      exam.available ? 
+                      <ColorButton
+                        className={classes.button}
+                        onClick={activateExam}
+                        style={{marginLeft: '10px'}}
+                      >
+                        desactivar
+                      </ColorButton>
+                      :
+                      <ColorButton
+                        className={classes.button}
+                        onClick={activateExam}
+                        style={{marginLeft: '10px'}}
+                      >
+                        activar
+                      </ColorButton>
+                    }
                   </Box>
                 </div>
               )}

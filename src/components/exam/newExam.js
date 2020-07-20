@@ -5,13 +5,11 @@ import {
   TextField,
   Box,
   Grid,
-  Typography,
   createMuiTheme,
   ThemeProvider,
-  CircularProgress,
   Card,
 } from "@material-ui/core";
-import { ColorButton, useStyles, YellowSwitch } from "./style";
+import { ColorButton, useStyles } from "./style";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import { KeyboardDatePicker } from "@material-ui/pickers";
@@ -68,7 +66,6 @@ export default function NewExam({ getExams, setSnackbar }) {
   const [exam, setExam] = useState(modelExam);
   const [showMultipleChoice, setShowMultipleChoice] = useState(false);
   const [showADesarrollar, setShowADesarrollar] = useState(false);
-  const [switchCheck, setSwitchCheck] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
 
@@ -82,8 +79,6 @@ export default function NewExam({ getExams, setSnackbar }) {
         ...user.modifyExam,
         deadLine: deadLine,
       });
-
-      setSwitchCheck(user.modifyExam.available);
     }else{
       setExam({...modelExam, questions: []});
     }
@@ -100,14 +95,6 @@ export default function NewExam({ getExams, setSnackbar }) {
     setExam({
       ...exam,
       deadLine: date,
-    });
-  };
-
-  const handleChange = (event) => {
-    setSwitchCheck(event.target.checked);
-    setExam({
-      ...exam,
-      available: event.target.checked
     });
   };
 
@@ -143,6 +130,14 @@ export default function NewExam({ getExams, setSnackbar }) {
     } catch (error) {}
   };
 
+  const cleanData = () => {
+    setExam({...modelExam, questions: []});
+  }
+
+  const hasData = () => {
+    return !(exam.questions.length !== 0 && exam.title !== '' && exam.description !== '' && exam.minutes > 0)
+  }
+
   return (
     <div className={classes.root}>
       <Card className={classes.searchCard}>
@@ -171,12 +166,6 @@ export default function NewExam({ getExams, setSnackbar }) {
               value={exam.description}
               onChange={update}
             ></TextField>
-            <Typography>Disponible</Typography>
-            <YellowSwitch
-              checked={switchCheck}
-              onChange={handleChange}
-              name="switchCheck"
-            ></YellowSwitch>
             <ThemeProvider theme={materialTheme}>
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <KeyboardDatePicker
@@ -202,12 +191,15 @@ export default function NewExam({ getExams, setSnackbar }) {
                 },
               }}
             />
+            <ColorButton onClick={cleanData} style={{ marginTop: "10px" }}>
+              Limpiar campos
+            </ColorButton>
             {user.modifyExam ? (
               <ColorButton onClick={editExam} style={{ marginTop: "10px" }}>
                 Guardar cambios
               </ColorButton>
             ) : (
-              <ColorButton onClick={sendExam} style={{ marginTop: "10px" }}>
+              <ColorButton onClick={sendExam} style={{ marginTop: "10px" }} disabled={hasData()}>
                 Enviar examen
               </ColorButton>
             )}

@@ -16,13 +16,25 @@ export default function TeacherExam({ exams, getExams, setSnackbar }) {
             <YellowTypography variant="h6">
               {user.modifyExam ? "MODIFICAR EXAMEN" : "NUEVO EXAMEN"}
             </YellowTypography>
-            <NewExam getExams={getExams} setSnackbar={setSnackbar}></NewExam>
+            <Box m={2}>
+              <NewExam getExams={getExams} setSnackbar={setSnackbar} />
+            </Box>
           </Grid>
           <Grid item xs>
-            <YellowTypography variant="h6">VER EXAMEN</YellowTypography>
+            {exams.length === 0 ? (
+              <YellowTypography variant="h6">
+                No hay examenes para mostrar..
+              </YellowTypography>
+            ) : (
+              <YellowTypography variant="h6">VER EXAMEN</YellowTypography>
+            )}
             {exams ? (
               exams.map((e) => {
-                return <ExamCard teacher exam={e} key={e.id} />;
+                return (
+                  <Box m={2}>
+                    <ExamCard teacher exam={e} key={e.id} getExams={getExams} />
+                  </Box>
+                );
               })
             ) : (
               <CircularProgress
