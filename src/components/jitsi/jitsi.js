@@ -30,6 +30,7 @@ const JitsiVideo = () => {
           startWithVideoMuted: true,
           startWithAudioMuted: user.role === 'STUDENT',
           disableRemoteMute: user.role === 'STUDENT',
+          prejoinPageEnabled: false,
           remoteVideoMenu: {
             disableKick: user.role === 'STUDENT',
           },
