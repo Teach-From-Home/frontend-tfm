@@ -8,6 +8,7 @@ import {
   createMuiTheme,
   ThemeProvider,
   Card,
+  CircularProgress,
 } from "@material-ui/core";
 import { ColorButton, useStyles } from "./style";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -25,7 +26,7 @@ const modelExam = {
   available: false,
   deadLine: moment(),
   minutes: 0,
-  questions: []
+  questions: [],
 };
 
 const materialTheme = createMuiTheme({
@@ -65,6 +66,7 @@ export default function NewExam({ getExams, setSnackbar }) {
   const [exam, setExam] = useState(modelExam);
   const [showMultipleChoice, setShowMultipleChoice] = useState(false);
   const [showADesarrollar, setShowADesarrollar] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -78,8 +80,8 @@ export default function NewExam({ getExams, setSnackbar }) {
         ...user.modifyExam,
         deadLine: deadLine,
       });
-    }else{
-      setExam({...modelExam, questions: []});
+    } else {
+      setExam({ ...modelExam, questions: [] });
     }
   }, [user]);
 
@@ -98,42 +100,55 @@ export default function NewExam({ getExams, setSnackbar }) {
   };
 
   const sendExam = () => {
+    setLoading(true);
     let classroomId = localStorage.getItem("classroomId");
 
     try {
       examService.newExam(exam, classroomId).then((r) => {
         getExams();
-        setExam({...modelExam, questions: []});
+        setExam({ ...modelExam, questions: [] });
         setSnackbar({
           open: true,
           message: "Nuevo examen creado exitosamente.",
           severity: "success",
         });
+        setLoading(false);
       });
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const editExam = () => {
+    setLoading(true);
     try {
       examService.editExam(exam).then((r) => {
         getExams();
-        setExam({...modelExam, questions: []});
+        setExam({ ...modelExam, questions: [] });
         setSnackbar({
           open: true,
           message: "Examen editado exitosamente.",
           severity: "success",
         });
+        setLoading(false);
       });
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const cleanData = () => {
-    setExam({...modelExam, questions: []});
-  }
+    setExam({ ...modelExam, questions: [] });
+  };
 
   const hasData = () => {
-    return !(exam.questions.length !== 0 && exam.title !== '' && exam.description !== '' && exam.minutes > 0)
-  }
+    return !(
+      exam.questions.length !== 0 &&
+      exam.title !== "" &&
+      exam.description !== "" &&
+      exam.minutes > 0
+    );
+  };
 
   return (
     <div className={classes.root}>
@@ -184,32 +199,47 @@ export default function NewExam({ getExams, setSnackbar }) {
               onChange={update}
               InputProps={{
                 inputProps: {
-                  min: 1
+                  min: 1,
                 },
               }}
             />
             <ColorButton onClick={cleanData} style={{ marginTop: "10px" }}>
               Limpiar campos
             </ColorButton>
-            {user.modifyExam ? (
-              <ColorButton onClick={editExam} style={{ marginTop: "10px" }}>
-                Guardar cambios
-              </ColorButton>
+            {loading ? (
+              <CircularProgress
+                size={50}
+                style={{ color: "#636363", marginTop: "5px" }}
+              />
             ) : (
-              <ColorButton onClick={sendExam} style={{ marginTop: "10px" }} disabled={hasData()}>
-                Enviar examen
-              </ColorButton>
+              <span>
+                {user.modifyExam ? (
+                  <ColorButton onClick={editExam} style={{ marginTop: "10px" }}>
+                    Guardar cambios
+                  </ColorButton>
+                ) : (
+                  <ColorButton
+                    onClick={sendExam}
+                    style={{ marginTop: "10px" }}
+                    disabled={hasData()}
+                  >
+                    Enviar examen
+                  </ColorButton>
+                )}
+              </span>
             )}
+
             <Box m={2}>
               <Grid>
                 <ColorButton
                   onClick={() => setShowADesarrollar(!showADesarrollar)}
+                  style={{ marginLeft: "5px", marginTop: "5px" }}
                 >
                   Agregar pregunta a desarrollar
                 </ColorButton>
                 <ColorButton
                   onClick={() => setShowMultipleChoice(!showMultipleChoice)}
-                  style={{ marginLeft: "5px" }}
+                  style={{ marginLeft: "5px", marginTop: "5px" }}
                 >
                   Agregar pregunta multiple choice
                 </ColorButton>
@@ -231,31 +261,32 @@ export default function NewExam({ getExams, setSnackbar }) {
             setShowADesarrollar={setShowADesarrollar}
           ></ADesarrollar>
         ) : null}
-        {console.log(exam.questions),
-        exam.questions
-          ? exam.questions.map((q, i) => {
-              return (
-                <Box m={1} key={i}>
-                  {q.type === "choice" ? (
-                    <MultipleChoiceStudent
-                      question={q}
-                      index={i}
-                      setShowMultipleChoice={setShowMultipleChoice}
-                      readOnly
-                    />
-                  ) : (
-                    <ADesarrollarStudent
-                      question={q}
-                      index={i}
-                      setShowADesarrollar={setShowADesarrollar}
-                      readOnly
-                    />
-                  )}
-                  
-                </Box>
-              );
-            })
-          : null}
+        {
+          (console.log(exam.questions),
+          exam.questions
+            ? exam.questions.map((q, i) => {
+                return (
+                  <Box m={1} key={i}>
+                    {q.type === "choice" ? (
+                      <MultipleChoiceStudent
+                        question={q}
+                        index={i}
+                        setShowMultipleChoice={setShowMultipleChoice}
+                        readOnly
+                      />
+                    ) : (
+                      <ADesarrollarStudent
+                        question={q}
+                        index={i}
+                        setShowADesarrollar={setShowADesarrollar}
+                        readOnly
+                      />
+                    )}
+                  </Box>
+                );
+              })
+            : null)
+        }
       </Card>
     </div>
   );

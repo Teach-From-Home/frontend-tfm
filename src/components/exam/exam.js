@@ -7,6 +7,7 @@ import StudentExam from "./studentExam";
 
 export default function Exam() {
   const [exams, setExams] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -33,11 +34,13 @@ export default function Exam() {
   }, []);
 
   const getExams = async () => {
+    setLoading(true)
     let userId = localStorage.getItem("userId");
     let classroomId = localStorage.getItem("classroomId");
 
     try {
       let exams = await examService.getExam(userId, classroomId);
+      setLoading(false)
       setExams(exams);
     } catch (err) {
       setSnackbar({
@@ -46,6 +49,7 @@ export default function Exam() {
         severity: "info",
       });
       setExams([]);
+      setLoading(false)
     }
   };
 
@@ -54,7 +58,7 @@ export default function Exam() {
       {user.role === "STUDENT" ? (
         <StudentExam exams={exams} getExams={getExams} />
       ) : (
-        <TeacherExam exams={exams} getExams={getExams} setSnackbar={setSnackbar}/>
+        <TeacherExam exams={exams} getExams={getExams} setSnackbar={setSnackbar} loading={loading}/>
       )}
       <SnackbarOpen
         open={snackbar.open}
