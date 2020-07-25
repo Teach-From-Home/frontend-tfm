@@ -8,8 +8,7 @@ export default class ClassroomService {
         return result.data;
     }
 
-    async goLive(classroomId){
-        const result = await axios.post(`${URL}classroom/${classroomId}/live`);
-        return result.data;
+    goLive(classroomId, userId){
+        axios.post(`${URL}classroom/${classroomId}/user/${userId}/live`);
     }
 }

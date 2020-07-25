@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Jitsi from 'react-jitsi'
 import { UserContext } from '../../userContext';
 import { CircularProgress } from '@material-ui/core';
+import ClassroomService from '../../services/classroomService';
 
 
 const studentButtons = ['microphone', 'camera', 'desktop', 'chat', 'fullscreen', 'videobackgroundblur', 'raisehand', 'tileview'];
@@ -9,11 +10,16 @@ const teacherButtons = ['microphone', 'camera', 'desktop', 'videobackgroundblur'
 
 const JitsiVideo = () => {
 
+  const classroomService = new ClassroomService();
   const { user } = useContext(UserContext);
 
   const userFullName = `${user.name} ${user.lastName}`;
 
   const roomName = `TFM--${user.selectedClassroom.keyName}`;
+
+  const startClass = () => {
+    classroomService.goLive(user.selectedClassroom.id, user.id);
+  }
 
   const loader = () => {
     return (
@@ -45,6 +51,7 @@ const JitsiVideo = () => {
         roomName={`TFM--${roomName}`}
         displayName={userFullName}
         loadingComponent={loader}
+        onAPILoad={startClass}
       />
     </div>
 

@@ -13,7 +13,7 @@ export default function Exam() {
     severity: "success",
   });
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const examService = new ExamService();
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Box } from "@material-ui/core";
 import { ColorButton } from "../exam/style";
-import { UserContext } from "../../userContext";
 
 export default function ADesarrollar({ setExam, exam, setShowADesarrollar }) {
   const [title, setTitle] = useState("");
@@ -27,7 +26,7 @@ export default function ADesarrollar({ setExam, exam, setShowADesarrollar }) {
 
     if (prev) {
       let qs = exam.questions.map((q) => {
-        if (q.title == prev.title && prev.type == q.type) {
+        if (q.title === prev.title && prev.type === q.type) {
           return questionObj;
         } else {
           return q;

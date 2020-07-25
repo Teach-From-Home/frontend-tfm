@@ -18,7 +18,6 @@ import MultipleChoiceStudent from "./multipleChoiceStudent";
 import ADesarrollarStudent from "./aDesarrollarStudent";
 import ExamService from "../../services/examService";
 import { UserContext } from "../../userContext";
-import { setLogLevel } from "firebase";
 
 const modelExam = {
   title: "",
@@ -67,7 +66,7 @@ export default function NewExam({ getExams, setSnackbar }) {
   const [showMultipleChoice, setShowMultipleChoice] = useState(false);
   const [showADesarrollar, setShowADesarrollar] = useState(false);
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const examService = new ExamService();
 
@@ -102,7 +101,7 @@ export default function NewExam({ getExams, setSnackbar }) {
     let classroomId = localStorage.getItem("classroomId");
 
     try {
-      let resp = examService.newExam(exam, classroomId).then((r) => {
+      examService.newExam(exam, classroomId).then((r) => {
         getExams();
         setExam({...modelExam, questions: []});
         setSnackbar({
@@ -115,10 +114,8 @@ export default function NewExam({ getExams, setSnackbar }) {
   };
 
   const editExam = () => {
-    let classroomId = localStorage.getItem("classroomId");
-
     try {
-      let resp = examService.editExam(exam).then((r) => {
+      examService.editExam(exam).then((r) => {
         getExams();
         setExam({...modelExam, questions: []});
         setSnackbar({

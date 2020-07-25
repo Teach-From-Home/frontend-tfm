@@ -8,8 +8,6 @@ import {
   RadioGroup,
   FormControlLabel,
   CardHeader,
-  Typography,
-  TextField,
 } from "@material-ui/core";
 import { UserContext } from "../../userContext";
 import _ from 'lodash';
@@ -27,7 +25,7 @@ export default function MultipleChoiceStudent({
 
   const [value, setValue] = useState("");
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const handleChange = (event) => {
     clearTrueDataFromOptions(); //pongo todas en false 

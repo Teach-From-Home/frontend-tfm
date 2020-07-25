@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Box, Grid } from "@material-ui/core";
 import { ColorButton, ColorRadio } from "../exam/style";
-import { UserContext } from "../../userContext";
 
 const modelOpcion = {
   selected: false,
@@ -20,7 +19,6 @@ export default function MultipleChoice({
   const [opcion3, setOpcion3] = useState(modelOpcion);
   const [opcion4, setOpcion4] = useState(modelOpcion);
   const [prev, setPrev] = useState("");
-  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     let a = JSON.parse(localStorage.getItem("modifyMultipleChoice"));
@@ -138,7 +136,7 @@ export default function MultipleChoice({
 
     if (prev) {
       let qs = exam.questions.map((q) => {
-        if (q.title == prev.title && prev.type == q.type) {
+        if (q.title === prev.title && prev.type === q.type) {
           return questionObj;
         } else {
           return q;

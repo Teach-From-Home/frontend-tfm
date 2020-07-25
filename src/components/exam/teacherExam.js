@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext, useEffect } from "react";
+import React, { Fragment, useContext } from "react";
 import { Grid, Box, CircularProgress } from "@material-ui/core";
 import { YellowTypography } from "./style";
 import { UserContext } from "../../userContext";
@@ -6,7 +6,7 @@ import NewExam from "./newExam";
 import ExamCard from "./examCard";
 
 export default function TeacherExam({ exams, getExams, setSnackbar }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Fragment>

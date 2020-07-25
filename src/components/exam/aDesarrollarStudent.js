@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   Card,
-  Typography,
   TextField,
   CardHeader,
   Box,
@@ -21,7 +20,7 @@ export default function ADesarrollarStudent({
 }) {
   const classes = useStyles();
   const [answer, setAnswer] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if(answer && !readOnly && !finished){

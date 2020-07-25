@@ -17,6 +17,7 @@ import Exam from './components/exam/exam';
 import Bibliography from './components/bibliography/bibliography';
 import ExamLive from './components/exam/examLive';
 import StudentsExam from './components/exam/studentsExam';
+import Report from './components/report/report';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("session")));
@@ -38,6 +39,7 @@ function App() {
 					<PrivateRoute exact path="/examLive" component={ExamLive} />
 					<PrivateRoute exact path="/studentsExam" component={StudentsExam} />
 					<PrivateRoute exact path="/bibliography" component={Bibliography} />
+					<PrivateRoute exact path="/reports" component={Report} />
 					<PrivateRoute exact path="/" component={Home} />
 				</div>
 			</UserContext.Provider>

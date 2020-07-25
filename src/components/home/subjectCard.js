@@ -41,7 +41,6 @@ export default function SubjectCard({ classroom }) {
             ...user,
             selectedClassroom: classroom
         });
-        if (user.role === 'TEACHER') classroomService.goLive(classroom.id);
         fillLocalStorage();
         history.push('/call');
     }

@@ -71,9 +71,14 @@ export default function PersistentDrawerLeft() {
     history.push("/exam");
     setOpen(false);
   };
-  
+
   const redirectBibliography = () => {
     history.push("/bibliography");
+    setOpen(false);
+  };
+
+  const redirectReports = () => {
+    history.push("/reports");
     setOpen(false);
   };
 
@@ -88,7 +93,7 @@ export default function PersistentDrawerLeft() {
   const handleLogout = () => {
     handleMenuClose();
     setUser(null);
-    history.push('/login');
+    history.push("/login");
     loginService.logout();
   };
 
@@ -98,33 +103,33 @@ export default function PersistentDrawerLeft() {
         <div>
           <CssBaseline />
           <AppBar
-            position='fixed'
+            position="fixed"
             className={clsx(classes.appBar, {
               [classes.appBarShift]: open,
             })}
             style={{ backgroundColor: "#636363" }}
           >
             <Toolbar>
-              {localStorage.getItem('classroomId') ? (
+              {localStorage.getItem("classroomId") ? (
                 <IconButton
-                  color='inherit'
-                  aria-label='open drawer'
+                  color="inherit"
+                  aria-label="open drawer"
                   onClick={handleDrawerOpen}
-                  edge='start'
+                  edge="start"
                   className={clsx(classes.menuButton, open && classes.hide)}
                 >
                   <MenuIcon />
                 </IconButton>
               ) : (
-                  <div></div>
-                )}
+                <div></div>
+              )}
               <Button
                 onClick={redirectHome}
-                edge='start'
+                edge="start"
                 className={classes.menuButton}
-                aria-label='menu'
+                aria-label="menu"
               >
-                <img alt='TFMlogo' src={TFMlogo} height='50 rem'></img>
+                <img alt="TFMlogo" src={TFMlogo} height="50 rem"></img>
               </Button>
               <span
                 style={{
@@ -136,18 +141,22 @@ export default function PersistentDrawerLeft() {
                 }}
               >
                 <span onClick={handleClickMenu}>
-                  <AvatarWithName name={user.name} lastName={user.lastName} noShowName />
+                  <AvatarWithName
+                    name={user.name}
+                    lastName={user.lastName}
+                    noShowName
+                  />
                 </span>
                 <Button
-                  color='inherit'
-                  aria-controls='simple-menu'
-                  aria-haspopup='true'
+                  color="inherit"
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
                   onClick={handleClickMenu}
                 >
                   <Icon>keyboard_arrow_down</Icon>
                 </Button>
                 <Menu
-                  id='simple-menu'
+                  id="simple-menu"
                   anchorEl={anchorEl}
                   keepMounted
                   open={Boolean(anchorEl)}
@@ -162,8 +171,8 @@ export default function PersistentDrawerLeft() {
           </AppBar>
           <Drawer
             className={classes.drawer}
-            variant='persistent'
-            anchor='left'
+            variant="persistent"
+            anchor="left"
             open={open}
             classes={{
               paper: classes.drawerPaper,
@@ -174,8 +183,8 @@ export default function PersistentDrawerLeft() {
                 {theme.direction === "ltr" ? (
                   <ChevronLeftIcon />
                 ) : (
-                    <ChevronRightIcon />
-                  )}
+                  <ChevronRightIcon />
+                )}
               </IconButton>
             </div>
             <Divider />
@@ -185,7 +194,7 @@ export default function PersistentDrawerLeft() {
                   <Icon>forum</Icon>
                 </ListItemIcon>
                 <ListItemText>
-                  <YellowTypography variant='subtitle1'>FORO</YellowTypography>
+                  <YellowTypography variant="subtitle1">FORO</YellowTypography>
                 </ListItemText>
               </ListItem>
               <ListItem button key={"clase"} onClick={redirectClass}>
@@ -193,7 +202,7 @@ export default function PersistentDrawerLeft() {
                   <Icon>live_tv</Icon>
                 </ListItemIcon>
                 <ListItemText>
-                  <YellowTypography variant='subtitle1'>CLASE</YellowTypography>
+                  <YellowTypography variant="subtitle1">CLASE</YellowTypography>
                 </ListItemText>
               </ListItem>
               <ListItem button key={"tarea"} onClick={redirectHomework}>
@@ -201,7 +210,7 @@ export default function PersistentDrawerLeft() {
                   <Icon>create</Icon>
                 </ListItemIcon>
                 <ListItemText>
-                  <YellowTypography variant='subtitle1'>TAREA</YellowTypography>
+                  <YellowTypography variant="subtitle1">TAREA</YellowTypography>
                 </ListItemText>
               </ListItem>
               <ListItem button key={"examen"} onClick={redirectExam}>
@@ -209,24 +218,44 @@ export default function PersistentDrawerLeft() {
                   <Icon>menu_book</Icon>
                 </ListItemIcon>
                 <ListItemText>
-                  <YellowTypography variant='subtitle1'>EXAMEN</YellowTypography>
+                  <YellowTypography variant="subtitle1">
+                    EXAMEN
+                  </YellowTypography>
                 </ListItemText>
               </ListItem>
-              <ListItem button key={"bibliografia"} onClick={redirectBibliography}>
+              <ListItem
+                button
+                key={"bibliografia"}
+                onClick={redirectBibliography}
+              >
                 <ListItemIcon className={classes.icon}>
                   <Icon>description</Icon>
                 </ListItemIcon>
                 <ListItemText>
-                  <YellowTypography variant='subtitle1'>BIBLIOGRAFIA</YellowTypography>
+                  <YellowTypography variant="subtitle1">
+                    BIBLIOGRAFIA
+                  </YellowTypography>
                 </ListItemText>
               </ListItem>
+              {user.role === "TEACHER" ? (
+                <ListItem button key={"reportes"} onClick={redirectReports}>
+                  <ListItemIcon className={classes.icon}>
+                    <Icon>leaderboard</Icon>
+                  </ListItemIcon>
+                  <ListItemText>
+                    <YellowTypography variant="subtitle1">
+                      REPORTES
+                    </YellowTypography>
+                  </ListItemText>
+                </ListItem>
+              ) : null}
             </List>
-            <Divider/>
+            <Divider />
           </Drawer>
         </div>
       ) : (
-          <div></div>
-        )}
+        <div></div>
+      )}
     </div>
   );
 }
