@@ -11,4 +11,13 @@ export default class ClassroomService {
     goLive(classroomId, userId){
         axios.post(`${URL}classroom/${classroomId}/user/${userId}/live`);
     }
+
+    async getReport(classroomId, type){
+        const result = await axios.get(`${URL}classroom/${classroomId}/report`,{
+            params: {
+                type
+            }
+          });
+        return result.data;
+    }
 }

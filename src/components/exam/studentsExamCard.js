@@ -77,13 +77,12 @@ export default function StudentsExamCard({ exam, setSnackbar }) {
               <Grid item>
                 <Typography variant="h5">
                   {exam.name} {exam.lastname}{" "}
-                  {console.log(exam)}
                 </Typography>
                 <Typography>
                   {`Resuelto en: ${exam.elapsedTimeToSolve} minutos`}
                 </Typography>
                 <Typography>
-                  {`Resuelto en tiempo y forma? ${exam.elapsedTimeToSolve ? 'Si' : 'No'} `}
+                  {`Resuelto en tiempo y forma? ${exam.solvedOnTime ? 'Si' : 'No'} `}
                 </Typography>
               </Grid>
 

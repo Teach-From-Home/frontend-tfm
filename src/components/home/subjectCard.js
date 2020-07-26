@@ -64,9 +64,9 @@ export default function SubjectCard({ classroom }) {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <Box m={1}>
-                    <Grid container spacing={3} direction="column" alignItems="center">
+                    <Grid container spacing={2} direction="column" alignItems="center">
                         <Grid item xs>
-                            <Grid container direction="column" justify="center" alignItems="flex-start">
+                            <Grid container direction="column" justify="center">
                                 <YellowTypography component="h3" variant="h4">{subject.name}</YellowTypography>
                                 <Typography component="h5" variant="h5">{classroom.name}</Typography>
                                 {

@@ -84,7 +84,7 @@ export default function ExamLive() {
       {exam
         ? exam.questions.map((q, i) => {
             return (
-              <Box m={1} key={i}>
+              <Box m={1} key={i} p={1}>
                 {q.type === "choice" ? (
                   <MultipleChoiceStudent
                     question={q}

@@ -197,6 +197,7 @@ export default function NewExam({ getExams, setSnackbar }) {
               name="minutes"
               value={exam.minutes}
               onChange={update}
+              style={{ marginTop: "5px" }}
               InputProps={{
                 inputProps: {
                   min: 1,
@@ -261,32 +262,29 @@ export default function NewExam({ getExams, setSnackbar }) {
             setShowADesarrollar={setShowADesarrollar}
           ></ADesarrollar>
         ) : null}
-        {
-          (console.log(exam.questions),
-          exam.questions
-            ? exam.questions.map((q, i) => {
-                return (
-                  <Box m={1} key={i}>
-                    {q.type === "choice" ? (
-                      <MultipleChoiceStudent
-                        question={q}
-                        index={i}
-                        setShowMultipleChoice={setShowMultipleChoice}
-                        readOnly
-                      />
-                    ) : (
-                      <ADesarrollarStudent
-                        question={q}
-                        index={i}
-                        setShowADesarrollar={setShowADesarrollar}
-                        readOnly
-                      />
-                    )}
-                  </Box>
-                );
-              })
-            : null)
-        }
+        {exam.questions
+          ? exam.questions.map((q, i) => {
+              return (
+                <Box m={1} key={i}>
+                  {q.type === "choice" ? (
+                    <MultipleChoiceStudent
+                      question={q}
+                      index={i}
+                      setShowMultipleChoice={setShowMultipleChoice}
+                      readOnly
+                    />
+                  ) : (
+                    <ADesarrollarStudent
+                      question={q}
+                      index={i}
+                      setShowADesarrollar={setShowADesarrollar}
+                      readOnly
+                    />
+                  )}
+                </Box>
+              );
+            })
+          : null}
       </Card>
     </div>
   );
