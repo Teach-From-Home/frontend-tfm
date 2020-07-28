@@ -80,7 +80,16 @@ export default function Forum() {
           ),
         }}
       />
-      {posts ? (
+      {posts.length === 0 ? (
+        <Typography
+          variant="h3"
+          style={{ marginTop: "100px", color: "#636363" }}
+        >
+          {""}
+          No hay posts subidos aun..
+        </Typography>
+      ) : <span>
+        {posts ? (
         fileteredPosts.length === 0 ? 
         <Typography
           variant="h3"
@@ -107,15 +116,7 @@ export default function Forum() {
             />
           </div>
         )}
-      {posts.length === 0 ? (
-        <Typography
-          variant="h3"
-          style={{ marginTop: "100px", color: "#636363" }}
-        >
-          {""}
-          No hay posts subidos aun..
-        </Typography>
-      ) : null }
+      </span> }
       <SnackbarOpen
         open={snackbar.open}
         message={snackbar.message}
