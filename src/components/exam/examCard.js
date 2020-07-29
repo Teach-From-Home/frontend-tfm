@@ -1,17 +1,24 @@
 import React, { useContext, useState } from "react";
-import { Typography, Grid, Card, Box } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  Box,
+  CircularProgress,
+} from "@material-ui/core";
 import { useStyles, ColorButton, YellowTypography } from "./style";
 import { UserContext } from "../../userContext";
 import { useHistory } from "react-router-dom";
 import ExamService from "../../services/examService";
 import FinishedExam from "./finishedExam";
 
-export default function ExamCard({ exam, teacher, getExams }) {
+export default function ExamCard({ exam, teacher, getExams, setSnackbar }) {
   const classes = useStyles();
   const history = useHistory();
 
   const { user, setUser } = useContext(UserContext);
   const [showFinishedExam, setShowFinishedExam] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const examService = new ExamService();
 
@@ -36,19 +43,28 @@ export default function ExamCard({ exam, teacher, getExams }) {
       selectedExam: exam,
     });
     history.push("/examLive");
-    if(!exam.uploaded) examService.startExam(exam.id, user.id)
+    if (!exam.uploaded) examService.startExam(exam.id, user.id);
   };
 
   const activateExam = () => {
-    examService.activateExam(localStorage.getItem("selectedClassroom"), exam.id).then(() => {
-      getExams();
-    })
-  }
+    setLoading(true);
+    examService
+      .activateExam(localStorage.getItem("selectedClassroom"), exam.id)
+      .then(() => {
+        getExams();
+        setLoading(false);
+        setSnackbar({
+          open: true,
+          message: "Examen modificado con exito!",
+          severity: "success",
+        });
+      });
+  };
 
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
-        <Box m={2}>
+        <Box m={1}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <YellowTypography variant="h6">{exam.title}</YellowTypography>
@@ -77,12 +93,14 @@ export default function ExamCard({ exam, teacher, getExams }) {
                 </span>
               ) : (
                 <YellowTypography>
-                  {user.role === 'STUDENT' && exam.uploaded? "Aun no ha sido corregido su examen." : ""}
+                  {user.role === "STUDENT" && exam.uploaded
+                    ? "Aun no ha sido corregido su examen."
+                    : ""}
                 </YellowTypography>
               )}
               {user.role === "STUDENT" ? (
                 <div>
-                  {exam.uploaded && !exam.uploadedExam.examIsInprogress? (
+                  {exam.uploaded && !exam.uploadedExam.examIsInprogress ? (
                     <ColorButton
                       onClick={() => {
                         setShowFinishedExam(!showFinishedExam);
@@ -97,37 +115,43 @@ export default function ExamCard({ exam, teacher, getExams }) {
               ) : (
                 <div>
                   <Box m={2}>
-                    <ColorButton
-                      className={classes.button}
-                      onClick={fillModifyExam}
-                    >
-                      modificar
-                    </ColorButton>
-                    <ColorButton
-                      className={classes.button}
-                      onClick={redirectStudentExam}
-                      style={{marginLeft: '10px'}}
-                    >
-                      ver
-                    </ColorButton>
-                    {
-                      exam.available ? 
-                      <ColorButton
-                        className={classes.button}
-                        onClick={activateExam}
-                        style={{marginLeft: '10px'}}
-                      >
-                        desactivar
-                      </ColorButton>
-                      :
-                      <ColorButton
-                        className={classes.button}
-                        onClick={activateExam}
-                        style={{marginLeft: '10px'}}
-                      >
-                        activar
-                      </ColorButton>
-                    }
+                    {loading ? (
+                      <CircularProgress style={{ color: '#636363' }}/>
+                    ) : (
+                      <span>
+                        <ColorButton
+                          className={classes.button}
+                          onClick={fillModifyExam}
+                        >
+                          modificar
+                        </ColorButton>
+                        <ColorButton
+                          className={classes.button}
+                          onClick={redirectStudentExam}
+                          style={{ marginLeft: "10px" }}
+                        >
+                          ver
+                        </ColorButton>
+
+                        {exam.available ? (
+                          <ColorButton
+                            className={classes.button}
+                            onClick={activateExam}
+                            style={{ marginLeft: "10px" }}
+                          >
+                            desactivar
+                          </ColorButton>
+                        ) : (
+                          <ColorButton
+                            className={classes.button}
+                            onClick={activateExam}
+                            style={{ marginLeft: "10px" }}
+                          >
+                            activar
+                          </ColorButton>
+                        )}
+                      </span>
+                    )}
                   </Box>
                 </div>
               )}

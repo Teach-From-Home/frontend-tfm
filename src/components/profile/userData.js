@@ -10,7 +10,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ProfileService from "../../services/profileService";
 
-export default function UserData({ profile, setProfile }) {
+export default function UserData({ profile, setProfile, setSnackbar }) {
   const [showPass, setShowPass] = useState(false);
 
   const profileService = new ProfileService();
@@ -30,10 +30,18 @@ export default function UserData({ profile, setProfile }) {
     try {
         profileService.editProfile(profile)
         .then(e => {
-
+          setSnackbar({
+            open: true,
+            message: "Los cambios se han guardado exitosamente!",
+            severity: "success",
+          });
         })
     } catch (error) {
-        
+      setSnackbar({
+        open: true,
+        message: "Error al guardar los datos..",
+        severity: "error",
+      });
     }
   }
 
@@ -42,7 +50,6 @@ export default function UserData({ profile, setProfile }) {
       {profile ? (
         <div>
           <br></br>
-          {/*TODO: foto de perfil */}
           <Typography variant="h6">
             {profile.name} {profile.lastname}
           </Typography>

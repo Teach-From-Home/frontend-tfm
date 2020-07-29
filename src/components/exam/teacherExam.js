@@ -27,7 +27,7 @@ export default function TeacherExam({ exams, getExams, setSnackbar, loading }) {
                 {exams.map((e) => {
                   return (
                     <Box m={2} key={e.id}>
-                      <ExamCard teacher exam={e} getExams={getExams} />
+                      <ExamCard teacher exam={e} getExams={getExams} setSnackbar={setSnackbar}/>
                     </Box>
                   );
                 })}

@@ -9,7 +9,7 @@ export default function StudentExam({ exams, getExams }) {
       {exams ? (
         exams.map((e) => {
           return (
-            <Box m={2} key={e.id}>
+            <Box m={1} key={e.id}>
               <ExamCard exam={e} />
             </Box>
           )

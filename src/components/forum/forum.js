@@ -63,7 +63,7 @@ export default function Forum() {
   }
 
   return (
-    <div>
+    <div className={classes.bground}>
       <NewPost
         setSnackbar={setSnackbar}
         getForumPosts={getForumPosts}
