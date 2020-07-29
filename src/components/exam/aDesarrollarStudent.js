@@ -80,6 +80,7 @@ export default function ADesarrollarStudent({
               answer
               rowsMax={50}
               variant="outlined"
+              multiline
               name="text"
               onChange={handleInputChange}
               value={answer.text}

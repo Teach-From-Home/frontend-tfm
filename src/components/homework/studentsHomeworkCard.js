@@ -52,6 +52,7 @@ export default function StudentsHomeworkCard(props) {
                     message: 'Tarea corregida exitosamente!',
                     severity: 'success'
                 });
+                setShowComment(false);
             })
             .catch(() => {
                 setSnackbar({
@@ -93,7 +94,7 @@ export default function StudentsHomeworkCard(props) {
                 {
                     showComment ?
                         <Grid container direction="row" justify="space-evenly" alignItems="center">
-                            <TextField label='Comentario' name='coment' value={correction.coment} onChange={update}/>
+                            <TextField label='Comentario' name='coment' value={correction.coment} multiline onChange={update}/>
                             <TextField label='Nota' type='number' name='grade' value={correction.grade} onChange={update} InputProps={{
                                 inputProps: {
                                     max: 10, min: 1

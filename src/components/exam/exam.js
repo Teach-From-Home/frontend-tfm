@@ -4,8 +4,10 @@ import SnackbarOpen from "../snackbar/snackbar";
 import ExamService from "../../services/examService";
 import { UserContext } from "../../userContext";
 import StudentExam from "./studentExam";
+import { useStyles } from "./style";
 
 export default function Exam() {
+  const classes = useStyles();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
@@ -55,6 +57,7 @@ export default function Exam() {
 
   return (
     <Fragment>
+      <div className={classes.backgroundImg}>
       {user.role === "STUDENT" ? (
         <StudentExam exams={exams} getExams={getExams} />
       ) : (
@@ -66,6 +69,7 @@ export default function Exam() {
         severity={snackbar.severity}
         closeSnac={closeSnackbar}
       />
+      </div>
     </Fragment>
   );
 }

@@ -6,8 +6,10 @@ import { UserContext } from "../../userContext";
 import SnackbarOpen from "../snackbar/snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Typography, TextField, InputAdornment, Icon } from "@material-ui/core";
+import { useStyles } from "./style";
 
 export default function Forum() {
+  const classes = useStyles();
   const { user } = useContext(UserContext);
   const [posts, setPosts] = useState(false);
   const [fileteredPosts, setFileteredPosts] = useState([]);
@@ -59,8 +61,6 @@ export default function Forum() {
     }
     setFileteredPosts(posts.filter(post => post.title.toLowerCase().includes(e.target.value)))
   }
-
-  //TODO SNACKBAR !
 
   return (
     <div>

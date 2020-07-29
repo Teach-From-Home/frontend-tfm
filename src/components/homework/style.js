@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width: '100%',
-        height: '93.44vh'
+        minHeight: '93.44vh'
     },
     root: {
         display: 'flex',

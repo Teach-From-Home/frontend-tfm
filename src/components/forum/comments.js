@@ -77,7 +77,7 @@ export default function Comments(props) {
                 {
                     comments.map(c => {
                         
-                        return <span><hr/><UserComment comment={c} key={c.id} /></span>
+                        return <span key={c.id}><hr/><UserComment comment={c} key={c.id} /></span>
                     })
                 }
 

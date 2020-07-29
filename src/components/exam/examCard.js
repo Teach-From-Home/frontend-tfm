@@ -40,7 +40,7 @@ export default function ExamCard({ exam, teacher, getExams }) {
   };
 
   const activateExam = () => {
-    examService.activateExam(user.selectedClassroom.id, exam.id).then(() => {
+    examService.activateExam(localStorage.getItem("selectedClassroom"), exam.id).then(() => {
       getExams();
     })
   }

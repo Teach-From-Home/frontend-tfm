@@ -7,6 +7,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  backgroundImg: {
+    backgroundImage: `url("/p1.jpg")`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  },
   card: {
     width: '50%',
     minWidth: 400,

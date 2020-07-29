@@ -3,6 +3,14 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Button, Radio, Typography, Switch } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+  backgroundImg: {
+    backgroundImage: `url("/p3.jpg")`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    width: '100%',
+    minHeight: '93.44vh'
+  },
   root: {
     display: 'flex',
     justifyContent: 'center',

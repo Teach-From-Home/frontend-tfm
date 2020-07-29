@@ -64,17 +64,15 @@ export default function SubjectCard({ classroom }) {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <Box m={1}>
-                    <Grid container spacing={2} direction="column" alignItems="center">
+                    <Grid container spacing={2} direction="column" alignItems="center" justify="center" wrap="nowrap">
                         <Grid item xs>
-                            <Grid container direction="column" justify="center">
-                                <YellowTypography component="h3" variant="h4">{subject.name}</YellowTypography>
-                                <Typography component="h5" variant="h5">{classroom.name}</Typography>
+                                <YellowTypography variant="h5">{subject.name}</YellowTypography>
+                                <Typography variant="h6">{classroom.name}</Typography>
                                 {
                                     classroom.teachers.map(t => {
-                                        return <Typography component="h5" variant="h5" key={t}>{t}</Typography>
+                                        return <Typography variant="h6" key={t}>{t}</Typography>
                                     })
                                 }
-                            </Grid>
                         </Grid>
                         <Grid item xs className={classes.buttons} >
                             <Grid container

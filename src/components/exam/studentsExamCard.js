@@ -11,7 +11,7 @@ const modelCorrection = {
   grade: "",
 };
 
-export default function StudentsExamCard({ exam, setSnackbar }) {
+export default function StudentsExamCard({ exam, setSnackbar, getStudentsExams }) {
   const examService = new ExamService();
 
   const [showComment, setShowComment] = useState(false);
@@ -44,8 +44,9 @@ export default function StudentsExamCard({ exam, setSnackbar }) {
       examService
         .correctExam(correction, exam.studentId, user.selectedExam.id)
         .then(() => {
-          setShowComment(!showComment);
-          setShowFinishedExam(!showFinishedExam);
+          setShowComment(false);
+          setShowFinishedExam(false);
+          getStudentsExams();
           setSnackbar({
             open: true,
             message: "Examen corregido exitosamente!",
@@ -115,6 +116,7 @@ export default function StudentsExamCard({ exam, setSnackbar }) {
               name="teacherComment"
               value={correction.teacherComment}
               onChange={update}
+              multiline
             />
             <TextField
               label="Nota"

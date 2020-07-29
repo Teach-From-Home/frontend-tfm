@@ -56,9 +56,9 @@ export default function Homework() {
   };
 
   return (
-    <div>
+    <div className={classes.backgroundImg}>
       {user.role === "STUDENT" ? (
-        <div className={classes.backgroundImg}>
+        <div >
           {homeworks ? (
             homeworks.map((h) => {
               return <HomeworkCard callb={getHomeworks} homework={h} key={h.id} />;
