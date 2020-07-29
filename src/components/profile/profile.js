@@ -44,10 +44,10 @@ export default function Profile() {
     <div className={classes.root}>
       <Box m={2}>
         <Grid container direction="row" justify="center">
-          <Grid item xs={9}>
+          <Grid item xs={'auto'} xl={9}>
             <Calendar />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xl={3}>
             <UserData profile={profile} setProfile={setProfile} setSnackbar={setSnackbar}></UserData>
           </Grid>
         </Grid>

@@ -35,6 +35,7 @@ const Calendars = () => {
         <CircularProgress size={100} style={{ color: '#636363', marginTop: '150px' }} /> :
         <div>
           <FullCalendar
+          height='auto'
             locale='es'
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"

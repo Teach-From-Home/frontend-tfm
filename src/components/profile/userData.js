@@ -9,6 +9,7 @@ import { YellowColorButton, GreyColorButton } from "./style";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ProfileService from "../../services/profileService";
+import { YellowTypography } from '../exam/style'
 
 export default function UserData({ profile, setProfile, setSnackbar }) {
   const [showPass, setShowPass] = useState(false);
@@ -49,7 +50,7 @@ export default function UserData({ profile, setProfile, setSnackbar }) {
     <Fragment>
       {profile ? (
         <div>
-          <br></br>
+           <YellowTypography variant="h4">DATOS DE USUARIO</YellowTypography>
           <Typography variant="h6">
             {profile.name} {profile.lastname}
           </Typography>
