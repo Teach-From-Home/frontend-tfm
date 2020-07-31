@@ -8,7 +8,7 @@ import { TextField, Box, Grid, Card, Typography, CircularProgress, } from '@mate
 //const e = { target: { value:"", name:"" }}
 
 
-function Uploadnew({ itemP, handleUpload, loading }) {
+function Uploadnew({ itemP, handleUpload, loading, clean }) {
     const [item, setItem] = useState(itemP)
     const [uploadProgress, setuploadProgress] = useState(0);
     const [uploading, setuploading] = useState(false);
@@ -100,6 +100,9 @@ function Uploadnew({ itemP, handleUpload, loading }) {
                         )}<br />
                     < ColorButton style={{ marginTop: '20px' }} onClick={() => handleUpload(item)} disabled={cantUpload}>
                         <Icon>backup</Icon> <span style={{ marginLeft: "10px" }} >Subir bibliografia</span>
+                    </ColorButton>
+                    < ColorButton style={{ marginTop: '20px', marginLeft: '10px' }} onClick={clean} >
+                        Limpiar campos
                     </ColorButton>
                 </Box>
             </Card>

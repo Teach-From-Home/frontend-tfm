@@ -126,7 +126,6 @@ export default function Report() {
       { title: "Nombre", field: "name" },
       { title: "Apellido", field: "lastName" },
       { title: "Promedio", field: "parcial" },
-      { title: "Cantidad", field: "total" },
     ]);
 
     setTitle("Reporte de Promedio de Notas");

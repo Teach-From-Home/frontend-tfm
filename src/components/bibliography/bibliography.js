@@ -152,6 +152,10 @@ export default function Bibliography() {
       });
   };
 
+  const cleanData = () => {
+    setSelectedItem(biblioInit);
+  }
+
   if (loading)
     return (
       <CircularProgress
@@ -161,7 +165,7 @@ export default function Bibliography() {
     );
 
   return (
-    <div className={classes.backgroundImg}> 
+    <div className={classes.backgroundImg}>
       <Box m={2} p={2}>
         <Grid spacing={2} container direction="row" justify="center">
           {editMode ? (
@@ -170,6 +174,7 @@ export default function Bibliography() {
                 itemP={selectedItem}
                 handleUpload={uploadBiblio}
                 loading={loading}
+                clean={cleanData}
               />
             </Grid>
           ) : null}
